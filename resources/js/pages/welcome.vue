@@ -1,32 +1,51 @@
 <template>
-  <div>
-    <div class="top-right links">
-      <template v-if="authenticated">
-        <router-link :to="{ name: 'home' }">
-          {{ $t('home') }}
-        </router-link>
-      </template>
-      <template v-else>
-        <router-link :to="{ name: 'about' }">
-          {{ $t('about') }}
-        </router-link>
-        <router-link :to="{ name: 'login' }">
-          {{ $t('login') }}
-        </router-link>
-        <router-link :to="{ name: 'register' }">
-          {{ $t('register') }}
-        </router-link>
-      </template>
+  <div class="bg-white">
+    <div>
+      <h1>Current Jobs</h1>
     </div>
-
-    <div class="text-center">
-      <div class="title mb-4">
-        {{ title }}
-      </div>
-
-      <div class="links">
-        <a href="https://github.com/cretueusebiu/laravel-vue-spa">github.com/cretueusebiu/laravel-vue-spa</a>
-      </div>
+    <div>
+      <table class="table table-bordered">
+  <thead>
+    <tr>
+      <th scope="col">Customer</th>
+      <th scope="col">Job Description</th>
+      <th scope="col">Starting Date</th>
+      <th scope="col">Deadline</th>
+      <th scope="col">Delivery Date</th>
+      <th scope="col">Boilermaker</th>
+      <th scope="col">Hours Left</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th scope="row">Komatsu</th>
+      <td>Belly Plate</td>
+      <td>10/10/2019</td>
+      <td>13/10/2019</td>
+      <td>14/10/2019</td>
+      <td>Lawrence Mojele</td>
+      <td>4 Days</td>
+    </tr>
+    <tr>
+      <th scope="row">Universal Recycling</th>
+      <td>Granulator</td>
+      <td>03/10/2019</td>
+      <td>14/10/2019</td>
+      <td>16/10/2019</td>
+      <td>Skipper Malapane</td>
+      <td>4 Days</td>
+    </tr>
+    <tr>
+      <th scope="row">Frys Metals</th>
+      <td>Bushes</td>
+      <td>10/10/2019</td>
+      <td>10/10/2019</td>
+      <td>10/10/2019</td>
+      <td>Chris Stanz</td>
+      <td>2 Hours</td>
+    </tr>
+  </tbody>
+</table>
     </div>
   </div>
 </template>
@@ -35,7 +54,6 @@
 import { mapGetters } from 'vuex'
 
 export default {
-  layout: 'basic',
 
   metaInfo () {
     return { title: this.$t('home') }
