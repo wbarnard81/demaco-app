@@ -1,0 +1,117 @@
+<template>
+  <div>
+    <Adminpanel />
+    <div class="container">
+      <h1 class="text-center">Add Active Job</h1>
+      <form>
+        <div class="row">
+          <div class="col">
+            <label for="name">Customer</label>
+            <input
+              type="text"
+              class="form-control"
+              id="name"
+              v-model="form.customer"
+              placeholder="Enter customer name"
+            />
+          </div>
+          <div class="col">
+            <label for="color">Customer Color</label>
+            <input
+              type="text"
+              class="form-control"
+              id="color"
+              v-model="form.color"
+              placeholder="Enter customer color "
+            />
+          </div>
+          <div class="col">
+            <label for="job">Job Descripion</label>
+            <input
+              type="text"
+              class="form-control"
+              id="job"
+              v-model="form.job"
+              placeholder="Enter job description"
+            />
+          </div>
+        </div>
+        <div class="row mt-1">
+          <div class="col">
+            <label for="start_date">Start Date</label>
+            <datepicker :bootstrapStyling="true" v-model="form.start_date"></datepicker>
+          </div>
+          <div class="col">
+            <label for="deadline_date">Deadline</label>
+            <datepicker :bootstrapStyling="true" v-model="form.deadline_date"></datepicker>
+          </div>
+          <div class="col">
+            <label for="delivery_date">Delivery Date</label>
+            <datepicker :bootstrapStyling="true" v-model="form.delivery_date"></datepicker>
+          </div>
+        </div>
+        <div class="row mt-1">
+          <div class="col-6">
+            <label for="boilermaker">Boilermaker</label>
+            <input
+              type="text"
+              class="form-control"
+              id="boilermaker"
+              v-model="form.boilermaker"
+              placeholder="Enter attending boilermaker"
+            />
+          </div>
+        </div>
+
+        <button @click.prevent="addJob()" class="btn btn-primary mt-2">Submit</button>
+      </form>
+    </div>
+  </div>
+</template>
+
+<script>
+import Adminpanel from "~/components/Adminpanel";
+import Datepicker from "vuejs-datepicker";
+import Axios from "axios";
+const moment = require("moment");
+export default {
+  name: "Client",
+
+  components: {
+    Adminpanel,
+    Datepicker
+  },
+  data: () => {
+    return {
+      form: {
+        customer: "",
+        color: "",
+        job: "",
+        start_date: "",
+        deadline_date: "",
+        delivery_date: "",
+        boilermaker: ""
+      }
+    };
+  },
+  methods: {
+    customFormatter(date) {
+      return moment(date).format("YYYY MM DD");
+    },
+    addJob() {
+      Axios.post("/api/clients", this.form)
+        .then(response => {
+          alert("Job has been added.");
+          this.form.customer = "";
+          this.form.color = "";
+          this.form.job = "";
+          this.form.start_date = "";
+          this.form.deadline_date = "";
+          this.form.delivery_date = "";
+          this.form.boilermaker = "";
+        })
+        .catch(error => console.log(error.response));
+    }
+  }
+};
+</script>

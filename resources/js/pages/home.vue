@@ -1,20 +1,18 @@
 <template>
-  <card :title="$t('home')">
-    {{ $t('you_are_logged_in') }}
-    <fetch-users />
-  </card>
+  <div>
+    <Adminpanel />
+  </div>
 </template>
 
 <script>
-import FetchUsers from '~/components/FetchUsers'
+import Adminpanel from "~/components/Adminpanel";
 export default {
-  components: {
-    FetchUsers
-  },
-  middleware: 'auth',
+  components: { Adminpanel },
 
-  metaInfo () {
-    return { title: this.$t('home') }
+  middleware: "auth",
+
+  metaInfo() {
+    return { title: this.$t("home") };
   }
-}
+};
 </script>
