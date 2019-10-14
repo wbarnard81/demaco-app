@@ -18,13 +18,28 @@
         </thead>
         <tbody>
           <tr v-for="client in clients" :key="client.id">
-            <th scope="row" :style="{ backgroundColor: client.color}">{{ client.customer }}</th>
-            <td :style="{ backgroundColor: client.color}">{{ client.job }}</td>
-            <td :style="{ backgroundColor: client.color}">{{ client.start_date }}</td>
-            <td :style="{ backgroundColor: client.color}">{{ client.deadline_date }}</td>
-            <td :style="{ backgroundColor: client.color}">{{ client.delivery_date }}</td>
-            <td :style="{ backgroundColor: client.color}">{{client.boilermaker}}</td>
-            <td :style="{ backgroundColor: client.color}">{{ calcTime(client.deadline_date) }}</td>
+            <th
+              scope="row"
+              :style="[{ backgroundColor: client.color} , {color: getContrastYIQ(client.color)}]"
+            >{{ client.customer }}</th>
+            <td
+              :style="[{ backgroundColor: client.color} , {color: getContrastYIQ(client.color)}]"
+            >{{ client.job }}</td>
+            <td
+              :style="[{ backgroundColor: client.color} , {color: getContrastYIQ(client.color)}]"
+            >{{ client.start_date }}</td>
+            <td
+              :style="[{ backgroundColor: client.color} , {color: getContrastYIQ(client.color)}]"
+            >{{ client.deadline_date }}</td>
+            <td
+              :style="[{ backgroundColor: client.color} , {color: getContrastYIQ(client.color)}]"
+            >{{ client.delivery_date }}</td>
+            <td
+              :style="[{ backgroundColor: client.color} , {color: getContrastYIQ(client.color)}]"
+            >{{client.boilermaker}}</td>
+            <td
+              :style="[{ backgroundColor: client.color} , {color: getContrastYIQ(client.color)}]"
+            >{{ calcTime(client.deadline_date) }}</td>
             <td>
               <button
                 @click="editJob(client)"
@@ -138,6 +153,7 @@ export default {
   },
   data: () => {
     return {
+      hexcolor: "#ffffff",
       title: window.config.appName,
       clients: [],
       form: {
@@ -152,11 +168,20 @@ export default {
       }
     };
   },
+  computed: {},
   methods: {
     calcTime: function(date) {
       var a = moment(date);
       var b = moment().toDate();
       return a.diff(b, "days") + 1 + " Days";
+    },
+    getContrastYIQ(hexcolor) {
+      hexcolor = hexcolor.replace("#", "");
+      var r = parseInt(hexcolor.substr(0, 2), 16);
+      var g = parseInt(hexcolor.substr(2, 2), 16);
+      var b = parseInt(hexcolor.substr(4, 2), 16);
+      var yiq = (r * 299 + g * 587 + b * 114) / 1000;
+      return yiq >= 128 ? "black" : "white";
     },
     getJobs() {
       axios
@@ -196,6 +221,7 @@ export default {
 
   mounted() {
     this.getJobs();
+    this.getContrastYIQ(this.hexcolor);
   }
 };
 </script>
