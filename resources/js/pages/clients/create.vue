@@ -18,7 +18,7 @@
           <div class="col">
             <label for="color">Customer Color</label>
             <input
-              type="text"
+              type="color"
               class="form-control"
               id="color"
               v-model="form.color"

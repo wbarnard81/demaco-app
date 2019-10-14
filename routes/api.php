@@ -29,6 +29,8 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::patch('settings/profile', 'Settings\ProfileController@update');
     Route::patch('settings/password', 'Settings\PasswordController@update');
     Route::post('clients', 'ClientController@store');
+    Route::patch('clients/{client}', 'ClientController@update');
+    Route::delete('clients/{client}', 'ClientController@destroy');
 });
 
 Route::group(['middleware' => 'guest:api'], function () {

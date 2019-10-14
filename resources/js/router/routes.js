@@ -39,6 +39,11 @@ export default [
     component: page("clients/create.vue")
   },
   {
+    path: "/clients/list",
+    name: "list the clients",
+    component: page("clients/list.vue")
+  },
+  {
     path: "/settings",
     component: page("settings/index.vue"),
     children: [

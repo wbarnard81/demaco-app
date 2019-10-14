@@ -16,16 +16,16 @@
         >Features</a>
         <a
           class="nav-item nav-link"
-          :class="{active :isTab==='pricing'}"
-          v-on:click="isTab = 'pricing'"
-          href="#"
-        >Pricing</a>
-        <a
-          class="nav-item nav-link"
-          :class="{active :isTab==='disabled'}"
-          v-on:click="isTab = 'disabled'"
+          :class="{active :isTab==='jobs'}"
+          v-on:click="isTab = 'jobs'"
           href="/clients"
         >Client Jobs</a>
+        <a
+          class="nav-item nav-link"
+          :class="{active :isTab==='list'}"
+          v-on:click="isTab = 'list'"
+          href="/clients/list"
+        >List the Clients</a>
       </div>
     </div>
   </nav>

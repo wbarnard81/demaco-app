@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-white container">
+  <div class="bg-white mx-5">
     <div class>
       <h1 class="text-center">Current Jobs</h1>
     </div>
@@ -18,13 +18,13 @@
         </thead>
         <tbody>
           <tr v-for="client in clients" :key="client.id">
-            <th scope="row" :style="{ color: client.color}">{{ client.customer }}</th>
-            <td>{{ client.job }}</td>
-            <td>{{ client.start_date }}</td>
-            <td>{{ client.deadline_date }}</td>
-            <td>{{ client.delivery_date }}</td>
-            <td>{{client.boilermaker}}</td>
-            <td>{{ calcTime(client.deadline_date) }}</td>
+            <th scope="row" :style="{ backgroundColor: client.color}">{{ client.customer }}</th>
+            <td :style="{ backgroundColor: client.color}">{{ client.job }}</td>
+            <td :style="{ backgroundColor: client.color}">{{ client.start_date }}</td>
+            <td :style="{ backgroundColor: client.color}">{{ client.deadline_date }}</td>
+            <td :style="{ backgroundColor: client.color}">{{ client.delivery_date }}</td>
+            <td :style="{ backgroundColor: client.color}">{{client.boilermaker}}</td>
+            <td :style="{ backgroundColor: client.color}">{{ calcTime(client.deadline_date) }}</td>
           </tr>
         </tbody>
       </table>
@@ -57,7 +57,7 @@ export default {
     calcTime: function(date) {
       var a = moment(date);
       var b = moment().toDate();
-      return a.diff(b, "days") + 1;
+      return a.diff(b, "days") + 1 + " Days";
     }
   },
 
@@ -79,5 +79,13 @@ export default {
 
 .title {
   font-size: 85px;
+}
+
+th {
+  font-size: 25px;
+}
+
+td {
+  font-size: 25px;
 }
 </style>

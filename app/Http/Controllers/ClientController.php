@@ -45,11 +45,23 @@ class ClientController extends Controller
 
     public function update(Request $request, Client $client)
     {
-        //
+        DB::table('clients')
+            ->where('id', $client->id)
+            ->update([
+                'customer' => $request->customer,
+                'color' => $request->color,
+                'job' => $request->job,
+                'start_date' => date_create($request->start_date),
+                'deadline_date' => date_create($request->deadline_date),
+                'delivery_date' => date_create($request->delivery_date),
+                'boilermaker' => $request->boilermaker
+            ]);
+        return;
     }
 
     public function destroy(Client $client)
     {
-        //
+        $client->delete();
+        return;
     }
 }
