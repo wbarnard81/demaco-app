@@ -1,137 +1,140 @@
 <template>
-  <div class="bg-white mx-5">
-    <div class>
-      <h1 class="text-center">Current Jobs</h1>
-    </div>
-    <div>
-      <table class="table table-bordered">
-        <thead>
-          <tr>
-            <th scope="col">Customer</th>
-            <th scope="col">Job Description</th>
-            <th scope="col">Starting Date</th>
-            <th scope="col">Deadline</th>
-            <th scope="col">Delivery Date</th>
-            <th scope="col">Boilermaker</th>
-            <th scope="col">Due in</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr v-for="client in clients" :key="client.id">
-            <th
-              scope="row"
-              :style="[{ backgroundColor: client.color} , {color: getContrastYIQ(client.color)}]"
-            >{{ client.customer }}</th>
-            <td
-              :style="[{ backgroundColor: client.color} , {color: getContrastYIQ(client.color)}]"
-            >{{ client.job }}</td>
-            <td
-              :style="[{ backgroundColor: client.color} , {color: getContrastYIQ(client.color)}]"
-            >{{ client.start_date }}</td>
-            <td
-              :style="[{ backgroundColor: client.color} , {color: getContrastYIQ(client.color)}]"
-            >{{ client.deadline_date }}</td>
-            <td
-              :style="[{ backgroundColor: client.color} , {color: getContrastYIQ(client.color)}]"
-            >{{ client.delivery_date }}</td>
-            <td
-              :style="[{ backgroundColor: client.color} , {color: getContrastYIQ(client.color)}]"
-            >{{client.boilermaker}}</td>
-            <td
-              :style="[{ backgroundColor: client.color} , {color: getContrastYIQ(client.color)}]"
-            >{{ calcTime(client.deadline_date) }}</td>
-            <td>
-              <button
-                @click="editJob(client)"
-                class="btn btn-outline-warning btn-sm"
-                data-toggle="modal"
-                data-target="#editModal"
-              >Edit</button>
-            </td>
-            <td>
-              <button @click="deleteJob(client.id)" class="btn btn-outline-danger btn-sm">Delete</button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-      <div
-        class="modal fade"
-        id="editModal"
-        tabindex="-1"
-        role="dialog"
-        aria-labelledby="editModalTitle"
-        aria-hidden="true"
-      >
-        <div class="modal-dialog modal-dialog-centered" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="editModalTitle">Edit selected Job</h5>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <div class="modal-body">
-              <form>
-                <div class="row">
-                  <div class="col">
-                    <label for="name">Customer</label>
-                    <input
-                      type="text"
-                      class="form-control"
-                      id="name"
-                      v-model="form.customer"
-                      placeholder="Enter customer name"
-                    />
+  <div>
+    <Adminpanel />
+    <div class="bg-white mx-5">
+      <div class>
+        <h1 class="text-center">Current Jobs</h1>
+      </div>
+      <div>
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th scope="col">Customer</th>
+              <th scope="col">Job Description</th>
+              <th scope="col">Starting Date</th>
+              <th scope="col">Deadline</th>
+              <th scope="col">Delivery Date</th>
+              <th scope="col">Boilermaker</th>
+              <th scope="col">Due in</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="client in clients" :key="client.id">
+              <th
+                scope="row"
+                :style="[{ backgroundColor: client.color} , {color: getContrastYIQ(client.color)}]"
+              >{{ client.customer }}</th>
+              <td
+                :style="[{ backgroundColor: client.color} , {color: getContrastYIQ(client.color)}]"
+              >{{ client.job }}</td>
+              <td
+                :style="[{ backgroundColor: client.color} , {color: getContrastYIQ(client.color)}]"
+              >{{ client.start_date }}</td>
+              <td
+                :style="[{ backgroundColor: client.color} , {color: getContrastYIQ(client.color)}]"
+              >{{ client.deadline_date }}</td>
+              <td
+                :style="[{ backgroundColor: client.color} , {color: getContrastYIQ(client.color)}]"
+              >{{ client.delivery_date }}</td>
+              <td
+                :style="[{ backgroundColor: client.color} , {color: getContrastYIQ(client.color)}]"
+              >{{client.boilermaker}}</td>
+              <td
+                :style="[{ backgroundColor: client.color} , {color: getContrastYIQ(client.color)}]"
+              >{{ calcTime(client.deadline_date) }}</td>
+              <td>
+                <button
+                  @click="editJob(client)"
+                  class="btn btn-outline-warning btn-sm"
+                  data-toggle="modal"
+                  data-target="#editModal"
+                >Edit</button>
+              </td>
+              <td>
+                <button @click="deleteJob(client.id)" class="btn btn-outline-danger btn-sm">Delete</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <div
+          class="modal fade"
+          id="editModal"
+          tabindex="-1"
+          role="dialog"
+          aria-labelledby="editModalTitle"
+          aria-hidden="true"
+        >
+          <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="editModalTitle">Edit selected Job</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <form>
+                  <div class="row">
+                    <div class="col">
+                      <label for="name">Customer</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="name"
+                        v-model="form.customer"
+                        placeholder="Enter customer name"
+                      />
+                    </div>
+                    <div class="col">
+                      <label for="color">Customer Color</label>
+                      <input type="color" class="form-control" id="color" v-model="form.color" />
+                    </div>
                   </div>
-                  <div class="col">
-                    <label for="color">Customer Color</label>
-                    <input type="color" class="form-control" id="color" v-model="form.color" />
+                  <div class="row mt-1">
+                    <div class="col">
+                      <label for="job">Job Descripion</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="job"
+                        v-model="form.job"
+                        placeholder="Enter job description"
+                      />
+                    </div>
                   </div>
-                </div>
-                <div class="row mt-1">
-                  <div class="col">
-                    <label for="job">Job Descripion</label>
-                    <input
-                      type="text"
-                      class="form-control"
-                      id="job"
-                      v-model="form.job"
-                      placeholder="Enter job description"
-                    />
+                  <div class="row mt-1">
+                    <div class="col">
+                      <label for="start_date">Start Date</label>
+                      <datepicker :bootstrapStyling="true" v-model="form.start_date"></datepicker>
+                    </div>
+                    <div class="col">
+                      <label for="deadline_date">Deadline</label>
+                      <datepicker :bootstrapStyling="true" v-model="form.deadline_date"></datepicker>
+                    </div>
+                    <div class="col">
+                      <label for="delivery_date">Delivery Date</label>
+                      <datepicker :bootstrapStyling="true" v-model="form.delivery_date"></datepicker>
+                    </div>
                   </div>
-                </div>
-                <div class="row mt-1">
-                  <div class="col">
-                    <label for="start_date">Start Date</label>
-                    <datepicker :bootstrapStyling="true" v-model="form.start_date"></datepicker>
+                  <div class="row mt-1">
+                    <div class="col">
+                      <label for="boilermaker">Boilermaker</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="boilermaker"
+                        v-model="form.boilermaker"
+                        placeholder="Enter attending boilermaker"
+                      />
+                    </div>
                   </div>
-                  <div class="col">
-                    <label for="deadline_date">Deadline</label>
-                    <datepicker :bootstrapStyling="true" v-model="form.deadline_date"></datepicker>
-                  </div>
-                  <div class="col">
-                    <label for="delivery_date">Delivery Date</label>
-                    <datepicker :bootstrapStyling="true" v-model="form.delivery_date"></datepicker>
-                  </div>
-                </div>
-                <div class="row mt-1">
-                  <div class="col">
-                    <label for="boilermaker">Boilermaker</label>
-                    <input
-                      type="text"
-                      class="form-control"
-                      id="boilermaker"
-                      v-model="form.boilermaker"
-                      placeholder="Enter attending boilermaker"
-                    />
-                  </div>
-                </div>
 
-                <button @click.prevent="saveJob()" class="btn btn-primary mt-2">Save Changes</button>
-              </form>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                  <button @click.prevent="saveJob()" class="btn btn-primary mt-2">Save Changes</button>
+                </form>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              </div>
             </div>
           </div>
         </div>
@@ -141,6 +144,7 @@
 </template>
 
 <script>
+import Adminpanel from "../../components/Adminpanel";
 import axios from "axios";
 const moment = require("moment");
 import Datepicker from "vuejs-datepicker";
@@ -149,7 +153,8 @@ export default {
   name: "ClientList",
 
   components: {
-    Datepicker
+    Datepicker,
+    Adminpanel
   },
   data: () => {
     return {

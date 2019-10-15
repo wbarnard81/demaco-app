@@ -34,6 +34,21 @@ export default [
 
   { path: "/home", name: "home", component: page("home.vue") },
   {
+    path: "/quotes",
+    name: "add a quote",
+    component: page("quotes/create.vue")
+  },
+  {
+    path: "/quotes/list",
+    name: "list of quotes",
+    component: page("quotes/list.vue")
+  },
+  {
+    path: "/employees",
+    name: "list of employees",
+    component: page("employees.vue")
+  },
+  {
     path: "/clients",
     name: "add client",
     component: page("clients/create.vue")

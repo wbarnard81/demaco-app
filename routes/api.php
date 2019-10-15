@@ -31,6 +31,7 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::post('clients', 'ClientController@store');
     Route::patch('clients/{client}', 'ClientController@update');
     Route::delete('clients/{client}', 'ClientController@destroy');
+    Route::resource('quotes', 'QuoteController');
 });
 
 Route::group(['middleware' => 'guest:api'], function () {
