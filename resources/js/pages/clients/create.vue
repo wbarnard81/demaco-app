@@ -43,7 +43,12 @@
           </div>
           <div class="col">
             <label for="deadline_date">Deadline Date</label>
-            <datetime type="datetime" v-model="form.deadline_date" id="deadline_date"></datetime>
+            <datetime
+              type="datetime"
+              v-model="form.deadline_date"
+              id="deadline_date"
+              :minute-step="15"
+            ></datetime>
           </div>
           <div class="col">
             <label for="delivery_date">Delivery Date</label>
