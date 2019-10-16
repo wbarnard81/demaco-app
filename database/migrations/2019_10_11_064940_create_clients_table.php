@@ -18,9 +18,10 @@ class CreateClientsTable extends Migration
             $table->string('customer');
             $table->string('color');
             $table->string('job');
-            $table->date('start_date');
-            $table->date('deadline_date');
-            $table->date('delivery_date');
+            $table->char('start_char');
+            $table->char('deadline_char');
+            $table->char('deadline_time');
+            $table->char('delivery_date');
             $table->string('boilermaker');
             $table->timestamps();
         });

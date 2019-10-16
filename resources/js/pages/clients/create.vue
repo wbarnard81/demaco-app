@@ -39,15 +39,43 @@
         <div class="row mt-1">
           <div class="col">
             <label for="start_date">Start Date</label>
-            <datepicker :bootstrapStyling="true" v-model="form.start_date"></datepicker>
+            <VueCtkDateTimePicker
+              v-model="form.start_date"
+              format="YYYY-MM-DD"
+              id="start_date"
+              :only-date="true"
+              formatted="ll"
+            />
           </div>
           <div class="col">
-            <label for="deadline_date">Deadline</label>
-            <datepicker :bootstrapStyling="true" v-model="form.deadline_date"></datepicker>
+            <label for="deadline_date">Deadline Date</label>
+            <VueCtkDateTimePicker
+              v-model="form.deadline_date"
+              format="YYYY-MM-DD"
+              id="deadline_date"
+              formatted="ll"
+              :only-date="true"
+            />
+          </div>
+          <div class="col">
+            <label for="deadline_date">Deadline Time</label>
+            <VueCtkDateTimePicker
+              v-model="form.deadline_time"
+              :only-time="true"
+              label="Select deadline time"
+              format="hh:mm a"
+              formatted="hh:mm a"
+            />
           </div>
           <div class="col">
             <label for="delivery_date">Delivery Date</label>
-            <datepicker :bootstrapStyling="true" v-model="form.delivery_date"></datepicker>
+            <VueCtkDateTimePicker
+              v-model="form.delivery_date"
+              format="YYYY-MM-DD"
+              id="delivery_date"
+              formatted="ll"
+              :only-date="true"
+            />
           </div>
         </div>
         <div class="row mt-1">
@@ -66,12 +94,20 @@
         <button @click.prevent="addJob()" class="btn btn-primary mt-2">Submit</button>
       </form>
     </div>
+    <div class="container">
+      <div class="form-group">
+        <input class="input-group" type="datetime-local" v-model="thedate" />
+        {{thedate}}
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
 import Adminpanel from "~/components/Adminpanel";
-import Datepicker from "vuejs-datepicker";
+//import Datepicker from "vuejs-datepicker";
+import VueCtkDateTimePicker from "vue-ctk-date-time-picker";
+import "vue-ctk-date-time-picker/dist/vue-ctk-date-time-picker.css";
 import Axios from "axios";
 const moment = require("moment");
 export default {
@@ -79,16 +115,18 @@ export default {
 
   components: {
     Adminpanel,
-    Datepicker
+    VueCtkDateTimePicker
   },
   data: () => {
     return {
+      thedate: "",
       form: {
         customer: "",
-        color: "",
+        color: "#ff8080",
         job: "",
         start_date: "",
         deadline_date: "",
+        deadline_time: "",
         delivery_date: "",
         boilermaker: ""
       }
@@ -103,10 +141,11 @@ export default {
         .then(response => {
           alert("Job has been added.");
           this.form.customer = "";
-          this.form.color = "";
+          this.form.color = "#ff8080";
           this.form.job = "";
           this.form.start_date = "";
           this.form.deadline_date = "";
+          this.form.deadline_time = "";
           this.form.delivery_date = "";
           this.form.boilermaker = "";
         })
