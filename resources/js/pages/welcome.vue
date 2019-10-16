@@ -11,7 +11,6 @@
             <th scope="col">Job Description</th>
             <th scope="col">Starting Date</th>
             <th scope="col">Deadline Date</th>
-            <th scope="col">Deadline Time</th>
             <th scope="col">Delivery Date</th>
             <th scope="col">Boilermaker</th>
             <th scope="col">Due in</th>
@@ -27,10 +26,9 @@
             <td>{{ client.job }}</td>
             <td>{{ client.start_date }}</td>
             <td>{{ client.deadline_date }}</td>
-            <td>{{ client.deadline_time }}</td>
             <td>{{ client.delivery_date }}</td>
             <td>{{ client.boilermaker }}</td>
-            <td>{{ calcTime(client.deadline_date,client.deadline_time) }}</td>
+            <td>{{ calcTime(client.deadline_date) }}</td>
           </tr>
         </tbody>
       </table>
@@ -60,8 +58,8 @@ export default {
   computed: {},
 
   methods: {
-    calcTime: function(date, time) {
-      let a = moment(date).to();
+    calcTime: function(date) {
+      let a = moment().to(date);
       let b = moment().toDate();
       console.log();
       return a;

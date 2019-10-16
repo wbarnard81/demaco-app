@@ -26,7 +26,6 @@ class ClientController extends Controller
             'job' => $request['job'],
             'start_date' => date_create($request['start_date']),
             'deadline_date' => date_create($request['deadline_date']),
-            'deadline_time' => $request['deadline_time'],
             'delivery_date' => date_create($request['delivery_date']),
             'boilermaker' => $request['boilermaker'],
         ]);
@@ -54,7 +53,6 @@ class ClientController extends Controller
                 'job' => $request->job,
                 'start_date' => date_create($request->start_date),
                 'deadline_date' => date_create($request->deadline_date),
-                'deadline_time' => $request->deadline_time,
                 'delivery_date' => date_create($request->delivery_date),
                 'boilermaker' => $request->boilermaker
             ]);
