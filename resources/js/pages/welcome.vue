@@ -62,10 +62,12 @@ export default {
   },
 
   mounted() {
-    axios
-      .get("/api/clients")
-      .then(response => (this.clients = response.data))
-      .catch(error => console.log(error.response));
+    setInterval(() => {
+      axios
+        .get("/api/clients")
+        .then(response => (this.clients = response.data))
+        .catch(error => console.log(error.response));
+    }, 10000);
   }
 };
 </script>
