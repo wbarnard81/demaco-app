@@ -76,10 +76,12 @@
 
 <script>
 import Adminpanel from "~/components/Adminpanel";
+import Axios from "axios";
 import { Datetime } from "vue-datetime";
 import "vue-datetime/dist/vue-datetime.css";
-import Axios from "axios";
+
 const moment = require("moment");
+
 export default {
   name: "Client",
 

@@ -34,8 +34,8 @@
         >List the Clients</a>
         <a
           class="nav-item nav-link"
-          :class="{active :isTab==='list'}"
-          v-on:click="isTab = 'list'"
+          :class="{active :isTab==='employees'}"
+          v-on:click="isTab = 'employees'"
           href="/Employees"
         >Employees</a>
       </div>

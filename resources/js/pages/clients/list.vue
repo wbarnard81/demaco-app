@@ -105,15 +105,20 @@
                   <div class="row mt-1">
                     <div class="col">
                       <label for="start_date">Start Date</label>
-                      <datepicker :bootstrapStyling="true" v-model="form.start_date"></datepicker>
+                      <datetime id="start_date" v-model="form.start_date"></datetime>
                     </div>
                     <div class="col">
-                      <label for="deadline_date">Deadline</label>
-                      <datepicker :bootstrapStyling="true" v-model="form.deadline_date"></datepicker>
+                      <label for="deadline_date">Deadline Date</label>
+                      <datetime
+                        type="datetime"
+                        v-model="form.deadline_date"
+                        id="deadline_date"
+                        :minute-step="15"
+                      ></datetime>
                     </div>
                     <div class="col">
                       <label for="delivery_date">Delivery Date</label>
-                      <datepicker :bootstrapStyling="true" v-model="form.delivery_date"></datepicker>
+                      <datetime id="delivery_date" v-model="form.delivery_date"></datetime>
                     </div>
                   </div>
                   <div class="row mt-1">
@@ -146,14 +151,16 @@
 <script>
 import Adminpanel from "../../components/Adminpanel";
 import axios from "axios";
+import { Datetime } from "vue-datetime";
+import "vue-datetime/dist/vue-datetime.css";
+
 const moment = require("moment");
-import Datepicker from "vuejs-datepicker";
 
 export default {
   name: "ClientList",
 
   components: {
-    Datepicker,
+    Datetime,
     Adminpanel
   },
   data: () => {
@@ -176,9 +183,8 @@ export default {
   computed: {},
   methods: {
     calcTime: function(date) {
-      var a = moment(date);
-      var b = moment().toDate();
-      return a.diff(b, "days") + 1 + " Days";
+      let a = moment().to(date);
+      return a;
     },
     getContrastYIQ(hexcolor) {
       hexcolor = hexcolor.replace("#", "");

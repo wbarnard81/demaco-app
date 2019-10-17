@@ -60,8 +60,6 @@ export default {
   methods: {
     calcTime: function(date) {
       let a = moment().to(date);
-      let b = moment().toDate();
-      console.log();
       return a;
     },
     getContrastYIQ(hexcolor) {
