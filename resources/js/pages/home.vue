@@ -1,6 +1,9 @@
 <template>
   <div>
     <Adminpanel />
+    <div class="container">
+      <h1 class="text-center">Jobs that need urgent attention</h1>
+    </div>
   </div>
 </template>
 

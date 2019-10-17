@@ -220,6 +220,10 @@ import axios from "axios";
 
 export default {
   name: "CreateQuote",
+  metaInfo() {
+    return { title: this.$t("Maintain Employees") };
+  },
+  middleware: "auth",
   components: {
     Adminpanel
   },

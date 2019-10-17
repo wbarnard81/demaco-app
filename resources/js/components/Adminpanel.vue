@@ -1,43 +1,37 @@
 <template>
-  <nav class="navbar navbar-expand-lg navbar-dark bg-success">
+  <nav class="navbar navbar-expand-lg navbar-dark bg-secondary">
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-      <div class="navbar-nav">
+      <div class="navbar-nav mx-auto py-2">
         <a
-          class="nav-item nav-link"
-          :class="{active :isTab==='home'}"
+          class="nav-item nav-link btn ml-4 btn-outline-success text-white"
           v-on:click="isTab = 'home'"
-          href="#"
+          href="/home"
         >Home</a>
         <a
-          class="nav-item nav-link"
-          :class="{active :isTab==='features'}"
+          class="nav-item nav-link btn ml-4 btn-outline-success text-white"
           v-on:click="isTab = 'addQuote'"
           href="/quotes"
         >Add a Quote</a>
         <a
-          class="nav-item nav-link"
-          :class="{active :isTab==='features'}"
+          class="nav-item nav-link btn ml-4 btn-outline-success text-white"
           v-on:click="isTab = 'listQuote'"
           href="/quotes/list"
         >List of Quotes</a>
         <a
-          class="nav-item nav-link"
-          :class="{active :isTab==='jobs'}"
+          class="nav-item nav-link btn ml-4 btn-outline-success text-white"
           v-on:click="isTab = 'jobs'"
           href="/clients"
-        >Client Jobs</a>
+        >Add a Client Job</a>
         <a
-          class="nav-item nav-link"
-          :class="{active :isTab==='list'}"
+          class="nav-item nav-link btn ml-4 btn-outline-success text-white"
           v-on:click="isTab = 'list'"
           href="/clients/list"
-        >List the Clients</a>
+        >List of Client Jobs</a>
         <a
-          class="nav-item nav-link"
-          :class="{active :isTab==='employees'}"
+          class="nav-item nav-link btn ml-4 btn-outline-success text-white"
           v-on:click="isTab = 'employees'"
           href="/Employees"
-        >Employees</a>
+        >Maintain Employees</a>
       </div>
     </div>
   </nav>
@@ -45,7 +39,7 @@
 <script>
 export default {
   data() {
-    return { isTab: "home" };
+    return {};
   }
 };
 </script>

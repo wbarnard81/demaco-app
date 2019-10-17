@@ -158,7 +158,10 @@ const moment = require("moment");
 
 export default {
   name: "ClientList",
-
+  metaInfo() {
+    return { title: this.$t("List Client Jobs") };
+  },
+  middleware: "auth",
   components: {
     Datetime,
     Adminpanel
