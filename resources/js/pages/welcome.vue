@@ -1,7 +1,7 @@
 <template>
   <div class="bg-white mx-5">
     <div class>
-      <h1 class="text-center">Current Jobs</h1>
+      <h1 class="text-center my-2">Current Jobs</h1>
     </div>
     <div>
       <table class="table table-bordered">
@@ -20,15 +20,15 @@
           <tr
             v-for="client in clients"
             :key="client.id"
-            :style="[isWarning ? {backgroundColor:'warning'} : { backgroundColor: client.color} , {color: getContrastYIQ(client.color)}]"
+            :style="[{ backgroundColor: client.color} , {color: getContrastYIQ(client.color)}]"
           >
-            <th scope="row">{{ client.customer }}</th>
-            <td>{{ client.job }}</td>
-            <td>{{ client.start_date }}</td>
-            <td>{{ client.deadline_date }}</td>
-            <td>{{ client.delivery_date }}</td>
-            <td>{{ client.boilermaker }}</td>
-            <td>{{ calcTime(client.deadline_date) }}</td>
+            <th class="border border-dark" scope="row">{{ client.customer }}</th>
+            <td class="border border-dark">{{ client.job }}</td>
+            <td class="border border-dark">{{ client.start_date }}</td>
+            <td class="border border-dark">{{ client.deadline_date }}</td>
+            <td class="border border-dark">{{ client.delivery_date }}</td>
+            <td class="border border-dark">{{ client.boilermaker }}</td>
+            <td class="border border-dark">{{ calcTime(client.deadline_date) }}</td>
           </tr>
         </tbody>
       </table>
@@ -43,14 +43,12 @@ const moment = require("moment");
 
 export default {
   metaInfo() {
-    return { title: "home" };
+    return { title: "Home" };
   },
 
   data: () => {
     return {
       title: window.config.appName,
-      isWarning: false,
-      isDanger: false,
       clients: []
     };
   },
