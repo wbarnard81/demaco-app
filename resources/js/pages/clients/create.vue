@@ -85,7 +85,7 @@ const moment = require("moment");
 export default {
   name: "Client",
   metaInfo() {
-    return { title: this.$t("Add Client Job") };
+    return { title: "Add Client Job" };
   },
   middleware: "auth",
   components: {

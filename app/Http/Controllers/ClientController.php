@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Client;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 
 class ClientController extends Controller
@@ -63,5 +64,11 @@ class ClientController extends Controller
     {
         $client->delete();
         return;
+    }
+
+    public function urgent()
+    {
+        return DB::table('clients')
+            ->where('deadline_date', '>', Carbon::now())->get();
     }
 }

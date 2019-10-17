@@ -43,7 +43,7 @@ const moment = require("moment");
 
 export default {
   metaInfo() {
-    return { title: this.$t("home") };
+    return { title: "home" };
   },
 
   data: () => {

@@ -14,7 +14,7 @@ import Adminpanel from "../../components/Adminpanel";
 export default {
   name: "CreateQuote",
   metaInfo() {
-    return { title: this.$t("Add Quote") };
+    return { title: "Add Quote" };
   },
   middleware: "auth",
   components: {

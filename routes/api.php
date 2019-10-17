@@ -14,7 +14,7 @@ use Illuminate\Http\Request;
 */
 
 Route::get('clients', 'ClientController@index');
-Route::resource('employees', 'EmployeeController');
+Route::get('urgentjobs', 'ClientController@urgent');
 
 Route::group(['middleware' => 'auth:api'], function () {
     Route::post('logout', 'Auth\LoginController@logout');
@@ -33,6 +33,7 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::patch('clients/{client}', 'ClientController@update');
     Route::delete('clients/{client}', 'ClientController@destroy');
     Route::resource('quotes', 'QuoteController');
+    Route::resource('employees', 'EmployeeController');
 });
 
 Route::group(['middleware' => 'guest:api'], function () {

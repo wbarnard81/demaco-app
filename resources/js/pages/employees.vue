@@ -138,7 +138,7 @@
                 </form>
               </div>
               <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                 <button type="button" class="btn btn-primary" @click="storeEmployee()">Save Changes</button>
               </div>
             </div>
@@ -221,7 +221,7 @@ import axios from "axios";
 export default {
   name: "CreateQuote",
   metaInfo() {
-    return { title: this.$t("Maintain Employees") };
+    return { title: "Maintain Employees" };
   },
   middleware: "auth",
   components: {
