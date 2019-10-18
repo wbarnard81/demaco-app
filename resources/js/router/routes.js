@@ -77,6 +77,11 @@ export default [
         path: "configure",
         name: "settings.configure",
         component: page("settings/configure.vue")
+      },
+      {
+        path: "customers",
+        name: "settings.customers",
+        component: page("settings/customers.vue")
       }
     ]
   },

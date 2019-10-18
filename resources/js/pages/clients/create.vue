@@ -17,13 +17,7 @@
           </div>
           <div class="col">
             <label for="color">Customer Color</label>
-            <input
-              type="color"
-              class="form-control"
-              id="color"
-              v-model="form.color"
-              placeholder="Enter customer color "
-            />
+            <input type="color" class="form-control" id="color" v-model="form.color" />
           </div>
           <div class="col">
             <label for="job">Job Descripion</label>

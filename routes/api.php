@@ -34,6 +34,7 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::resource('quotes', 'QuoteController');
     Route::resource('employees', 'EmployeeController');
     Route::resource('configs', 'ConfigureController');
+    Route::resource('customers', 'CustomerController');
 });
 
 Route::group(['middleware' => 'guest:api'], function () {

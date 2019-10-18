@@ -45,9 +45,14 @@ export default {
           route: "settings.password"
         },
         {
-          icon: "cog",
+          icon: "sliders-h",
           name: "Configure",
           route: "settings.configure"
+        },
+        {
+          icon: "user-tie",
+          name: "Customers",
+          route: "settings.customers"
         }
       ];
     }
