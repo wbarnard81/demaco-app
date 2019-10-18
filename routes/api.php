@@ -13,8 +13,6 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::get('clients', 'ClientController@index');
-Route::get('urgentjobs', 'ClientController@urgent');
 
 Route::group(['middleware' => 'auth:api'], function () {
     Route::post('logout', 'Auth\LoginController@logout');
@@ -30,10 +28,12 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::patch('settings/profile', 'Settings\ProfileController@update');
     Route::patch('settings/password', 'Settings\PasswordController@update');
     Route::post('clients', 'ClientController@store');
+    Route::get('urgentjobs', 'ClientController@urgent');
     Route::patch('clients/{client}', 'ClientController@update');
     Route::delete('clients/{client}', 'ClientController@destroy');
     Route::resource('quotes', 'QuoteController');
     Route::resource('employees', 'EmployeeController');
+    Route::resource('configs', 'ConfigureController');
 });
 
 Route::group(['middleware' => 'guest:api'], function () {
@@ -48,4 +48,6 @@ Route::group(['middleware' => 'guest:api'], function () {
 
     Route::post('oauth/{driver}', 'Auth\OAuthController@redirectToProvider');
     Route::get('oauth/{driver}/callback', 'Auth\OAuthController@handleProviderCallback')->name('oauth.callback');
+
+    Route::get('clients', 'ClientController@index');
 });
