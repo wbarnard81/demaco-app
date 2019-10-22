@@ -5,19 +5,24 @@
       <h1 class="text-center">Add Active Job</h1>
       <form>
         <div class="row">
-          <div class="col">
+          <div class="col-4">
             <label for="name">Customer</label>
-            <input
-              type="text"
+
+            <select
               class="form-control"
-              id="name"
               v-model="form.customer"
-              placeholder="Enter customer name"
-            />
+              @change="setColor($event.target.value)"
+            >
+              <option disabled value>Select the Customer</option>
+              <option v-for="customer in customers" :key="customer.id">{{ customer.customer }}</option>
+            </select>
           </div>
-          <div class="col">
+          <div class="col-2">
             <label for="color">Customer Color</label>
-            <input type="color" class="form-control" id="color" v-model="form.color" />
+            <div
+              class="form-control"
+              :style="[{ backgroundColor: form.color},{ color: form.color}]"
+            >.</div>
           </div>
           <div class="col">
             <label for="job">Job Descripion</label>
@@ -50,18 +55,17 @@
           </div>
         </div>
         <div class="row mt-1">
-          <div class="col-6">
+          <div class="col-4">
             <label for="boilermaker">Boilermaker</label>
-            <input
-              type="text"
-              class="form-control"
-              id="boilermaker"
-              v-model="form.boilermaker"
-              placeholder="Enter attending boilermaker"
-            />
+            <select class="form-control" v-model="form.boilermaker">
+              <option disabled value>Select the Boilermaker</option>
+              <option
+                v-for="boilermaker in boilermakers"
+                :key="boilermaker.id"
+              >{{ boilermaker.first_name }} {{ boilermaker.last_name }}</option>
+            </select>
           </div>
         </div>
-
         <button @click.prevent="addJob()" class="btn btn-primary mt-2">Submit</button>
       </form>
     </div>
@@ -88,10 +92,11 @@ export default {
   },
   data: () => {
     return {
-      thedate: "",
+      customers: [],
+      boilermakers: [],
       form: {
         customer: "",
-        color: "#ff8080",
+        color: "#fff",
         job: "",
         start_date: "",
         deadline_date: "",
@@ -103,6 +108,11 @@ export default {
   methods: {
     customFormatter(date) {
       return moment(date).format("YYYY MM DD");
+    },
+    setColor(customerName) {
+      this.form.color = this.customers.find(
+        x => x.customer === customerName
+      ).colour;
     },
     addJob() {
       Axios.post("/api/clients", this.form)
@@ -117,7 +127,26 @@ export default {
           this.form.boilermaker = "";
         })
         .catch(error => console.log(error.response));
+    },
+    getCustomers() {
+      Axios.get("/api/customers")
+        .then(response => {
+          this.customers = response.data;
+        })
+        .catch(error => {
+          alert(error.response.data.message);
+        });
+      Axios.get("/api/employees")
+        .then(response => {
+          this.boilermakers = response.data;
+        })
+        .catch(error => {
+          alert(error.response.data.message);
+        });
     }
+  },
+  mounted() {
+    this.getCustomers();
   }
 };
 </script>
