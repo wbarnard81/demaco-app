@@ -17,9 +17,7 @@ class CreateEmployeesTable extends Migration
             $table->bigIncrements('id');
             $table->string('first_name');
             $table->string('last_name');
-            $table->integer('hours');
             $table->integer('rateph');
-            $table->integer('provident_fund');
             $table->timestamps();
         });
     }

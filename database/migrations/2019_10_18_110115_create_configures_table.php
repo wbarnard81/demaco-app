@@ -18,6 +18,7 @@ class CreateConfiguresTable extends Migration
             $table->decimal('fuel');
             $table->decimal('electricity');
             $table->decimal('provident_fund');
+            $table->decimal('expected_hours');
             $table->timestamps();
         });
     }

@@ -39,9 +39,7 @@ class EmployeeController extends Controller
         DB::table('employees')->insert([
             'first_name' => $request['first_name'],
             'last_name' => $request['last_name'],
-            'hours' => $request['hours'],
             'rateph' => $request['rateph'],
-            'provident_fund' => $request['provident_fund'],
         ]);
 
         return;
@@ -83,9 +81,7 @@ class EmployeeController extends Controller
             ->update([
                 'first_name' => $request->first_name,
                 'last_name' => $request->last_name,
-                'hours' => $request->hours,
                 'rateph' => $request->rateph,
-                'provident_fund' => $request->provident_fund,
             ]);
         return;
     }

@@ -15,7 +15,7 @@
         <label class="col-md-3 col-form-label text-md-right">{{ 'Electricity' }}</label>
         <div class="col-md-4 input-group">
           <div class="input-group-prepend">
-            <span class="input-group-text" id="basic-addon1">R</span>
+            <span class="input-group-text" id="basic-addon2">R</span>
           </div>
           <input
             v-model="form.electricity"
@@ -31,7 +31,7 @@
         <label class="col-md-3 col-form-label text-md-right">{{ 'Provident Fund' }}</label>
         <div class="col-md-4 input-group">
           <div class="input-group-prepend">
-            <span class="input-group-text" id="basic-addon1">%</span>
+            <span class="input-group-text" id="basic-addon3">%</span>
           </div>
           <input
             v-model="form.provident_fund"
@@ -39,6 +39,22 @@
             type="number"
             step="0.01"
             name="provident_fund"
+          />
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-md-3 col-form-label text-md-right">{{ 'Expected Hours' }}</label>
+        <div class="col-md-4 input-group">
+          <div class="input-group-prepend">
+            <span class="input-group-text" id="basic-addon4">H</span>
+          </div>
+          <input
+            v-model="form.expected_hours"
+            class="form-control"
+            type="number"
+            step="0.01"
+            name="expected_hours"
           />
         </div>
       </div>
@@ -70,7 +86,8 @@ export default {
       id: "",
       fuel: "",
       electricity: "",
-      provident_fund: ""
+      provident_fund: "",
+      expected_hours: ""
     },
     isUpdating: false
   }),
@@ -91,6 +108,7 @@ export default {
             this.form.fuel = response.data[0].fuel;
             this.form.electricity = response.data[0].electricity;
             this.form.provident_fund = response.data[0].provident_fund;
+            this.form.expected_hours = response.data[0].expected_hours;
           }
         })
         .catch(error => {
