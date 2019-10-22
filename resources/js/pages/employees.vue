@@ -77,9 +77,9 @@
               </th>
               <td class="text-center border border-dark">{{employee.first_name}}</td>
               <td class="text-center border border-dark">{{employee.last_name}}</td>
-              <td class="text-center border border-dark">{{employee.hours}}</td>
+              <td class="text-center border border-dark">{{ hours}}</td>
               <td class="text-center border border-dark">{{employee.rateph}}</td>
-              <td class="text-center border border-dark">{{employee.provident_fund}}</td>
+              <td class="text-center border border-dark">{{ calcProvidentFund(employee.rateph) }}</td>
             </tr>
           </tbody>
         </table>
@@ -115,24 +115,9 @@
                     <input type="text" class="form-control" id="last_name" v-model="form.last_name" />
                   </div>
                   <div class="row">
-                    <div class="form-group col">
-                      <label for="hours" class="col-form-label">Expected Hours:</label>
-                      <input type="number" class="form-control" id="hours" v-model="form.hours" />
-                    </div>
-                    <div class="form-group col">
+                    <div class="form-group col-4">
                       <label for="rateph" class="col-form-label">Rate per Hours:</label>
                       <input type="number" class="form-control" id="rateph" v-model="form.rateph" />
-                    </div>
-                  </div>
-                  <div class="row">
-                    <div class="form-group col">
-                      <label for="hours" class="col-form-label">Provident Fund:</label>
-                      <input
-                        type="number"
-                        class="form-control"
-                        id="hours"
-                        v-model="form.provident_fund"
-                      />
                     </div>
                   </div>
                 </form>
@@ -175,26 +160,9 @@
                     <label for="last_name" class="col-form-label">Last Name:</label>
                     <input type="text" class="form-control" id="last_name" v-model="form.last_name" />
                   </div>
-                  <div class="row">
-                    <div class="form-group col">
-                      <label for="hours" class="col-form-label">Expected Hours:</label>
-                      <input type="number" class="form-control" id="hours" v-model="form.hours" />
-                    </div>
-                    <div class="form-group col">
-                      <label for="rateph" class="col-form-label">Rate per Hours:</label>
-                      <input type="number" class="form-control" id="rateph" v-model="form.rateph" />
-                    </div>
-                  </div>
-                  <div class="row">
-                    <div class="form-group col">
-                      <label for="hours" class="col-form-label">Provident Fund:</label>
-                      <input
-                        type="number"
-                        class="form-control"
-                        id="hours"
-                        v-model="form.provident_fund"
-                      />
-                    </div>
+                  <div class="form-group">
+                    <label for="rateph" class="col-form-label">Rate per hour:</label>
+                    <input type="text" class="form-control" id="rateph" v-model="form.rateph" />
                   </div>
                 </form>
               </div>
@@ -231,12 +199,12 @@ export default {
     return {
       employees: [],
       employee_id: "",
+      hours: "",
+      provident_fund: "",
       form: {
         first_name: "",
         last_name: "",
-        hours: "",
-        rateph: "",
-        provident_fund: ""
+        rateph: ""
       }
     };
   },
@@ -246,6 +214,13 @@ export default {
         .get("/api/employees")
         .then(response => {
           this.employees = response.data;
+        })
+        .catch(error => console.log(error.response.data.message));
+      axios
+        .get("/api/configs")
+        .then(response => {
+          this.hours = response.data[0].expected_hours;
+          this.provident_fund = response.data[0].provident_fund;
         })
         .catch(error => console.log(error.response.data.message));
     },
@@ -297,6 +272,9 @@ export default {
           this.getEmployees();
         })
         .catch(error => alert(error.response.data.message));
+    },
+    calcProvidentFund(rateph) {
+      return (this.hours * rateph * this.provident_fund) / 100;
     }
   },
   mounted() {
