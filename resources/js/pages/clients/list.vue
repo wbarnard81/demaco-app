@@ -75,19 +75,26 @@
               <div class="modal-body">
                 <form>
                   <div class="row">
-                    <div class="col">
+                    <div class="col-8">
                       <label for="name">Customer</label>
-                      <input
-                        type="text"
+                      <select
                         class="form-control"
-                        id="name"
                         v-model="form.customer"
-                        placeholder="Enter customer name"
-                      />
+                        @change="setColor($event.target.value)"
+                      >
+                        <option disabled value>Select the Customer</option>
+                        <option
+                          v-for="customer in customers"
+                          :key="customer.id"
+                        >{{ customer.customer }}</option>
+                      </select>
                     </div>
                     <div class="col">
                       <label for="color">Customer Color</label>
-                      <input type="color" class="form-control" id="color" v-model="form.color" />
+                      <div
+                        class="form-control"
+                        :style="[{ backgroundColor: form.color},{ color: form.color}]"
+                      >.</div>
                     </div>
                   </div>
                   <div class="row mt-1">
@@ -124,13 +131,13 @@
                   <div class="row mt-1">
                     <div class="col">
                       <label for="boilermaker">Boilermaker</label>
-                      <input
-                        type="text"
-                        class="form-control"
-                        id="boilermaker"
-                        v-model="form.boilermaker"
-                        placeholder="Enter attending boilermaker"
-                      />
+                      <select class="form-control" v-model="form.boilermaker">
+                        <option disabled value>Select the Boilermaker</option>
+                        <option
+                          v-for="boilermaker in boilermakers"
+                          :key="boilermaker.id"
+                        >{{ boilermaker.first_name }} {{ boilermaker.last_name }}</option>
+                      </select>
                     </div>
                   </div>
 
@@ -171,6 +178,8 @@ export default {
       hexcolor: "#ffffff",
       title: window.config.appName,
       clients: [],
+      customers: [],
+      boilermakers: [],
       form: {
         id: "",
         customer: "",
@@ -189,6 +198,11 @@ export default {
       let a = moment().to(date);
       return a;
     },
+    setColor(customerName) {
+      this.form.color = this.customers.find(
+        x => x.customer === customerName
+      ).colour;
+    },
     getContrastYIQ(hexcolor) {
       hexcolor = hexcolor.replace("#", "");
       var r = parseInt(hexcolor.substr(0, 2), 16);
@@ -202,6 +216,22 @@ export default {
         .get("/api/clients")
         .then(response => (this.clients = response.data))
         .catch(error => console.log(error.response));
+      axios
+        .get("/api/customers")
+        .then(response => {
+          this.customers = response.data;
+        })
+        .catch(error => {
+          alert(error.response.data.message);
+        });
+      axios
+        .get("/api/employees")
+        .then(response => {
+          this.boilermakers = response.data;
+        })
+        .catch(error => {
+          alert(error.response.data.message);
+        });
     },
     editJob(client) {
       this.form.id = client.id;
