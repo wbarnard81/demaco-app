@@ -79,7 +79,9 @@
               <td class="text-center border border-dark">{{employee.last_name}}</td>
               <td class="text-center border border-dark">{{ hours}}</td>
               <td class="text-center border border-dark">{{employee.rateph}}</td>
-              <td class="text-center border border-dark">{{ calcProvidentFund(employee.rateph) }}</td>
+              <td
+                class="text-center border border-dark"
+              >{{ calcProvidentFund(employee.rateph) | number('0.00') }}</td>
             </tr>
           </tbody>
         </table>

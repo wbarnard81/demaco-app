@@ -15,10 +15,10 @@ class CreateConfiguresTable extends Migration
     {
         Schema::create('configures', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->decimal('fuel');
-            $table->decimal('electricity');
-            $table->decimal('provident_fund');
-            $table->decimal('expected_hours');
+            $table->decimal('fuel', 8, 2);
+            $table->decimal('electricity', 8, 2);
+            $table->decimal('provident_fund', 8, 2);
+            $table->decimal('expected_hours', 8, 2);
             $table->timestamps();
         });
     }

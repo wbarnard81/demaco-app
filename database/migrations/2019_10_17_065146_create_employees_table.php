@@ -17,7 +17,7 @@ class CreateEmployeesTable extends Migration
             $table->bigIncrements('id');
             $table->string('first_name');
             $table->string('last_name');
-            $table->integer('rateph');
+            $table->decimal('rateph', 8, 2);
             $table->timestamps();
         });
     }
