@@ -38,14 +38,14 @@
                 :to="{ name: 'login' }"
                 class="nav-link"
                 active-class="active"
-              >{{ 'login' }}</router-link>
+              >{{ 'Login' }}</router-link>
             </li>
             <li class="nav-item">
               <router-link
                 :to="{ name: 'register' }"
                 class="nav-link"
                 active-class="active"
-              >{{ 'register' }}</router-link>
+              >{{ 'Register' }}</router-link>
             </li>
           </template>
         </ul>
