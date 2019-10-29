@@ -23,6 +23,8 @@ class CustomerController extends Controller
         DB::table('customers')->insert([
             'customer' => $request['customer'],
             'colour' => $request['colour'],
+            'vat_number' => $request['vat_number'],
+            'company_number' => $request['company_number'],
         ]);
 
         return;
@@ -45,6 +47,8 @@ class CustomerController extends Controller
             ->update([
                 'customer' => $request->customer,
                 'colour' => $request->colour,
+                'vat_number' => $request->vat_number,
+                'company_number' => $request->company_number,
             ]);
         return;
     }

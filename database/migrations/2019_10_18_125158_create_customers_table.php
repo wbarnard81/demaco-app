@@ -17,6 +17,8 @@ class CreateCustomersTable extends Migration
             $table->bigIncrements('id');
             $table->string('customer');
             $table->string('colour');
+            $table->string('vat_number');
+            $table->string('company_number');
             $table->timestamps();
         });
     }

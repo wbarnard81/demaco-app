@@ -94,7 +94,12 @@
                   <strong>{{ k+1 }}</strong>
                 </td>
                 <td class="col-8">
-                  <input class="form-control" type="text" v-model="invoice_product.product_name" />
+                  <input
+                    class="form-control"
+                    type="text"
+                    style="text-align:left;"
+                    v-model="invoice_product.product_name"
+                  />
                 </td>
                 <td class="col-1">
                   <input
@@ -161,6 +166,19 @@
 
       <hr />
 
+      <div class="container">
+        <div class="d-flex justify-content-around">
+          <div v-for="employee in employees" :key="employee.id">
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="checkbox" />
+              <label class="form-check-label">{{ employee.first_name }}</label>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <hr />
+
       <div class="row">
         <div class="col-1"></div>
         <div class="col-10">
@@ -178,80 +196,26 @@
                 </div>
                 <div class="col">
                   <div class="form-group">
-                    <label for="rateph">Rate per Hour</label>
-                    <input type="text" class="form-control" id="rateph" placeholder="R67" />
+                    <label for="rateph">Normal Time Hours</label>
+                    <input type="number" class="form-control" id="rateph" placeholder="8" />
                   </div>
                 </div>
                 <div class="col">
                   <div class="form-group">
-                    <label for="hours">Hours Needed</label>
-                    <input type="text" class="form-control" id="hours" placeholder="40" />
+                    <label for="rateph">Overtime Hours</label>
+                    <input type="number" class="form-control" id="rateph" placeholder="4" />
                   </div>
                 </div>
                 <div class="col">
                   <div class="form-group">
-                    <label for="total_wage">Total Wage</label>
-                    <input type="text" class="form-control" id="total_wage" placeholder="R2 240" />
-                  </div>
-                </div>
-              </div>
-            </form>
-          </div>
-        </div>
-        <div class="col-1"></div>
-      </div>
-
-      <hr />
-
-      <div class="row">
-        <div class="col-1"></div>
-        <div class="col-10">
-          <div>
-            <label>Overtime Expenses</label>
-          </div>
-          <div>
-            <form>
-              <div class="row">
-                <div class="col">
-                  <div class="form-group">
-                    <label for="employee">Employee</label>
-                    <input type="text" class="form-control" id="employee" placeholder="John Snow" />
+                    <label for="hours">Double Time Hours</label>
+                    <input type="number" class="form-control" id="hours" placeholder="2" />
                   </div>
                 </div>
                 <div class="col">
                   <div class="form-group">
-                    <label for="rateph">Rate per Hour</label>
-                    <input type="text" class="form-control" id="rateph" placeholder="R67" />
-                  </div>
-                </div>
-                <div class="col">
-                  <div class="form-group">
-                    <label for="hours">Overtime Hours</label>
-                    <input type="text" class="form-control" id="hours" placeholder="40" />
-                  </div>
-                </div>
-                <div class="col">
-                  <div class="form-group">
-                    <label for="total_wage">Overtime Cost</label>
-                    <input type="text" class="form-control" id="total_wage" placeholder="R2 240" />
-                  </div>
-                </div>
-                <div class="col">
-                  <div class="form-group">
-                    <label for="employee">Doubletime Hours</label>
-                    <input type="text" class="form-control" id="employee" placeholder="John Snow" />
-                  </div>
-                </div>
-                <div class="col">
-                  <div class="form-group">
-                    <label for="rateph">Doubletime Cost</label>
-                    <input type="text" class="form-control" id="rateph" placeholder="R67" />
-                  </div>
-                </div>
-                <div class="col">
-                  <div class="form-group">
-                    <label for="hours">Total Overtime</label>
-                    <input type="text" class="form-control" id="hours" placeholder="40" />
+                    <label for="total_wage">Total</label>
+                    <input disabled class="form-control" :placeholder="calcWageLine(1,2)" />
                   </div>
                 </div>
               </div>
@@ -270,27 +234,43 @@
             <tbody>
               <tr>
                 <th scope="row">Total Material</th>
-                <td>R 1000</td>
+                <td class="text-right">R 1000</td>
               </tr>
               <tr>
                 <th scope="row">Total Expenses</th>
-                <td>R 500</td>
+                <td class="text-right">R 500</td>
               </tr>
               <tr>
                 <th scope="row">Total Wages</th>
-                <td>R 1500</td>
+                <td class="text-right">R 1500</td>
               </tr>
               <tr>
                 <th scope="row">Total Provident Fund</th>
-                <td>R 400</td>
+                <td class="text-right">R 400</td>
+              </tr>
+              <tr>
+                <th scope="row">Other Expenses</th>
+                <td>
+                  <input type="number" class="theselect" />
+                </td>
+              </tr>
+              <tr>
+                <th scope="row">Consumables</th>
+                <td>
+                  <input type="number" class="theselect" />
+                </td>
+              </tr>
+              <tr>
+                <th scope="row">Total Provident Fund</th>
+                <td class="text-right">R 400</td>
               </tr>
               <tr>
                 <th scope="row">Tax @ 15%</th>
-                <td>R 510</td>
+                <td class="text-right">R 510</td>
               </tr>
               <tr>
                 <th scope="row">Quote Total</th>
-                <td>R 3910</td>
+                <td class="text-right">R 3910</td>
               </tr>
             </tbody>
           </table>
@@ -324,6 +304,7 @@ export default {
   data() {
     return {
       customers: [],
+      employees: [],
       fuel: "",
       electricity: "",
       customer: {
@@ -368,13 +349,20 @@ export default {
           alert(error.response.data.message);
         });
     },
+    getEmployees() {
+      Axios.get("/api/employees")
+        .then(response => {
+          this.employees = response.data;
+        })
+        .catch(error => console.log(error.response.data.message));
+    },
     saveInvoice() {
       console.log(JSON.stringify(this.invoice_products));
     },
     calculateTotal() {
-      var subtotal, total;
+      let subtotal, total;
       subtotal = this.invoice_products.reduce(function(sum, product) {
-        var lineTotal = parseFloat(product.line_total);
+        let lineTotal = parseFloat(product.line_total);
         if (!isNaN(lineTotal)) {
           return sum + lineTotal;
         }
@@ -391,7 +379,7 @@ export default {
       }
     },
     calculateLineTotal(invoice_product) {
-      var total =
+      let total =
         parseFloat(invoice_product.product_price) *
         parseFloat(invoice_product.product_qty);
       if (!isNaN(total)) {
@@ -399,8 +387,15 @@ export default {
       }
       this.calculateTotal();
     },
+    calcWageLine(a, b) {
+      let total = parseFloat(a.product_price) * parseFloat(a.product_qty);
+      if (!isNaN(total)) {
+        a.line_total = total.toFixed(2);
+      }
+      this.calculateTotal();
+    },
     deleteRow(index, invoice_product) {
-      var idx = this.invoice_products.indexOf(invoice_product);
+      let idx = this.invoice_products.indexOf(invoice_product);
       console.log(idx, index);
       if (idx > -1) {
         this.invoice_products.splice(idx, 1);
@@ -421,6 +416,7 @@ export default {
   mounted() {
     this.getCustomers();
     this.getConfigs();
+    this.getEmployees();
   }
 };
 </script>
@@ -439,5 +435,9 @@ export default {
   border: 1px solid #ced4da;
   border-radius: 0.125rem;
   transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+input {
+  text-align: right;
 }
 </style>
