@@ -429,13 +429,12 @@ export default {
           return sum + lineTotal;
         }
       }, 0);
-
       this.wage_subtotal = wsubtotal;
     },
     calculateLineTotal(invoice_product) {
       let itotal = invoice_product.product_price * invoice_product.product_qty;
       if (!isNaN(itotal)) {
-        invoice_product.line_total = itotal;
+        invoice_product.line_total = itotal.toFixed(2);
       }
       this.calculateTotal();
     },
@@ -477,7 +476,7 @@ export default {
 
       qtotal = emprofident + qtotal;
       if (!isNaN(qtotal)) {
-        employee_wage.line_total = qtotal;
+        employee_wage.line_total = qtotal.toFixed(2);
       }
 
       this.calcWageTotal();
