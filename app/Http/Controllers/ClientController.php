@@ -71,6 +71,6 @@ class ClientController extends Controller
     public function urgent()
     {
         return DB::table('clients')
-            ->where('deadline_date', '>', Carbon::now())->get();
+            ->where('deadline_date', '<', Carbon::now())->get();
     }
 }

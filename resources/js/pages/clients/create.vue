@@ -101,7 +101,8 @@ export default {
         start_date: "",
         deadline_date: "",
         delivery_date: "",
-        boilermaker: ""
+        boilermaker: "",
+        completed: false
       }
     };
   },
@@ -125,8 +126,9 @@ export default {
           this.form.deadline_date = "";
           this.form.delivery_date = "";
           this.form.boilermaker = "";
+          this.form.completed = false;
         })
-        .catch(error => console.log(error.response));
+        .catch(error => console.log(error.response.data.message));
     },
     getCustomers() {
       Axios.get("/api/customers")
