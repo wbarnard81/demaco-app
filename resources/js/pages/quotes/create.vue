@@ -419,64 +419,51 @@ export default {
         }
       }, 0);
 
-      this.invoice_subtotal = subtotal.toFixed(2);
-
-      total = subtotal * (this.invoice_tax / 100) + subtotal;
-      total = parseFloat(total);
-      if (!isNaN(total)) {
-        this.invoice_total = total.toFixed(2);
-      } else {
-        this.invoice_total = "0.00";
-      }
+      this.invoice_subtotal = subtotal;
     },
     calcWageTotal() {
-      let subtotal, total;
-      subtotal = this.employee_wages.reduce(function(sum, employee) {
+      let wsubtotal, wtotal;
+      wsubtotal = this.employee_wages.reduce(function(sum, employee) {
         let lineTotal = parseFloat(employee.line_total);
         if (!isNaN(lineTotal)) {
           return sum + lineTotal;
         }
       }, 0);
 
-      this.wage_subtotal = subtotal.toFixed(2);
-
-      total = subtotal * (this.invoice_tax / 100) + subtotal;
-      total = parseFloat(total);
-      if (!isNaN(total)) {
-        this.wage_subtotal = total.toFixed(2);
-      } else {
-        this.wage_subtotal = "0.00";
-      }
+      this.wage_subtotal = wsubtotal;
     },
     calculateLineTotal(invoice_product) {
-      let total =
+      let itotal =
         parseFloat(invoice_product.product_price) *
         parseFloat(invoice_product.product_qty);
-      if (!isNaN(total)) {
-        invoice_product.line_total = total.toFixed(2);
+      if (!isNaN(itotal)) {
+        invoice_product.line_total = itotal;
       }
       this.calculateTotal();
     },
     calcFuel(cost) {
-      let subtotal = cost * this.fuelAmount;
-      this.fuel_cost = subtotal;
-      this.expenses_subtotal = this.expenses_subtotal + subtotal;
-      return subtotal;
+      let fsubtotal = cost * this.fuelAmount;
+      this.fuel_cost = fsubtotal;
+      return fsubtotal;
     },
     calcElectricity(cost) {
-      let subtotal = cost * this.electricityAmount;
-      this.electricity_cost = subtotal;
-      this.expenses_subtotal = this.expenses_subtotal + subtotal;
-      return subtotal;
+      let esubtotal = cost * this.electricityAmount;
+      this.electricity_cost = esubtotal;
+      this.expenses_subtotal = this.fuel_cost + esubtotal;
+      return esubtotal;
     },
     calcWageLine(employee_wage) {
-      let total =
-        parseFloat(employee_wage.employee_rateph) *
-        parseFloat(employee_wage.employee_ntHours) *
-        parseFloat(employee_wage.employee_overtimeHours) *
-        parseFloat(employee_wage.employee_dtHours);
-      if (!isNaN(total)) {
-        employee_wage.line_total = total.toFixed(2);
+      let emrateph = parseFloat(employee_wage.employee_rateph);
+      let emnormalh = parseFloat(employee_wage.employee_ntHours);
+      let emoverth = parseFloat(employee_wage.employee_overtimeHours) * 1.5;
+      let emdth = parseFloat(employee_wage.employee_dtHours) * 2;
+      let qtotal = emrateph * emnormalh * emoverth * emdth;
+      let emprofident = (qtotal * 7.3) / 100;
+      console.log(qtotal);
+      console.log(emprofident);
+      qtotal = emprofident + qtotal;
+      if (!isNaN(qtotal)) {
+        employee_wage.line_total = qtotal.toFixed(2);
       }
       this.calcWageTotal();
     },
@@ -518,14 +505,18 @@ export default {
   },
   computed: {
     quote_subtotal: function() {
-      let subtotal =
-        this.wage_subtotal +
-        this.invoice_subtotal +
-        this.other_subtotal +
-        this.consumables_subtotal +
-        this.expenses_subtotal;
-      console.log(subtotal);
-      return subtotal;
+      let aa = this.expenses_subtotal;
+      let bb = this.invoice_subtotal;
+      let cc = this.wage_subtotal;
+      let dd = parseFloat(this.other_subtotal);
+      let ee = parseFloat(this.consumables_subtotal);
+      let ff = aa + bb + cc + dd + ee;
+      let gg = (ff * 15) / 100;
+      gg = parseFloat(gg.toFixed(2));
+      this.quote_tax = gg;
+      let hh = ff + gg;
+      this.quote_total = hh.toFixed(2);
+      return ff;
     }
   }
 };
