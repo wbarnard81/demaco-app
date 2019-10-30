@@ -22,6 +22,7 @@ class CreateClientsTable extends Migration
             $table->char('deadline_date');
             $table->date('delivery_date');
             $table->string('boilermaker');
+            $table->boolean('completed')->default(false);
             $table->timestamps();
         });
     }

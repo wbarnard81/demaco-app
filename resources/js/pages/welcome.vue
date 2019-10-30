@@ -18,17 +18,17 @@
         </thead>
         <tbody>
           <tr
-            v-for="client in clients"
-            :key="client.id"
-            :style="[{ backgroundColor: client.color} , {color: getContrastYIQ(client.color)}]"
+            v-for="activeJob in activeJobs"
+            :key="activeJob.id"
+            :style="[{ backgroundColor: activeJob.color} , {color: getContrastYIQ(activeJob.color)}]"
           >
-            <th class="border border-dark" scope="row">{{ client.customer }}</th>
-            <td class="border border-dark">{{ client.job }}</td>
-            <td class="border border-dark">{{ client.start_date }}</td>
-            <td class="border border-dark">{{ client.deadline_date }}</td>
-            <td class="border border-dark">{{ client.delivery_date }}</td>
-            <td class="border border-dark">{{ client.boilermaker }}</td>
-            <td class="border border-dark">{{ calcTime(client.deadline_date) }}</td>
+            <th class="border border-dark" scope="row">{{ activeJob.customer }}</th>
+            <td class="border border-dark">{{ activeJob.job }}</td>
+            <td class="border border-dark">{{ activeJob.start_date }}</td>
+            <td class="border border-dark">{{ activeJob.deadline_date }}</td>
+            <td class="border border-dark">{{ activeJob.delivery_date }}</td>
+            <td class="border border-dark">{{ activeJob.boilermaker }}</td>
+            <td class="border border-dark">{{ calcTime(activeJob.deadline_date) }}</td>
           </tr>
         </tbody>
       </table>
@@ -53,7 +53,14 @@ export default {
     };
   },
 
-  computed: {},
+  computed: {
+    activeJobs: function() {
+      return this.clients.filter(function(client) {
+        console.log(client);
+        return client.completed === 0;
+      });
+    }
+  },
 
   methods: {
     calcTime: function(date) {

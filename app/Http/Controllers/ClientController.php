@@ -29,6 +29,7 @@ class ClientController extends Controller
             'deadline_date' => date_create($request['deadline_date']),
             'delivery_date' => date_create($request['delivery_date']),
             'boilermaker' => $request['boilermaker'],
+            'completed' => $request['completed'],
         ]);
 
         return;
@@ -55,7 +56,8 @@ class ClientController extends Controller
                 'start_date' => date_create($request->start_date),
                 'deadline_date' => date_create($request->deadline_date),
                 'delivery_date' => date_create($request->delivery_date),
-                'boilermaker' => $request->boilermaker
+                'boilermaker' => $request->boilermaker,
+                'completed' => $request->completed
             ]);
         return;
     }

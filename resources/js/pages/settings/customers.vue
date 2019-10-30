@@ -117,6 +117,9 @@ export default {
       Axios.post("/api/customers", this.form)
         .then(response => {
           alert("Customer has been set");
+          this.form.customer = "";
+          this.form.vat_number = "";
+          this.form.company_number = "";
           this.getCustomers();
         })
         .catch(error => {

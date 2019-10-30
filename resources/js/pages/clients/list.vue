@@ -19,39 +19,42 @@
             </tr>
           </thead>
           <tbody>
-            <tr v-for="client in clients" :key="client.id">
+            <tr v-for="activeJob in activeJobs" :key="activeJob.id">
               <th
                 scope="row"
-                :style="[{ backgroundColor: client.color} , {color: getContrastYIQ(client.color)}]"
-              >{{ client.customer }}</th>
+                :style="[{ backgroundColor: activeJob.color} , {color: getContrastYIQ(activeJob.color)}]"
+              >{{ activeJob.customer }}</th>
               <td
-                :style="[{ backgroundColor: client.color} , {color: getContrastYIQ(client.color)}]"
-              >{{ client.job }}</td>
+                :style="[{ backgroundColor: activeJob.color} , {color: getContrastYIQ(activeJob.color)}]"
+              >{{ activeJob.job }}</td>
               <td
-                :style="[{ backgroundColor: client.color} , {color: getContrastYIQ(client.color)}]"
-              >{{ client.start_date }}</td>
+                :style="[{ backgroundColor: activeJob.color} , {color: getContrastYIQ(activeJob.color)}]"
+              >{{ activeJob.start_date }}</td>
               <td
-                :style="[{ backgroundColor: client.color} , {color: getContrastYIQ(client.color)}]"
-              >{{ client.deadline_date }}</td>
+                :style="[{ backgroundColor: activeJob.color} , {color: getContrastYIQ(activeJob.color)}]"
+              >{{ activeJob.deadline_date }}</td>
               <td
-                :style="[{ backgroundColor: client.color} , {color: getContrastYIQ(client.color)}]"
-              >{{ client.delivery_date }}</td>
+                :style="[{ backgroundColor: activeJob.color} , {color: getContrastYIQ(activeJob.color)}]"
+              >{{ activeJob.delivery_date }}</td>
               <td
-                :style="[{ backgroundColor: client.color} , {color: getContrastYIQ(client.color)}]"
-              >{{client.boilermaker}}</td>
+                :style="[{ backgroundColor: activeJob.color} , {color: getContrastYIQ(activeJob.color)}]"
+              >{{ activeJob.boilermaker}}</td>
               <td
-                :style="[{ backgroundColor: client.color} , {color: getContrastYIQ(client.color)}]"
-              >{{ calcTime(client.deadline_date) }}</td>
+                :style="[{ backgroundColor: activeJob.color} , {color: getContrastYIQ(activeJob.color)}]"
+              >{{ calcTime(activeJob.deadline_date) }}</td>
               <td>
                 <button
-                  @click="editJob(client)"
+                  @click="editJob(activeJob)"
                   class="btn btn-outline-warning btn-sm"
                   data-toggle="modal"
                   data-target="#editModal"
                 >Edit</button>
               </td>
               <td>
-                <button @click="deleteJob(client.id)" class="btn btn-outline-danger btn-sm">Delete</button>
+                <button
+                  @click="deleteJob(activeJob.id)"
+                  class="btn btn-outline-danger btn-sm"
+                >Delete</button>
               </td>
             </tr>
           </tbody>
@@ -140,6 +143,187 @@
                       </select>
                     </div>
                   </div>
+                  <div class="my-2">
+                    <div class="form-check">
+                      <input
+                        class="form-check-input"
+                        type="checkbox"
+                        value
+                        id="jobCompleted"
+                        v-model="form.completed"
+                      />
+                      <label class="form-check-label" for="jobCompleted">Job Completed</label>
+                    </div>
+                  </div>
+
+                  <button @click.prevent="saveJob()" class="btn btn-primary mt-2">Save Changes</button>
+                </form>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <hr class="my-5 bg-white" />
+
+    <div class="bg-white mx-5">
+      <div class>
+        <h1 class="text-center">Current Jobs</h1>
+      </div>
+      <div>
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th scope="col">Customer</th>
+              <th scope="col">Job Description</th>
+              <th scope="col">Starting Date</th>
+              <th scope="col">Deadline</th>
+              <th scope="col">Delivery Date</th>
+              <th scope="col">Boilermaker</th>
+              <th scope="col">Due in</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="completedJob in completedJobs" :key="completedJob.id">
+              <th
+                scope="row"
+                :style="[{ backgroundColor: completedJob.color} , {color: getContrastYIQ(completedJob.color)}]"
+              >{{ completedJob.customer }}</th>
+              <td
+                :style="[{ backgroundColor: completedJob.color} , {color: getContrastYIQ(completedJob.color)}]"
+              >{{ completedJob.job }}</td>
+              <td
+                :style="[{ backgroundColor: completedJob.color} , {color: getContrastYIQ(completedJob.color)}]"
+              >{{ completedJob.start_date }}</td>
+              <td
+                :style="[{ backgroundColor: completedJob.color} , {color: getContrastYIQ(completedJob.color)}]"
+              >{{ completedJob.deadline_date }}</td>
+              <td
+                :style="[{ backgroundColor: completedJob.color} , {color: getContrastYIQ(completedJob.color)}]"
+              >{{ completedJob.delivery_date }}</td>
+              <td
+                :style="[{ backgroundColor: completedJob.color} , {color: getContrastYIQ(completedJob.color)}]"
+              >{{ completedJob.boilermaker}}</td>
+              <td
+                :style="[{ backgroundColor: completedJob.color} , {color: getContrastYIQ(completedJob.color)}]"
+              >{{ calcTime(completedJob.deadline_date) }}</td>
+              <td>
+                <button
+                  @click="editJob(completedJob)"
+                  class="btn btn-outline-warning btn-sm"
+                  data-toggle="modal"
+                  data-target="#editModal"
+                >Edit</button>
+              </td>
+              <td>
+                <button
+                  @click="deleteJob(completedJob.id)"
+                  class="btn btn-outline-danger btn-sm"
+                >Delete</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <div
+          class="modal fade"
+          id="editModal"
+          tabindex="-1"
+          role="dialog"
+          aria-labelledby="editModalTitle"
+          aria-hidden="true"
+        >
+          <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="editModalTitle">Edit selected Job</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <form>
+                  <div class="row">
+                    <div class="col-8">
+                      <label for="name">Customer</label>
+                      <select
+                        class="form-control"
+                        v-model="form.customer"
+                        @change="setColor($event.target.value)"
+                      >
+                        <option disabled value>Select the Customer</option>
+                        <option
+                          v-for="customer in customers"
+                          :key="customer.id"
+                        >{{ customer.customer }}</option>
+                      </select>
+                    </div>
+                    <div class="col">
+                      <label for="color">Customer Color</label>
+                      <div
+                        class="form-control"
+                        :style="[{ backgroundColor: form.color},{ color: form.color}]"
+                      >.</div>
+                    </div>
+                  </div>
+                  <div class="row mt-1">
+                    <div class="col">
+                      <label for="job">Job Descripion</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="job"
+                        v-model="form.job"
+                        placeholder="Enter job description"
+                      />
+                    </div>
+                  </div>
+                  <div class="row mt-1">
+                    <div class="col">
+                      <label for="start_date">Start Date</label>
+                      <datetime id="start_date" v-model="form.start_date"></datetime>
+                    </div>
+                    <div class="col">
+                      <label for="deadline_date">Deadline Date</label>
+                      <datetime
+                        type="datetime"
+                        v-model="form.deadline_date"
+                        id="deadline_date"
+                        :minute-step="15"
+                      ></datetime>
+                    </div>
+                    <div class="col">
+                      <label for="delivery_date">Delivery Date</label>
+                      <datetime id="delivery_date" v-model="form.delivery_date"></datetime>
+                    </div>
+                  </div>
+                  <div class="row mt-1">
+                    <div class="col">
+                      <label for="boilermaker">Boilermaker</label>
+                      <select class="form-control" v-model="form.boilermaker">
+                        <option disabled value>Select the Boilermaker</option>
+                        <option
+                          v-for="boilermaker in boilermakers"
+                          :key="boilermaker.id"
+                        >{{ boilermaker.first_name }} {{ boilermaker.last_name }}</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="my-2">
+                    <div class="form-check">
+                      <input
+                        class="form-check-input"
+                        type="checkbox"
+                        value
+                        id="jobCompleted"
+                        v-model="form.completed"
+                      />
+                      <label class="form-check-label" for="jobCompleted">Job Completed</label>
+                    </div>
+                  </div>
 
                   <button @click.prevent="saveJob()" class="btn btn-primary mt-2">Save Changes</button>
                 </form>
@@ -188,11 +372,25 @@ export default {
         start_date: "",
         deadline_date: "",
         delivery_date: "",
-        boilermaker: ""
+        boilermaker: "",
+        completed: ""
       }
     };
   },
-  computed: {},
+  computed: {
+    activeJobs: function() {
+      return this.clients.filter(function(client) {
+        console.log(client);
+        return client.completed === 0;
+      });
+    },
+    completedJobs: function() {
+      return this.clients.filter(function(client) {
+        console.log(client);
+        return client.completed === 1;
+      });
+    }
+  },
   methods: {
     calcTime: function(date) {
       let a = moment().to(date);
@@ -242,6 +440,7 @@ export default {
       this.form.deadline_date = client.deadline_date;
       this.form.delivery_date = client.delivery_date;
       this.form.boilermaker = client.boilermaker;
+      this.form.completed = client.completed;
     },
     saveJob() {
       axios
