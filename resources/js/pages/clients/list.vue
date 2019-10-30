@@ -172,7 +172,7 @@
 
     <div class="bg-white mx-5">
       <div class>
-        <h1 class="text-center">Current Jobs</h1>
+        <h1 class="text-center">Completed Jobs</h1>
       </div>
       <div>
         <table class="table table-bordered">
