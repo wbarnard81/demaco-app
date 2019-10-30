@@ -57,14 +57,14 @@
                 <td class="w-25">
                   <input type="number" class="theselect" v-model="fuelAmount" />
                 </td>
-                <td class="text-right">R {{ calcFuel(fuel) }}</td>
+                <td class="text-right">{{ calcFuel(fuel) | currency('R') }}</td>
               </tr>
               <tr>
                 <th scope="row">Electricity</th>
                 <td class="w-25">
                   <input type="number" class="theselect" v-model="electricityAmount" />
                 </td>
-                <td class="text-right">R {{ calcElectricity(electricity) }}</td>
+                <td class="text-right">{{ calcElectricity(electricity) | currency('R') }}</td>
               </tr>
             </tbody>
           </table>
@@ -271,15 +271,15 @@
             <tbody>
               <tr>
                 <th scope="row">Total Expenses</th>
-                <td class="text-right">R {{ expenses_subtotal }}</td>
+                <td class="text-right">{{ expenses_subtotal | currency('R') }}</td>
               </tr>
               <tr>
                 <th scope="row">Total Material</th>
-                <td class="text-right">R {{ invoice_subtotal }}</td>
+                <td class="text-right">{{ invoice_subtotal | currency('R') }}</td>
               </tr>
               <tr>
                 <th scope="row">Total Wages</th>
-                <td class="text-right">R {{ wage_subtotal }}</td>
+                <td class="text-right">{{ wage_subtotal | currency('R') }}</td>
               </tr>
               <tr>
                 <th scope="row">Other Expenses</th>
@@ -295,15 +295,15 @@
               </tr>
               <tr>
                 <th scope="row">Total excl</th>
-                <td class="text-right">R {{ quote_subtotal }}</td>
+                <td class="text-right">{{ quote_subtotal | currency('R') }}</td>
               </tr>
               <tr>
                 <th scope="row">Tax @ 15%</th>
-                <td class="text-right">R {{ quote_tax }}</td>
+                <td class="text-right">{{ quote_tax | currency('R') }}</td>
               </tr>
               <tr>
                 <th scope="row">Quote Total</th>
-                <td class="text-right">R {{ quote_total }}</td>
+                <td class="text-right">{{ quote_total | currency('R') }}</td>
               </tr>
             </tbody>
           </table>
@@ -413,7 +413,7 @@ export default {
     calculateTotal() {
       let subtotal, total;
       subtotal = this.invoice_products.reduce(function(sum, product) {
-        let lineTotal = parseFloat(product.line_total);
+        let lineTotal = product.line_total;
         if (!isNaN(lineTotal)) {
           return sum + lineTotal;
         }
@@ -424,7 +424,7 @@ export default {
     calcWageTotal() {
       let wsubtotal, wtotal;
       wsubtotal = this.employee_wages.reduce(function(sum, employee) {
-        let lineTotal = parseFloat(employee.line_total);
+        let lineTotal = employee.line_total;
         if (!isNaN(lineTotal)) {
           return sum + lineTotal;
         }
@@ -433,9 +433,7 @@ export default {
       this.wage_subtotal = wsubtotal;
     },
     calculateLineTotal(invoice_product) {
-      let itotal =
-        parseFloat(invoice_product.product_price) *
-        parseFloat(invoice_product.product_qty);
+      let itotal = invoice_product.product_price * invoice_product.product_qty;
       if (!isNaN(itotal)) {
         invoice_product.line_total = itotal;
       }
@@ -453,18 +451,35 @@ export default {
       return esubtotal;
     },
     calcWageLine(employee_wage) {
-      let emrateph = parseFloat(employee_wage.employee_rateph);
-      let emnormalh = parseFloat(employee_wage.employee_ntHours);
-      let emoverth = parseFloat(employee_wage.employee_overtimeHours) * 1.5;
-      let emdth = parseFloat(employee_wage.employee_dtHours) * 2;
-      let qtotal = emrateph * emnormalh * emoverth * emdth;
+      let emrateph = employee_wage.employee_rateph;
+      let emnormalh = employee_wage.employee_ntHours;
+      let emoverth = employee_wage.employee_overtimeHours;
+      let emdth = employee_wage.employee_dtHours;
+
+      if (emnormalh > 0 && !NaN) {
+        emnormalh = emnormalh * emrateph;
+      }
+
+      if (emoverth == 0 || NaN) {
+        emoverth = 1;
+      } else if (emoverth > 0) {
+        emoverth = emoverth * 1.5 * emrateph;
+      }
+
+      if (emdth == 0 || NaN) {
+        emdth = 1;
+      } else if (emdth > 0) {
+        emdth = emdth * 2 * emrateph;
+      }
+
+      let qtotal = emnormalh + emoverth + emdth;
       let emprofident = (qtotal * 7.3) / 100;
-      console.log(qtotal);
-      console.log(emprofident);
+
       qtotal = emprofident + qtotal;
       if (!isNaN(qtotal)) {
-        employee_wage.line_total = qtotal.toFixed(2);
+        employee_wage.line_total = qtotal;
       }
+
       this.calcWageTotal();
     },
     setFields(customerName) {
@@ -508,14 +523,14 @@ export default {
       let aa = this.expenses_subtotal;
       let bb = this.invoice_subtotal;
       let cc = this.wage_subtotal;
-      let dd = parseFloat(this.other_subtotal);
-      let ee = parseFloat(this.consumables_subtotal);
+      let dd = this.other_subtotal;
+      let ee = this.consumables_subtotal;
       let ff = aa + bb + cc + dd + ee;
       let gg = (ff * 15) / 100;
-      gg = parseFloat(gg.toFixed(2));
+      gg = gg;
       this.quote_tax = gg;
       let hh = ff + gg;
-      this.quote_total = hh.toFixed(2);
+      this.quote_total = hh;
       return ff;
     }
   }
