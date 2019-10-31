@@ -23,7 +23,7 @@
             :style="[{ backgroundColor: activeJob.color} , {color: getContrastYIQ(activeJob.color)}]"
           >
             <th class="border border-dark" scope="row">{{ activeJob.customer }}</th>
-            <td class="border border-dark">{{ activeJob.job }}</td>
+            <td class="border border-dark">{{ activeJob.description }}</td>
             <td class="border border-dark">{{ activeJob.start_date }}</td>
             <td class="border border-dark">{{ activeJob.deadline_date }}</td>
             <td class="border border-dark">{{ activeJob.delivery_date }}</td>
@@ -49,15 +49,14 @@ export default {
   data: () => {
     return {
       title: window.config.appName,
-      clients: []
+      jobs: []
     };
   },
 
   computed: {
     activeJobs: function() {
-      return this.clients.filter(function(client) {
-        console.log(client);
-        return client.completed === 0;
+      return this.jobs.filter(function(job) {
+        return job.completed === 0;
       });
     }
   },
@@ -77,9 +76,9 @@ export default {
     },
     getJobs() {
       axios
-        .get("/api/clients")
-        .then(response => (this.clients = response.data))
-        .catch(error => console.log(error.response));
+        .get("/api/jobs")
+        .then(response => (this.jobs = response.data))
+        .catch(error => console.log(error.response.data.message));
     }
   },
 

@@ -49,14 +49,14 @@ export default [
     component: page("employees.vue")
   },
   {
-    path: "/clients",
-    name: "add client",
-    component: page("clients/create.vue")
+    path: "/jobs",
+    name: "add a job",
+    component: page("jobs/create.vue")
   },
   {
-    path: "/clients/list",
-    name: "list the clients",
-    component: page("clients/list.vue")
+    path: "/jobs/list",
+    name: "list the jobs",
+    component: page("jobs/list.vue")
   },
   {
     path: "/settings",

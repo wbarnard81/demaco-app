@@ -8,8 +8,8 @@ class Employee extends Model
 {
     protected $fillable = (['first_name', 'last_name', 'rateph']);
 
-    public function clients()
+    public function jobs()
     {
-        return $this->belongsToMany(Client::class, 'client_employee')->withTimestamps();
+        return $this->belongsToMany(Job::class, 'employee_job')->withTimestamps();
     }
 }

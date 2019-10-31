@@ -20,12 +20,12 @@
         <a
           class="nav-item nav-link btn ml-4 btn-outline-success text-white"
           v-on:click="isTab = 'jobs'"
-          href="/clients"
+          href="/jobs"
         >Add a Client Job</a>
         <a
           class="nav-item nav-link btn ml-4 btn-outline-success text-white"
           v-on:click="isTab = 'list'"
-          href="/clients/list"
+          href="/jobs/list"
         >List of Client Jobs</a>
         <a
           class="nav-item nav-link btn ml-4 btn-outline-success text-white"

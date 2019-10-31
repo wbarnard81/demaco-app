@@ -25,12 +25,12 @@
             >.</div>
           </div>
           <div class="col">
-            <label for="job">Job Descripion</label>
+            <label for="description">Job Descripion</label>
             <input
               type="text"
               class="form-control"
-              id="job"
-              v-model="form.job"
+              id="description"
+              v-model="form.description"
               placeholder="Enter job description"
             />
           </div>
@@ -91,9 +91,9 @@ import "vue-datetime/dist/vue-datetime.css";
 const moment = require("moment");
 
 export default {
-  name: "Client",
+  name: "Jobs",
   metaInfo() {
-    return { title: "Add Client Job" };
+    return { title: "Add a Job" };
   },
   middleware: "auth",
   components: {
@@ -107,7 +107,7 @@ export default {
       form: {
         customer: "",
         color: "#fff",
-        job: "",
+        description: "",
         start_date: "",
         deadline_date: "",
         delivery_date: "",
@@ -126,12 +126,12 @@ export default {
       ).colour;
     },
     addJob() {
-      Axios.post("/api/clients", this.form)
+      Axios.post("/api/jobs", this.form)
         .then(response => {
           alert("Job has been added.");
           this.form.customer = "";
           this.form.color = "#ff8080";
-          this.form.job = "";
+          this.form.description = "";
           this.form.start_date = "";
           this.form.deadline_date = "";
           this.form.delivery_date = "";

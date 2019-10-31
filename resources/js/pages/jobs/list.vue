@@ -26,7 +26,7 @@
               >{{ activeJob.customer }}</th>
               <td
                 :style="[{ backgroundColor: activeJob.color} , {color: getContrastYIQ(activeJob.color)}]"
-              >{{ activeJob.job }}</td>
+              >{{ activeJob.description }}</td>
               <td
                 :style="[{ backgroundColor: activeJob.color} , {color: getContrastYIQ(activeJob.color)}]"
               >{{ activeJob.start_date }}</td>
@@ -102,13 +102,12 @@
                   </div>
                   <div class="row mt-1">
                     <div class="col">
-                      <label for="job">Job Descripion</label>
+                      <label for="description">Job Descripion</label>
                       <input
                         type="text"
                         class="form-control"
-                        id="job"
-                        v-model="form.job"
-                        placeholder="Enter job description"
+                        id="description"
+                        v-model="form.description"
                       />
                     </div>
                   </div>
@@ -195,7 +194,7 @@
               >{{ completedJob.customer }}</th>
               <td
                 :style="[{ backgroundColor: completedJob.color} , {color: getContrastYIQ(completedJob.color)}]"
-              >{{ completedJob.job }}</td>
+              >{{ completedJob.description }}</td>
               <td
                 :style="[{ backgroundColor: completedJob.color} , {color: getContrastYIQ(completedJob.color)}]"
               >{{ completedJob.start_date }}</td>
@@ -271,13 +270,12 @@
                   </div>
                   <div class="row mt-1">
                     <div class="col">
-                      <label for="job">Job Descripion</label>
+                      <label for="description">Job Descripion</label>
                       <input
                         type="text"
                         class="form-control"
-                        id="job"
-                        v-model="form.job"
-                        placeholder="Enter job description"
+                        id="description"
+                        v-model="form.description"
                       />
                     </div>
                   </div>
@@ -348,9 +346,9 @@ import "vue-datetime/dist/vue-datetime.css";
 const moment = require("moment");
 
 export default {
-  name: "ClientList",
+  name: "Job List",
   metaInfo() {
-    return { title: "List Client Jobs" };
+    return { title: "List the Jobs" };
   },
   middleware: "auth",
   components: {
@@ -361,14 +359,14 @@ export default {
     return {
       hexcolor: "#ffffff",
       title: window.config.appName,
-      clients: [],
+      jobs: [],
       customers: [],
       boilermakers: [],
       form: {
         id: "",
         customer: "",
         color: "",
-        job: "",
+        description: "",
         start_date: "",
         deadline_date: "",
         delivery_date: "",
@@ -379,15 +377,13 @@ export default {
   },
   computed: {
     activeJobs: function() {
-      return this.clients.filter(function(client) {
-        console.log(client);
-        return client.completed === 0;
+      return this.jobs.filter(function(job) {
+        return job.completed === 0;
       });
     },
     completedJobs: function() {
-      return this.clients.filter(function(client) {
-        console.log(client);
-        return client.completed === 1;
+      return this.jobs.filter(function(job) {
+        return job.completed === 1;
       });
     }
   },
@@ -411,9 +407,9 @@ export default {
     },
     getJobs() {
       axios
-        .get("/api/clients")
-        .then(response => (this.clients = response.data))
-        .catch(error => console.log(error.response));
+        .get("/api/jobs")
+        .then(response => (this.jobs = response.data))
+        .catch(error => console.log(error.response.data.message));
       axios
         .get("/api/customers")
         .then(response => {
@@ -431,34 +427,34 @@ export default {
           alert(error.response.data.message);
         });
     },
-    editJob(client) {
-      this.form.id = client.id;
-      this.form.customer = client.customer;
-      this.form.color = client.color;
-      this.form.job = client.job;
-      this.form.start_date = client.start_date;
-      this.form.deadline_date = client.deadline_date;
-      this.form.delivery_date = client.delivery_date;
-      this.form.boilermaker = client.boilermaker;
-      this.form.completed = client.completed;
+    editJob(job) {
+      this.form.id = job.id;
+      this.form.customer = job.customer;
+      this.form.color = job.color;
+      this.form.description = job.description;
+      this.form.start_date = job.start_date;
+      this.form.deadline_date = job.deadline_date;
+      this.form.delivery_date = job.delivery_date;
+      this.form.boilermaker = job.boilermaker;
+      this.form.completed = job.completed;
     },
     saveJob() {
       axios
-        .patch("/api/clients/" + this.form.id, this.form)
+        .patch("/api/jobs/" + this.form.id, this.form)
         .then(response => {
-          alert("Client job has been updated");
+          alert("job job has been updated");
           this.getJobs();
         })
-        .catch(error => console.log(error.response));
+        .catch(error => console.log(error.response.data.message));
     },
     deleteJob(id) {
       axios
-        .delete("/api/clients/" + id)
+        .delete("/api/jobs/" + id)
         .then(response => {
-          alert("Client has been deleted");
+          alert("job has been deleted");
           this.getJobs();
         })
-        .catch(error => console.log(error.response));
+        .catch(error => console.log(error.response.data.message));
     }
   },
 

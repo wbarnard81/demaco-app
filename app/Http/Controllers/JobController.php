@@ -2,16 +2,21 @@
 
 namespace App\Http\Controllers;
 
-use App\Client;
+use App\Job;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 
-class ClientController extends Controller
+class JobController extends Controller
 {
     public function index()
     {
-        return Client::all();
+        $jobs = \App\Job::all();
+        $employees = $jobs->employees;
+        dd($employees);
+        // dd(\App\Job::all()->employees);
+        // $tags = $item->Tags;
+        return Job::all();
     }
 
     public function create()
@@ -21,42 +26,46 @@ class ClientController extends Controller
 
     public function store(Request $request)
     {
-        $result = DB::table('clients')->insert([
+        DB::table('jobs')->insert([
             'customer' => $request['customer'],
             'color' => $request['color'],
-            'job' => $request['job'],
+            'description' => $request['description'],
             'start_date' => date_create($request['start_date']),
             'deadline_date' => date_create($request['deadline_date']),
             'delivery_date' => date_create($request['delivery_date']),
             'completed' => $request['completed'],
         ]);
 
-        dd($result);
+        $jobId = DB::getPdo()->lastInsertId();
 
-        $client = \App\Client::where('customer', '=', $request['customer'])->first();
-        $client->employees()->sync($request['boilermaker']);
+        //$job = \App\Job::where('customer', '=', $request['customer'])->first();
+        //$jobId->employees()->sync($request['boilermaker']);
 
-        return $client;
+        $job = \App\Job::find($jobId);
+
+        $job->employees()->attach($request['boilermaker']);    
+
+        return $job;
     }
 
-    public function show(Client $client)
+    public function show(Job $job)
     {
         //
     }
 
-    public function edit(Client $client)
+    public function edit(Job $job)
     {
         //
     }
 
-    public function update(Request $request, Client $client)
+    public function update(Request $request, Job $job)
     {
-        DB::table('clients')
-            ->where('id', $client->id)
+        DB::table('Jobs')
+            ->where('id', $job->id)
             ->update([
                 'customer' => $request->customer,
                 'color' => $request->color,
-                'job' => $request->job,
+                'description' => $request->description,
                 'start_date' => date_create($request->start_date),
                 'deadline_date' => date_create($request->deadline_date),
                 'delivery_date' => date_create($request->delivery_date),
@@ -66,15 +75,15 @@ class ClientController extends Controller
         return;
     }
 
-    public function destroy(Client $client)
+    public function destroy(Job $job)
     {
-        $client->delete();
+        $job->delete();
         return;
     }
 
     public function urgent()
     {
-        return DB::table('clients')
+        return DB::table('Jobs')
             ->where('deadline_date', '<', Carbon::now())->get();
     }
 }
