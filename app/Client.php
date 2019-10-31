@@ -6,5 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class Client extends Model
 {
-    protected $fillable = (['customer', 'color', 'start_date', 'deadline_date', 'delivery_date', 'boilermaker']);
+    protected $fillable = (['customer', 'color', 'start_date', 'deadline_date', 'delivery_date']);
+
+    public function employees()
+    {
+        return $this->belongsToMany(Employee::class, 'client_employee')->withTimestamps();
+    }
 }

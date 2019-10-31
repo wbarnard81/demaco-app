@@ -21,18 +21,22 @@ class ClientController extends Controller
 
     public function store(Request $request)
     {
-        DB::table('clients')->insert([
+        $result = DB::table('clients')->insert([
             'customer' => $request['customer'],
             'color' => $request['color'],
             'job' => $request['job'],
             'start_date' => date_create($request['start_date']),
             'deadline_date' => date_create($request['deadline_date']),
             'delivery_date' => date_create($request['delivery_date']),
-            'boilermaker' => $request['boilermaker'],
             'completed' => $request['completed'],
         ]);
 
-        return;
+        dd($result);
+
+        $client = \App\Client::where('customer', '=', $request['customer'])->first();
+        $client->employees()->sync($request['boilermaker']);
+
+        return $client;
     }
 
     public function show(Client $client)

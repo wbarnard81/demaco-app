@@ -54,18 +54,28 @@
             <datetime v-model="form.delivery_date" id="delivery_date"></datetime>
           </div>
         </div>
-        <div class="row mt-1">
-          <div class="col-4">
-            <label for="boilermaker">Boilermaker</label>
-            <select class="form-control" v-model="form.boilermaker">
-              <option disabled value>Select the Boilermaker</option>
-              <option
-                v-for="boilermaker in boilermakers"
-                :key="boilermaker.id"
-              >{{ boilermaker.first_name }} {{ boilermaker.last_name }}</option>
-            </select>
+
+        <div class="container mt-2">
+          <label>Boilermakers</label>
+          <div class="d-flex justify-content-around">
+            <div v-for="boilermaker in boilermakers" :key="boilermaker.id">
+              <div class="form-check form-check-inline">
+                <input
+                  class="form-check-input"
+                  type="checkbox"
+                  :id="boilermaker.first_name"
+                  :value="boilermaker.id"
+                  v-model="form.boilermaker"
+                />
+                <label
+                  class="form-check-label"
+                  :for="boilermaker.first_name"
+                >{{ boilermaker.first_name }}</label>
+              </div>
+            </div>
           </div>
         </div>
+
         <button @click.prevent="addJob()" class="btn btn-primary mt-2">Submit</button>
       </form>
     </div>
@@ -101,7 +111,7 @@ export default {
         start_date: "",
         deadline_date: "",
         delivery_date: "",
-        boilermaker: "",
+        boilermaker: [],
         completed: false
       }
     };
@@ -125,7 +135,7 @@ export default {
           this.form.start_date = "";
           this.form.deadline_date = "";
           this.form.delivery_date = "";
-          this.form.boilermaker = "";
+          this.form.boilermaker = [];
           this.form.completed = false;
         })
         .catch(error => console.log(error.response.data.message));
