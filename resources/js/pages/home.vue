@@ -25,7 +25,12 @@
             </th>
             <td>{{ job.customer }}</td>
             <td>{{ job.deadline_date }}</td>
-            <td>{{ job.boilermaker }}</td>
+            <td>
+              <p
+                v-for="employee in job.employees"
+                :key="employee.id"
+              >{{ employee.first_name }} {{ employee.last_name }}</p>
+            </td>
           </tr>
         </tbody>
       </table>
@@ -66,9 +71,9 @@
                 <strong>Delivery Date:</strong>
                 {{ jobDetails.delivery_date }}
               </p>
-              <p>
+              <p v-for="employee in jobDetails.employees" :key="employee.id">
                 <strong>Boilermaker:</strong>
-                {{ jobDetails.boilermaker }}
+                {{ employee.first_name }} {{ employee.last_name }}
               </p>
             </div>
             <div class="modal-footer">

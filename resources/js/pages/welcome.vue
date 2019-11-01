@@ -27,7 +27,12 @@
             <td class="border border-dark">{{ activeJob.start_date }}</td>
             <td class="border border-dark">{{ activeJob.deadline_date }}</td>
             <td class="border border-dark">{{ activeJob.delivery_date }}</td>
-            <td class="border border-dark">{{ activeJob.boilermaker }}</td>
+            <td class="border border-dark">
+              <p
+                v-for="employee in activeJob.employees"
+                :key="employee.id"
+              >{{ employee.first_name }} {{ employee.last_name }}</p>
+            </td>
             <td class="border border-dark">{{ calcTime(activeJob.deadline_date) }}</td>
           </tr>
         </tbody>

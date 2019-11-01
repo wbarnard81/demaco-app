@@ -4,80 +4,64 @@ namespace App\Http\Controllers;
 
 use App\Quote;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class QuoteController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
-        //
+        return Quote::all();
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
         //
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
-        //
+        DB::table('quotes')->insert([
+            'customer' => $request['customer'],
+            'petrol_quantity' => $request['petrol_quantity'],
+            'electricity_quantity' => $request['electricity_quantity'],
+            'sow' => $request['sow'],
+            'other_expenses' => $request['other_expenses'],
+            'consumables' => $request['consumables'],
+        ]);
+
+        $quoteId = DB::getPdo()->lastInsertId();
+        DB::table('wages')->insert([
+            'employee' => $request['employee'],
+            'normal_hours' => $request['normal_hours'],
+            'overtime_hours' => $request['overtime_hours'],
+            'doubletime_hours' => $request['doubletime_hours'],
+        ]);
+
+        // $quoteId = DB::getPdo()->lastInsertId();
+        // $quote = \App\Quote::find($quoteId);
+        // $quote->materials()->attach($request['material']);
+
+        $quote = \App\Quote::find($quoteId);
+        $quote->wages()->attach($request['employees']);
+
+        return $quote;
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Quote  $quote
-     * @return \Illuminate\Http\Response
-     */
     public function show(Quote $quote)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Quote  $quote
-     * @return \Illuminate\Http\Response
-     */
     public function edit(Quote $quote)
     {
         //
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Quote  $quote
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, Quote $quote)
     {
         //
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Quote  $quote
-     * @return \Illuminate\Http\Response
-     */
     public function destroy(Quote $quote)
     {
         //

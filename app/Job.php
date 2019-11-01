@@ -10,6 +10,6 @@ class Job extends Model
 
     public function employees()
     {
-        return $this->belongsToMany(Employee::class, 'employee_job')->withTimestamps();
+        return $this->belongsToMany(Employee::class)->withTimestamps();
     }
 }

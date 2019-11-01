@@ -14,7 +14,8 @@ use Illuminate\Http\Request;
 */
 
 Route::get('jobs', 'JobController@index');
-Route::post('jobs', 'JobController@store');
+Route::resource('quotes', 'QuoteController');
+Route::resource('materials', 'MaterialController');
 
 Route::group(['middleware' => 'auth:api'], function () {
     Route::post('logout', 'Auth\LoginController@logout');
@@ -30,9 +31,9 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::patch('settings/profile', 'Settings\ProfileController@update');
     Route::patch('settings/password', 'Settings\PasswordController@update');
     Route::get('urgentjobs', 'JobController@urgent');
+    Route::post('jobs', 'JobController@store');
     Route::patch('jobs/{job}', 'JobController@update');
     Route::delete('jobs/{job}', 'JobController@destroy');
-    Route::resource('quotes', 'QuoteController');
     Route::resource('employees', 'EmployeeController');
     Route::resource('configs', 'ConfigureController');
     Route::resource('customers', 'CustomerController');

@@ -70,7 +70,7 @@
                 <label
                   class="form-check-label"
                   :for="boilermaker.first_name"
-                >{{ boilermaker.first_name }}</label>
+                >{{ boilermaker.first_name }} {{ boilermaker.last_name }}</label>
               </div>
             </div>
           </div>

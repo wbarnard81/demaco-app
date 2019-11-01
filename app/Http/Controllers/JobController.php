@@ -11,12 +11,9 @@ class JobController extends Controller
 {
     public function index()
     {
-        $jobs = \App\Job::all();
-        $employees = $jobs->employees;
-        dd($employees);
-        // dd(\App\Job::all()->employees);
-        // $tags = $item->Tags;
-        return Job::all();
+        $jobs = Job::with('employees')->get();
+
+        return $jobs->toJson();
     }
 
     public function create()
@@ -38,12 +35,9 @@ class JobController extends Controller
 
         $jobId = DB::getPdo()->lastInsertId();
 
-        //$job = \App\Job::where('customer', '=', $request['customer'])->first();
-        //$jobId->employees()->sync($request['boilermaker']);
-
         $job = \App\Job::find($jobId);
 
-        $job->employees()->attach($request['boilermaker']);    
+        $job->employees()->attach($request['boilermaker']);
 
         return $job;
     }
@@ -69,10 +63,15 @@ class JobController extends Controller
                 'start_date' => date_create($request->start_date),
                 'deadline_date' => date_create($request->deadline_date),
                 'delivery_date' => date_create($request->delivery_date),
-                'boilermaker' => $request->boilermaker,
                 'completed' => $request->completed
             ]);
-        return;
+
+        $jobId = $job->id;
+
+
+        $job = \App\Job::find($jobId);
+
+        $job->employees()->sync($request['boilermaker']);
     }
 
     public function destroy(Job $job)
@@ -83,7 +82,10 @@ class JobController extends Controller
 
     public function urgent()
     {
-        return DB::table('Jobs')
-            ->where('deadline_date', '<', Carbon::now())->get();
+        $jobs = Job::with('employees')->where('deadline_date', '<', Carbon::now())->get();
+
+        return $jobs->toJson();
+        // return DB::table('Jobs')
+        //     ->where('deadline_date', '<', Carbon::now())->get();
     }
 }
