@@ -55,7 +55,7 @@
           </div>
         </div>
 
-        <div class="container mt-2 mb-5">
+        <div class="container mt-3 mb-3">
           <label>Boilermakers</label>
           <div class="d-flex justify-content-around">
             <div v-for="boilermaker in boilermakers" :key="boilermaker.id">
@@ -76,7 +76,7 @@
           </div>
         </div>
 
-        <button @click.prevent="addJob()" class="btn btn-primary mt-5">Submit</button>
+        <button @click.prevent="addJob()" class="btn btn-primary mt-3">Submit</button>
       </form>
     </div>
   </div>
