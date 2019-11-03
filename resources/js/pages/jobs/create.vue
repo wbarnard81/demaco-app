@@ -60,7 +60,7 @@
             <label>Boilermakers</label>
             <div class="d-flex justify-content-around">
               <div v-for="boilermaker in boilermakers" :key="boilermaker.id">
-                <div class="form-check form-check-inline">
+                <div class="form-check form-check-inline col">
                   <input
                     class="css-checkbox"
                     type="checkbox"
