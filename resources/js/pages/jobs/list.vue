@@ -33,7 +33,7 @@
                 <p
                   v-for="employee in activeJob.employees"
                   :key="employee.id"
-                >{{ employee.first_name }} {{ employee.last_name }}</p>
+                >{{ employee.first_name }}</p>
               </td>
               <td>{{ calcTime(activeJob.deadline_date) }}</td>
               <td class="bg-white d-flex justify-content-center align-items-center">
@@ -214,7 +214,7 @@
                 <p
                   v-for="employee in completedJob.employees"
                   :key="employee.id"
-                >{{ employee.first_name }} {{ employee.last_name }}</p>
+                >{{ employee.first_name }}</p>
               </td>
               <td
                 :style="[{ backgroundColor: completedJob.color} , {color: getContrastYIQ(completedJob.color)}]"
