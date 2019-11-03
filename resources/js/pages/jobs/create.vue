@@ -56,21 +56,23 @@
         </div>
 
         <div class="container mt-3 mb-3">
-          <label>Boilermakers</label>
-          <div class="d-flex justify-content-around">
-            <div v-for="boilermaker in boilermakers" :key="boilermaker.id">
-              <div class="form-check form-check-inline">
-                <input
-                  class="css-checkbox"
-                  type="checkbox"
-                  :id="boilermaker.first_name"
-                  :value="boilermaker.id"
-                  v-model="form.boilermaker"
-                />
-                <label
-                  class="css-label"
-                  :for="boilermaker.first_name"
-                >{{ boilermaker.first_name }} {{ boilermaker.last_name }}</label>
+          <div class="row">
+            <label>Boilermakers</label>
+            <div class="d-flex justify-content-around">
+              <div v-for="boilermaker in boilermakers" :key="boilermaker.id">
+                <div class="form-check form-check-inline">
+                  <input
+                    class="css-checkbox"
+                    type="checkbox"
+                    :id="boilermaker.first_name"
+                    :value="boilermaker.id"
+                    v-model="form.boilermaker"
+                  />
+                  <label
+                    class="css-label"
+                    :for="boilermaker.first_name"
+                  >{{ boilermaker.first_name }} {{ boilermaker.last_name }}</label>
+                </div>
               </div>
             </div>
           </div>
