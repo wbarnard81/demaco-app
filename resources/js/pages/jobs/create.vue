@@ -61,14 +61,14 @@
             <div v-for="boilermaker in boilermakers" :key="boilermaker.id">
               <div class="form-check form-check-inline">
                 <input
-                  class="form-check-input"
+                  class="css-checkbox"
                   type="checkbox"
                   :id="boilermaker.first_name"
                   :value="boilermaker.id"
                   v-model="form.boilermaker"
                 />
                 <label
-                  class="form-check-label"
+                  class="css-label"
                   :for="boilermaker.first_name"
                 >{{ boilermaker.first_name }} {{ boilermaker.last_name }}</label>
               </div>
@@ -162,3 +162,43 @@ export default {
   }
 };
 </script>
+
+<style scoped>
+input[type="checkbox"].css-checkbox {
+  position: absolute;
+  z-index: -1000;
+  left: -1000px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  height: 1px;
+  width: 1px;
+  margin: -1px;
+  padding: 0;
+  border: 0;
+}
+
+input[type="checkbox"].css-checkbox + label.css-label {
+  padding-left: 29px;
+  height: 24px;
+  display: inline-block;
+  line-height: 24px;
+  background-repeat: no-repeat;
+  background-position: 0 0;
+  font-size: 24px;
+  vertical-align: middle;
+  cursor: pointer;
+}
+
+input[type="checkbox"].css-checkbox:checked + label.css-label {
+  background-position: 0 -24px;
+}
+label.css-label {
+  background-image: url(/dist/images/csscheckbox.png);
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+</style>

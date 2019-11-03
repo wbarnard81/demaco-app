@@ -165,15 +165,26 @@
 
       <hr />
 
-      <div class="container">
-        <div class="d-flex justify-content-around">
-          <div v-for="employee in employees" :key="employee.id">
-            <div class="form-check form-check-inline">
-              <input class="form-check-input" type="checkbox" @click="addNewWageRow(employee)" />
-              <label class="form-check-label">{{ employee.first_name }}</label>
+      <div class="row">
+        <div class="col-1"></div>
+        <div class="col-10">
+          <h4>Employees</h4>
+          <div class="d-flex justify-content-around">
+            <div v-for="employee in employees" :key="employee.id">
+              <div class="form-check form-check-inline">
+                <input
+                  class="css-checkbox"
+                  type="checkbox"
+                  :value="employee.id"
+                  :id="employee.first_name"
+                  @click="addNewWageRow(employee)"
+                />
+                <label class="css-label" :for="employee.first_name">{{ employee.first_name }}</label>
+              </div>
             </div>
           </div>
         </div>
+        <div class="col-1"></div>
       </div>
 
       <hr />
@@ -554,5 +565,43 @@ export default {
 
 input {
   text-align: right;
+}
+
+input[type="checkbox"].css-checkbox {
+  position: absolute;
+  z-index: -1000;
+  left: -1000px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  height: 1px;
+  width: 1px;
+  margin: -1px;
+  padding: 0;
+  border: 0;
+}
+
+input[type="checkbox"].css-checkbox + label.css-label {
+  padding-left: 29px;
+  height: 24px;
+  display: inline-block;
+  line-height: 24px;
+  background-repeat: no-repeat;
+  background-position: 0 0;
+  font-size: 24px;
+  vertical-align: middle;
+  cursor: pointer;
+}
+
+input[type="checkbox"].css-checkbox:checked + label.css-label {
+  background-position: 0 -24px;
+}
+label.css-label {
+  background-image: url(/dist/images/csscheckbox.png);
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 </style>
