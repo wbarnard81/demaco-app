@@ -31,7 +31,7 @@
               <p
                 v-for="employee in activeJob.employees"
                 :key="employee.id"
-              >{{ employee.first_name }} {{ employee.last_name }}</p>
+              >{{ employee.first_name }}</p>
             </td>
             <td class="border border-dark">{{ calcTime(activeJob.deadline_date) }}</td>
           </tr>
