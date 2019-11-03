@@ -22,7 +22,6 @@ class CreateJobsTable extends Migration
             $table->char('deadline_date');
             $table->date('delivery_date');
             $table->boolean('completed')->default(false);
-            $table->unsignedBigInteger('employee_id');
             $table->timestamps();
         });
     }
