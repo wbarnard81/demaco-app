@@ -127,7 +127,7 @@
                   <div class="row mt-1">
                     <div class="col">
                       <label for="boilermaker">Boilermaker</label>
-                      <div class="d-flex justify-content-around">
+                      <div class="d-flex justify-content-around flex-wrap">
                         <div v-for="boilermaker in boilermakers" :key="boilermaker.id">
                           <div class="form-check form-check-inline">
                             <input
@@ -140,7 +140,7 @@
                             <label
                               class="css-label"
                               :for="boilermaker.first_name"
-                            >{{ boilermaker.first_name }} {{ boilermaker.last_name }}</label>
+                            >{{ boilermaker.first_name }}</label>
                           </div>
                         </div>
                       </div>
