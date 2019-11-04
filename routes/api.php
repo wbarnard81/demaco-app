@@ -14,6 +14,7 @@ use Illuminate\Http\Request;
 */
 
 Route::get('jobs', 'JobController@index');
+Route::get('quotes/jobcard', 'QuoteController@jcNo');
 Route::resource('quotes', 'QuoteController');
 Route::resource('materials', 'MaterialController');
 

@@ -361,7 +361,7 @@ export default {
     return {
       customers: [],
       employees: [],
-      jobcard_number: "1000",
+      jobcard_number: "",
       fuel: "",
       electricity: "",
       fuelAmount: "",
@@ -415,8 +415,8 @@ export default {
       Axios.get("/api/configs")
         .then(response => {
           if (response.data.length >= 1) {
-            this.fuel = response.data[0].fuel;
-            this.electricity = response.data[0].electricity;
+            this.fuel = parseFloat(response.data[0].fuel);
+            this.electricity = parseFloat(response.data[0].electricity);
           }
         })
         .catch(error => {
@@ -429,6 +429,15 @@ export default {
           this.employees = response.data;
         })
         .catch(error => console.log(error.response.data.message));
+    },
+    getJobcardNo() {
+      Axios.get("/api/quotes/jobcard")
+        .then(response => {
+          this.jobcard_number = response.data + 1;
+        })
+        .catch(error => {
+          console.log(error.response.data.message);
+        });
     },
     saveInvoice() {
       console.log(JSON.stringify(this.invoice_products));
@@ -452,7 +461,7 @@ export default {
           return sum + lineTotal;
         }
       }, 0);
-      this.wage_subtotal = wsubtotal;
+      this.wage_subtotal = parseFloat(wsubtotal);
     },
     calculateLineTotal(invoice_product) {
       let itotal = invoice_product.product_price * invoice_product.product_qty;
@@ -552,21 +561,22 @@ export default {
     this.getCustomers();
     this.getConfigs();
     this.getEmployees();
+    this.getJobcardNo();
   },
   computed: {
     quote_subtotal: function() {
-      let aa = this.expenses_subtotal;
-      let bb = this.invoice_subtotal;
-      let cc = this.wage_subtotal;
-      let dd = this.other_subtotal;
-      let ee = this.consumables_subtotal;
+      let aa = parseFloat(this.expenses_subtotal);
+      let bb = parseFloat(this.invoice_subtotal);
+      let cc = parseFloat(this.wage_subtotal);
+      let dd = parseFloat(this.other_subtotal);
+      let ee = parseFloat(this.consumables_subtotal);
       let ff = aa + bb + cc + dd + ee;
       let gg = (ff * 15) / 100;
-      gg = gg;
+      gg = parseFloat(gg);
       this.quote_tax = gg;
       let hh = ff + gg;
-      this.quote_total = hh;
-      return ff;
+      this.quote_total = parseFloat(hh);
+      return parseFloat(ff);
     }
   }
 };

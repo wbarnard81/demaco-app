@@ -13,6 +13,11 @@ class QuoteController extends Controller
         return Quote::all();
     }
 
+    public function jcNo()
+    {
+        return Quote::latest()->first()->id;
+    }
+
     public function create()
     {
         //
