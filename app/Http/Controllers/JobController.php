@@ -72,6 +72,7 @@ class JobController extends Controller
         $job = \App\Job::find($jobId);
 
         $job->employees()->sync($request['boilermaker']);
+        return $job;
     }
 
     public function destroy(Job $job)
