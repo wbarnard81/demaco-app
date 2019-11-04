@@ -54,7 +54,7 @@ class JobController extends Controller
 
     public function update(Request $request, Job $job)
     {
-        DB::table('Jobs')
+        DB::table('jobs')
             ->where('id', $job->id)
             ->update([
                 'customer' => $request->customer,
@@ -71,8 +71,7 @@ class JobController extends Controller
 
         $job = \App\Job::find($jobId);
 
-        $job->employees()->attach($request['boilermaker']);
-        dd($job);
+        $job->employees()->sync($request['boilermaker']);
         return $job;
     }
 
