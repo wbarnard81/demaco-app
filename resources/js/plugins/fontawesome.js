@@ -11,7 +11,9 @@ import {
   faCog,
   faUserTie,
   faSlidersH,
-  faPlusCircle
+  faPlusCircle,
+  faTrashAlt,
+  faTrash
 } from "@fortawesome/free-solid-svg-icons";
 
 import { faGithub } from "@fortawesome/free-brands-svg-icons";
@@ -24,7 +26,9 @@ library.add(
   faGithub,
   faUserTie,
   faSlidersH,
-  faPlusCircle
+  faPlusCircle,
+  faTrashAlt,
+  faTrash
 );
 
 Vue.component("fa", FontAwesomeIcon);

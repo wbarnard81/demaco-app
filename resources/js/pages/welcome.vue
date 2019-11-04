@@ -44,7 +44,7 @@
 <script>
 import { mapGetters } from "vuex";
 import axios from "axios";
-const moment = require("moment");
+import { formatDistance, subDays, parseISO } from "date-fns";
 
 export default {
   metaInfo() {
@@ -68,8 +68,7 @@ export default {
 
   methods: {
     calcTime: function(date) {
-      let a = moment().to(date);
-      return a;
+      return formatDistance(new Date(), parseISO(date));
     },
     getContrastYIQ(hexcolor) {
       hexcolor = hexcolor.replace("#", "");

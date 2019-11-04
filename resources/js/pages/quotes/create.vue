@@ -105,6 +105,12 @@
               <tr v-for="(invoice_product, k) in invoice_products" :key="k" class="row">
                 <td class="col-1">
                   <strong>{{ k+1 }}</strong>
+                  <fa
+                    icon="trash"
+                    class="redIcon ml-3"
+                    @click="deleteRow(k, invoice_product)"
+                    fixed-width
+                  />
                 </td>
                 <td class="col-8">
                   <input
@@ -210,6 +216,12 @@
                 <tr v-for="(employee_wage, k) in employee_wages" :key="k" class="row">
                   <td class="col-1">
                     <strong>{{ k+1 }}</strong>
+                    <fa
+                      icon="trash"
+                      class="redIcon ml-3"
+                      @click="deleteWageRow(k, employee_wage)"
+                      fixed-width
+                    />
                   </td>
                   <td class="col-6">
                     <input
@@ -510,6 +522,13 @@ export default {
       });
       this.line_number++;
     },
+    deleteRow(index, invoice_product) {
+      let idx = this.invoice_products.indexOf(invoice_product);
+      if (idx > -1) {
+        this.invoice_products.splice(idx, 1);
+      }
+      this.calculateTotal();
+    },
     addNewWageRow(employee) {
       this.employee_wages.push({
         employee_no: employee.id,
@@ -521,6 +540,12 @@ export default {
         line_total: 0
       });
       this.wage_line_number++;
+    },
+    deleteWageRow(index, employee) {
+      let index1 = this.employee_wages.indexOf(employee);
+      if (index1 > -1) {
+        this.employee_wages.splice(index1, 1);
+      }
     }
   },
   mounted() {
@@ -603,5 +628,9 @@ label.css-label {
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
+}
+
+.redIcon {
+  color: red;
 }
 </style>

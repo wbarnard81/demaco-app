@@ -1,14 +1,15 @@
 <template>
-  <nav class="navbar navbar-expand-lg navbar-light bg-white">
+  <nav class="navbar navbar-expand-lg nav-fill navbar-dark bg-dark">
     <div class="container">
-      <router-link :to="{ name: user ? 'home' : 'welcome' }" class="navbar-brand">{{ appName }}</router-link>
+      <div id="logo"></div>
+      <router-link :to="{ name: user ? 'home' : 'welcome' }" class="navbar-brand ml-2">{{ appName }}</router-link>
 
       <div id="navbarToggler" class="collapse navbar-collapse">
         <ul class="navbar-nav ml-auto">
           <!-- Authenticated -->
           <li v-if="user" class="nav-item dropdown">
             <a
-              class="nav-link dropdown-toggle text-dark"
+              class="nav-link dropdown-toggle text-light"
               href="#"
               role="button"
               data-toggle="dropdown"
@@ -88,5 +89,14 @@ export default {
   width: 2rem;
   height: 2rem;
   margin: -0.375rem 0;
+}
+
+#logo {
+  background-image: url("/dist/images/logo2.png");
+  width: 6rem;
+  height: 2rem;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 </style>

@@ -361,8 +361,7 @@ import Adminpanel from "../../components/Adminpanel";
 import axios from "axios";
 import { Datetime } from "vue-datetime";
 import "vue-datetime/dist/vue-datetime.css";
-
-const moment = require("moment");
+import { formatDistance, subDays, parseISO } from "date-fns";
 
 export default {
   name: "JobList",
@@ -408,8 +407,7 @@ export default {
   },
   methods: {
     calcTime: function(date) {
-      let a = moment().to(date);
-      return a;
+      return formatDistance(new Date(), parseISO(date));
     },
     setColor(customerName) {
       this.form.color = this.customers.find(
