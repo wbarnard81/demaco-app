@@ -13,7 +13,10 @@
             <tbody>
               <tr>
                 <th scope="row">Jobcard Number</th>
-                <td>{{ jobcard_number }}</td>
+                <td class="text-right">
+                  <strong>#</strong>
+                  {{ jobcard_number }}
+                </td>
               </tr>
               <tr>
                 <th scope="row">Customer Name</th>
