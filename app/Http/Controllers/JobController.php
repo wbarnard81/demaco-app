@@ -72,6 +72,7 @@ class JobController extends Controller
         $job = \App\Job::find($jobId);
 
         $job->employees()->attach($request['boilermaker']);
+        dd($job);
         return $job;
     }
 
