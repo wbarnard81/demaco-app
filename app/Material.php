@@ -10,6 +10,6 @@ class Material extends Model
 
     public function quotes()
     {
-        return $this->belongsToMany(Quote::class)->withTimestamps();
+        return $this->belongsToMany(Material::class, 'material_quote')->withTimestamps();
     }
 }

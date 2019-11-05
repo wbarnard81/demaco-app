@@ -15,6 +15,6 @@ class Quote extends Model
 
     public function wages()
     {
-        return $this->belongsToMany(Employee::class, 'quote_wages')->withTimestamps();
+        return $this->belongsToMany(Wage::class, 'quote_id', 'quote_wages')->withTimestamps();
     }
 }

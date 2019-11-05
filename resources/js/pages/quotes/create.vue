@@ -105,13 +105,13 @@
               </tr>
             </thead>
             <tbody>
-              <tr v-for="(invoice_product, k) in invoice_products" :key="k" class="row">
+              <tr v-for="(material, k) in materials" :key="k" class="row">
                 <td class="col-1">
                   <strong>{{ k+1 }}</strong>
                   <fa
                     icon="trash"
                     class="redIcon ml-3"
-                    @click="deleteRow(k, invoice_product)"
+                    @click="deleteRow(k, material)"
                     fixed-width
                   />
                 </td>
@@ -120,7 +120,7 @@
                     class="form-control"
                     type="text"
                     style="text-align:left;"
-                    v-model="invoice_product.product_name"
+                    v-model="material.product_name"
                   />
                 </td>
                 <td class="col-1">
@@ -129,8 +129,8 @@
                     type="number"
                     min="0"
                     step=".01"
-                    v-model="invoice_product.product_price"
-                    @change="calculateLineTotal(invoice_product)"
+                    v-model="material.product_price"
+                    @change="calculateLineTotal(material)"
                   />
                 </td>
                 <td class="col-1">
@@ -139,8 +139,8 @@
                     type="number"
                     min="0"
                     step=".01"
-                    v-model="invoice_product.product_qty"
-                    @change="calculateLineTotal(invoice_product)"
+                    v-model="material.product_qty"
+                    @change="calculateLineTotal(material)"
                   />
                 </td>
                 <td class="col-1">
@@ -150,7 +150,7 @@
                     type="number"
                     min="0"
                     step=".01"
-                    v-model="invoice_product.line_total"
+                    v-model="material.line_total"
                   />
                 </td>
               </tr>
@@ -161,7 +161,7 @@
               >
                 <fa icon="plus-circle" />
               </button>
-              <tr v-show="invoice_products.length === 0">
+              <tr v-show="materials.length === 0">
                 <td colspan="6">
                   <p class="text-center alert-danger p-2">No products added/available.</p>
                 </td>
@@ -392,7 +392,7 @@ export default {
       quote_total: 0,
       invoice_total: 0,
       invoice_tax: 15,
-      invoice_products: [
+      materials: [
         {
           product_no: "",
           product_name: "",
@@ -460,12 +460,23 @@ export default {
       })
         .then(response => {
           alert("Quote has been saved");
+          this.customer = "";
+          this.fuelAmount = "";
+          this.electricityAmount = "";
+          this.scopeOfWork = "";
+          this.other_subtotal = "";
+          this.consumables_subtotal = "";
+          this.invoice_subtotal = "";
+          this.wage_subtotal = "";
+          this.quote_total = "";
+          this.employee_wages = [];
+          this.materials = [];
         })
         .catch(error => console.log(error.response.data.message));
     },
     calculateTotal() {
       let subtotal, total;
-      subtotal = this.invoice_products.reduce(function(sum, product) {
+      subtotal = this.materials.reduce(function(sum, product) {
         let lineTotal = product.line_total;
         if (!isNaN(lineTotal)) {
           return sum + lineTotal;
@@ -484,10 +495,10 @@ export default {
       }, 0);
       this.wage_subtotal = parseFloat(wsubtotal);
     },
-    calculateLineTotal(invoice_product) {
-      let itotal = invoice_product.product_price * invoice_product.product_qty;
+    calculateLineTotal(material) {
+      let itotal = material.product_price * material.product_qty;
       if (!isNaN(itotal)) {
-        invoice_product.line_total = itotal.toFixed(2);
+        material.line_total = itotal.toFixed(2);
       }
       this.calculateTotal();
     },
@@ -543,7 +554,7 @@ export default {
       ).company_number;
     },
     addNewRow() {
-      this.invoice_products.push({
+      this.materials.push({
         product_no: "",
         product_name: "",
         product_price: "",
@@ -552,10 +563,10 @@ export default {
       });
       this.line_number++;
     },
-    deleteRow(index, invoice_product) {
-      let idx = this.invoice_products.indexOf(invoice_product);
+    deleteRow(index, material) {
+      let idx = this.materials.indexOf(material);
       if (idx > -1) {
-        this.invoice_products.splice(idx, 1);
+        this.materials.splice(idx, 1);
       }
       this.calculateTotal();
     },

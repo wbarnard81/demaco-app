@@ -10,7 +10,7 @@ class QuoteController extends Controller
 {
     public function index()
     {
-        return Quote::all();
+        return Quote::paginate(5);
     }
 
     public function jcNo()
@@ -20,7 +20,7 @@ class QuoteController extends Controller
 
     public function create()
     {
-        //
+        return Quote::with('wages')->with('materials')->get();
     }
 
     public function store(Request $request)

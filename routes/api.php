@@ -16,7 +16,6 @@ use Illuminate\Http\Request;
 Route::get('jobs', 'JobController@index');
 Route::get('quotes/jobcard', 'QuoteController@jcNo');
 Route::resource('quotes', 'QuoteController');
-Route::resource('materials', 'MaterialController');
 
 Route::group(['middleware' => 'auth:api'], function () {
     Route::post('logout', 'Auth\LoginController@logout');
