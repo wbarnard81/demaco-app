@@ -21,6 +21,7 @@ class CreateQuotesTable extends Migration
             $table->longText('sow');
             $table->decimal('other_expenses');
             $table->decimal('consumables');
+            $table->decimal('quote_total');
             $table->timestamps();
         });
         DB::update("ALTER TABLE quotes AUTO_INCREMENT = 1000;");

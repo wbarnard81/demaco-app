@@ -15,8 +15,15 @@ class CreateQuoteWagesTable extends Migration
     {
         Schema::create('quote_wages', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedBigInteger('wages_id');
             $table->unsignedBigInteger('quote_id');
+            $table->unsignedBigInteger('employee_id');
+            $table->integer('employee_no');
+            $table->string('employee_name');
+            $table->decimal('employee_rateph');
+            $table->decimal('employee_dtHours');
+            $table->decimal('employee_ntHours');
+            $table->decimal('employee_overtimeHours');
+            $table->decimal('line_total');
             $table->timestamps();
         });
     }

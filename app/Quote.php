@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Quote extends Model
 {
-    protected $fillable = (['customer', 'petrol_quantity', 'electricity_quantity', 'sow', 'other_expenses', 'consumables']);
+    protected $fillable = (['customer', 'petrol_quantity', 'electricity_quantity', 'sow', 'other_expenses', 'consumables', 'quote_total']);
 
     public function materials()
     {

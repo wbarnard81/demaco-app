@@ -340,7 +340,7 @@
       <div class="row">
         <div class="col-10"></div>
         <div class="col-1">
-          <button type="submit" class="btn btn-primary mt-3 mb-5">Submit</button>
+          <button type="submit" class="btn btn-primary mt-3 mb-5" @click="saveInvoice()">Save</button>
         </div>
         <div class="col-1"></div>
       </div>
@@ -436,14 +436,32 @@ export default {
     getJobcardNo() {
       Axios.get("/api/quotes/jobcard")
         .then(response => {
-          this.jobcard_number = response.data + 1;
+          if (response.data === "") {
+            this.jobcard_number = 1000;
+          } else {
+            this.jobcard_number = response.data.id + 1;
+          }
         })
         .catch(error => {
           console.log(error.response.data.message);
         });
     },
     saveInvoice() {
-      console.log(JSON.stringify(this.invoice_products));
+      Axios.post("/api/quotes", {
+        customer: this.customer.customer,
+        petrol_quantity: this.fuelAmount,
+        electricity_quantity: this.electricityAmount,
+        sow: this.scopeOfWork,
+        other_expenses: this.other_subtotal,
+        consumables: this.consumables_subtotal,
+        quote_total: this.quote_total,
+        employee_wages: this.employee_wages,
+        materials: this.materials
+      })
+        .then(response => {
+          alert("Quote has been saved");
+        })
+        .catch(error => console.log(error.response.data.message));
     },
     calculateTotal() {
       let subtotal, total;
