@@ -57,7 +57,7 @@
               </p>
               <p>
                 <strong>Job Description:</strong>
-                {{ jobDetails.job }}
+                {{ jobDetails.description }}
               </p>
               <p>
                 <strong>Start Date:</strong>
