@@ -59,6 +59,16 @@
         </div>
       </div>
 
+      <div class="form-group row">
+        <label class="col-md-3 col-form-label text-md-right">{{ 'Tax' }}</label>
+        <div class="col-md-4 input-group">
+          <div class="input-group-prepend">
+            <span class="input-group-text" id="basic-addon5">%</span>
+          </div>
+          <input v-model="form.tax" class="form-control" type="number" step="0.01" name="tax" />
+        </div>
+      </div>
+
       <!-- Submit Button -->
       <div class="form-group row">
         <div class="col-md-9 ml-md-auto">
@@ -78,7 +88,7 @@ export default {
   scrollToTop: false,
 
   metaInfo() {
-    return { title: "Settings" };
+    return { title: "Config" };
   },
 
   data: () => ({
@@ -87,7 +97,8 @@ export default {
       fuel: "",
       electricity: "",
       provident_fund: "",
-      expected_hours: ""
+      expected_hours: "",
+      tax: ""
     },
     isUpdating: false
   }),
@@ -109,6 +120,7 @@ export default {
             this.form.electricity = response.data[0].electricity;
             this.form.provident_fund = response.data[0].provident_fund;
             this.form.expected_hours = response.data[0].expected_hours;
+            this.form.tax = response.data[0].tax;
           }
         })
         .catch(error => {

@@ -15,7 +15,8 @@ class CreateMaterialsTable extends Migration
     {
         Schema::create('materials', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('description');
+            $table->unsignedBigInteger('quote_id');
+            $table->string('item_name');
             $table->decimal('price', 8, 2);
             $table->integer('quantity');
             $table->timestamps();

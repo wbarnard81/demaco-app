@@ -25,6 +25,7 @@ class ConfigureController extends Controller
             'electricity' => $request['electricity'],
             'provident_fund' => $request['provident_fund'],
             'expected_hours' => $request['expected_hours'],
+            'tax' => $request['tax'],
         ]);
 
         return;
@@ -49,6 +50,7 @@ class ConfigureController extends Controller
                 'electricity' => $request->electricity,
                 'provident_fund' => $request->provident_fund,
                 'expected_hours' => $request->expected_hours,
+                'tax' => $request->tax,
             ]);
         return;
     }

@@ -120,7 +120,7 @@
                     class="form-control"
                     type="text"
                     style="text-align:left;"
-                    v-model="material.product_name"
+                    v-model="material.item_name"
                   />
                 </td>
                 <td class="col-1">
@@ -129,7 +129,7 @@
                     type="number"
                     min="0"
                     step=".01"
-                    v-model="material.product_price"
+                    v-model="material.price"
                     @change="calculateLineTotal(material)"
                   />
                 </td>
@@ -139,7 +139,7 @@
                     type="number"
                     min="0"
                     step=".01"
-                    v-model="material.product_qty"
+                    v-model="material.quantity"
                     @change="calculateLineTotal(material)"
                   />
                 </td>
@@ -163,7 +163,7 @@
               </button>
               <tr v-show="materials.length === 0">
                 <td colspan="6">
-                  <p class="text-center alert-danger p-2">No products added/available.</p>
+                  <p class="text-center alert-danger p-2">No products added.</p>
                 </td>
               </tr>
             </tbody>
@@ -231,7 +231,7 @@
                       class="form-control"
                       type="text"
                       style="text-align:left;"
-                      v-model="employee_wage.employee_name"
+                      v-model="employee_wage.employee"
                     />
                   </td>
                   <td class="col-1">
@@ -240,7 +240,7 @@
                       type="number"
                       min="0"
                       step=".01"
-                      v-model="employee_wage.employee_ntHours"
+                      v-model="employee_wage.normal_hours"
                       @change="calcWageLine(employee_wage)"
                     />
                   </td>
@@ -250,7 +250,7 @@
                       type="number"
                       min="0"
                       step=".01"
-                      v-model="employee_wage.employee_overtimeHours"
+                      v-model="employee_wage.overtime_hours"
                       @change="calcWageLine(employee_wage)"
                     />
                   </td>
@@ -260,7 +260,7 @@
                       type="number"
                       min="0"
                       step=".01"
-                      v-model="employee_wage.employee_dtHours"
+                      v-model="employee_wage.doubletime_hours"
                       @change="calcWageLine(employee_wage)"
                     />
                   </td>
@@ -367,6 +367,7 @@ export default {
       jobcard_number: "",
       fuel: "",
       electricity: "",
+      tax: "",
       fuelAmount: "",
       electricityAmount: "",
       fuel_cost: "",
@@ -392,15 +393,7 @@ export default {
       quote_total: 0,
       invoice_total: 0,
       invoice_tax: 15,
-      materials: [
-        {
-          product_no: "",
-          product_name: "",
-          product_price: "",
-          product_qty: "",
-          line_total: 0
-        }
-      ],
+      materials: [],
       employee_wages: []
     };
   },
@@ -420,6 +413,7 @@ export default {
           if (response.data.length >= 1) {
             this.fuel = parseFloat(response.data[0].fuel);
             this.electricity = parseFloat(response.data[0].electricity);
+            this.tax = parseFloat(response.data[0].tax);
           }
         })
         .catch(error => {
@@ -448,14 +442,22 @@ export default {
     },
     saveInvoice() {
       Axios.post("/api/quotes", {
+        quote_id: this.jobcard_number,
         customer: this.customer.customer,
+        petrol_cost_per_litre: this.fuel,
         petrol_quantity: this.fuelAmount,
+        electricity_cost_per_unit: this.electricity,
         electricity_quantity: this.electricityAmount,
-        sow: this.scopeOfWork,
+        scope_of_work: this.scopeOfWork,
+        total_expenses: this.expenses_subtotal,
+        total_materials: this.invoice_subtotal,
+        total_wages: this.wage_subtotal,
         other_expenses: this.other_subtotal,
         consumables: this.consumables_subtotal,
+        quote_total_excl: this.quote_subtotal,
+        quote_tax: this.tax,
         quote_total: this.quote_total,
-        employee_wages: this.employee_wages,
+        wages: this.employee_wages,
         materials: this.materials
       })
         .then(response => {
@@ -477,7 +479,7 @@ export default {
     calculateTotal() {
       let subtotal, total;
       subtotal = this.materials.reduce(function(sum, product) {
-        let lineTotal = product.line_total;
+        let lineTotal = parseFloat(product.line_total);
         if (!isNaN(lineTotal)) {
           return sum + lineTotal;
         }
@@ -488,15 +490,15 @@ export default {
     calcWageTotal() {
       let wsubtotal, wtotal;
       wsubtotal = this.employee_wages.reduce(function(sum, employee) {
-        let lineTotal = employee.line_total;
+        let lineTotal = parseFloat(employee.line_total);
         if (!isNaN(lineTotal)) {
           return sum + lineTotal;
         }
       }, 0);
-      this.wage_subtotal = parseFloat(wsubtotal);
+      this.wage_subtotal = wsubtotal;
     },
     calculateLineTotal(material) {
-      let itotal = material.product_price * material.product_qty;
+      let itotal = material.price * material.quantity;
       if (!isNaN(itotal)) {
         material.line_total = itotal.toFixed(2);
       }
@@ -514,10 +516,10 @@ export default {
       return esubtotal;
     },
     calcWageLine(employee_wage) {
-      let emrateph = employee_wage.employee_rateph;
-      let emnormalh = employee_wage.employee_ntHours;
-      let emoverth = employee_wage.employee_overtimeHours;
-      let emdth = employee_wage.employee_dtHours;
+      let emrateph = employee_wage.employee_rate_per_hour;
+      let emnormalh = employee_wage.normal_hours;
+      let emoverth = employee_wage.overtime_hours;
+      let emdth = employee_wage.doubletime_hours;
 
       if (emnormalh > 0 && !NaN) {
         emnormalh = emnormalh * emrateph;
@@ -555,11 +557,10 @@ export default {
     },
     addNewRow() {
       this.materials.push({
-        product_no: "",
-        product_name: "",
-        product_price: "",
-        product_qty: "",
-        line_total: 0
+        quote_id: this.jobcard_number,
+        item_name: "",
+        price: "",
+        quantity: ""
       });
       this.line_number++;
     },
@@ -572,13 +573,12 @@ export default {
     },
     addNewWageRow(employee) {
       this.employee_wages.push({
-        employee_no: employee.id,
-        employee_name: employee.first_name,
-        employee_rateph: employee.rateph,
-        employee_ntHours: "",
-        employee_overtimeHours: "",
-        employee_dtHours: "",
-        line_total: 0
+        quote_id: this.jobcard_number,
+        employee: employee.first_name,
+        employee_rate_per_hour: employee.rateph,
+        normal_hours: "",
+        overtime_hours: "",
+        doubletime_hours: ""
       });
       this.wage_line_number++;
     },

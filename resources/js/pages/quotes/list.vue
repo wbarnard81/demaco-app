@@ -66,7 +66,8 @@ export default {
       next_page_url: "",
       current_page: "",
       last_page: "",
-      quotes: []
+      quotes: [],
+      editData: {}
     };
   },
   methods: {
@@ -86,7 +87,16 @@ export default {
         });
     },
     editQuote(quote) {
-      console.log(quote);
+      console.log("/api/quotes/" + quote.id);
+      axios
+        .get("/api/quotes/" + quote.id)
+        .then(response => {
+          console.log(response);
+          this.editData = response;
+        })
+        .catch(error => {
+          console.log(error.response.data.message);
+        });
     }
   },
   mounted() {

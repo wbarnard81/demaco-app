@@ -10,7 +10,7 @@ class QuoteController extends Controller
 {
     public function index()
     {
-        return Quote::paginate(5);
+        return DB::table('quotes')->orderBy('id', 'desc')->paginate(5);
     }
 
     public function jcNo()
@@ -20,33 +20,42 @@ class QuoteController extends Controller
 
     public function create()
     {
-        return Quote::with('wages')->with('materials')->get();
+        //
     }
 
     public function store(Request $request)
     {
         DB::table('quotes')->insert([
             'customer' => $request['customer'],
+            'petrol_cost_per_litre' => $request['petrol_cost_per_litre'],
             'petrol_quantity' => $request['petrol_quantity'],
+            'electricity_cost_per_unit' => $request['electricity_cost_per_unit'],
             'electricity_quantity' => $request['electricity_quantity'],
-            'sow' => $request['sow'],
+            'scope_of_work' => $request['scope_of_work'],
+            'total_expenses' => $request['total_expenses'],
+            'total_materials' => $request['total_materials'],
+            'total_wages' => $request['total_wages'],
             'other_expenses' => $request['other_expenses'],
             'consumables' => $request['consumables'],
+            'quote_total_excl' => $request['quote_total_excl'],
+            'quote_tax' => $request['quote_tax'],
             'quote_total' => $request['quote_total'],
         ]);
 
-        $quoteId = DB::getPdo()->lastInsertId();
+        $quote = Quote::find($request['quote_id']);
 
-        $quote = \App\Quote::find($quoteId);
-        $quote->wages()->attach($request['employee_wages']);
-        $quote->materials()->attach($request['materials']);
+        $quote->materials()->createMany($request['materials']);
+        $quote->wages()->createMany($request['wages']);
 
-        return $quote;
+        return;
     }
 
     public function show(Quote $quote)
     {
-        //
+        $data = DB::table('quotes')->leftJoin('quote_wages', 'quotes.id', '=', 'quote_wages.quote_id')->leftJoin('material_quote', 'quotes.id', '=', 'material_quote.quote_id')->get();
+        $quoteid = $quote->id;
+        dd($data->firstWhere('quote_id', $quoteid));
+        return $data->firstWhere('quote_id', $quoteid);
     }
 
     public function edit(Quote $quote)

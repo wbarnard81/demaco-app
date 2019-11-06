@@ -6,10 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class Material extends Model
 {
-    protected $fillable = (['price', 'quantity', 'description']);
+    protected $fillable = (['quote_id', 'item_name', 'price', 'quantity']);
 
-    public function quotes()
+    public function quote()
     {
-        return $this->belongsToMany(Material::class, 'material_quote')->withTimestamps();
+        return $this->belongsTo(Quote::class);
     }
 }

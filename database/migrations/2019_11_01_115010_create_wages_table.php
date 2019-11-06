@@ -15,10 +15,12 @@ class CreateWagesTable extends Migration
     {
         Schema::create('wages', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->unsignedBigInteger('quote_id');
             $table->string('employee');
-            $table->decimal('normal_hours');
-            $table->decimal('overtime_hours');
-            $table->decimal('doubletime_hours');
+            $table->decimal('employee_rate_per_hour', 8, 2);
+            $table->decimal('normal_hours', 8, 2)->nullable();
+            $table->decimal('overtime_hours', 8, 2)->nullable();
+            $table->decimal('doubletime_hours', 8, 2)->nullable();
             $table->timestamps();
         });
     }

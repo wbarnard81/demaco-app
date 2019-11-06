@@ -19,6 +19,7 @@ class CreateConfiguresTable extends Migration
             $table->decimal('electricity', 8, 2);
             $table->decimal('provident_fund', 8, 2);
             $table->decimal('expected_hours', 8, 2);
+            $table->decimal('tax', 8, 2);
             $table->timestamps();
         });
     }
