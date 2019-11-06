@@ -83,10 +83,8 @@ class JobController extends Controller
 
     public function urgent()
     {
-        $jobs = Job::with('employees')->where('deadline_date', '<', Carbon::now())->get();
+        $jobs = Job::with('employees')->where('deadline_date', '<', Carbon::now())->where('completed', '=', false)->get();
 
         return $jobs->toJson();
-        // return DB::table('Jobs')
-        //     ->where('deadline_date', '<', Carbon::now())->get();
     }
 }
