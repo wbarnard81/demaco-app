@@ -324,7 +324,7 @@
                 <td class="text-right">{{ quote_subtotal | currency('R') }}</td>
               </tr>
               <tr>
-                <th scope="row">Tax @ 15%</th>
+                <th scope="row">Tax @ {{ tax }}%</th>
                 <td class="text-right">{{ quote_tax | currency('R') }}</td>
               </tr>
               <tr>
@@ -392,7 +392,6 @@ export default {
       quote_tax: 0,
       quote_total: 0,
       invoice_total: 0,
-      invoice_tax: 15,
       materials: [],
       employee_wages: []
     };
@@ -455,7 +454,7 @@ export default {
         other_expenses: this.other_subtotal,
         consumables: this.consumables_subtotal,
         quote_total_excl: this.quote_subtotal,
-        quote_tax: this.tax,
+        quote_tax: this.quote_tax,
         quote_total: this.quote_total,
         wages: this.employee_wages,
         materials: this.materials

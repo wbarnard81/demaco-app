@@ -10,7 +10,7 @@ class QuoteController extends Controller
 {
     public function index()
     {
-        return DB::table('quotes')->orderBy('id', 'desc')->paginate(5);
+        return Quote::with('materials', 'wages')->orderBy('id', 'desc')->paginate(5);
     }
 
     public function jcNo()
@@ -52,10 +52,7 @@ class QuoteController extends Controller
 
     public function show(Quote $quote)
     {
-        $data = DB::table('quotes')->leftJoin('quote_wages', 'quotes.id', '=', 'quote_wages.quote_id')->leftJoin('material_quote', 'quotes.id', '=', 'material_quote.quote_id')->get();
-        $quoteid = $quote->id;
-        dd($data->firstWhere('quote_id', $quoteid));
-        return $data->firstWhere('quote_id', $quoteid);
+        //
     }
 
     public function edit(Quote $quote)

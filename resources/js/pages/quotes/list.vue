@@ -20,7 +20,7 @@
             <tr v-for="quote in quotes" :key="quote.id">
               <th scope="row">{{ quote.id }}</th>
               <td>{{ quote.customer }}</td>
-              <td>{{ quote.sow | truncate(50) }}</td>
+              <td>{{ quote.scope_of_work | truncate(50) }}</td>
               <td>{{ quote.quote_total }}</td>
               <td>
                 <button class="btn btn-sm btn-warning" @click="editQuote(quote)">Edit</button>
@@ -87,16 +87,7 @@ export default {
         });
     },
     editQuote(quote) {
-      console.log("/api/quotes/" + quote.id);
-      axios
-        .get("/api/quotes/" + quote.id)
-        .then(response => {
-          console.log(response);
-          this.editData = response;
-        })
-        .catch(error => {
-          console.log(error.response.data.message);
-        });
+      console.log(quote);
     }
   },
   mounted() {
