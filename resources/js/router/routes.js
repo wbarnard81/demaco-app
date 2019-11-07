@@ -44,6 +44,11 @@ export default [
     component: page("quotes/list.vue")
   },
   {
+    path: "/quotes/edit/:id",
+    name: "edit a quote",
+    component: page("quotes/edit.vue")
+  },
+  {
     path: "/employees",
     name: "list of employees",
     component: page("employees.vue")

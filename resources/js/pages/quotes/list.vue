@@ -23,7 +23,10 @@
               <td>{{ quote.scope_of_work | truncate(50) }}</td>
               <td>{{ quote.quote_total }}</td>
               <td>
-                <button class="btn btn-sm btn-warning" @click="editQuote(quote)">Edit</button>
+                <router-link
+                  :to="{ name: 'edit a quote', params: { id: quote.id }}"
+                  class="btn btn-sm btn-warning"
+                >Edit</router-link>
               </td>
             </tr>
           </tbody>
