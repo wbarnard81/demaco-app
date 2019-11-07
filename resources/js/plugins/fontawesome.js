@@ -1,6 +1,6 @@
-import Vue from "vue";
-import { library } from "@fortawesome/fontawesome-svg-core";
-import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
+import Vue from 'vue'
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
 // import { } from '@fortawesome/free-regular-svg-icons'
 
@@ -14,9 +14,9 @@ import {
   faPlusCircle,
   faTrashAlt,
   faTrash
-} from "@fortawesome/free-solid-svg-icons";
+} from '@fortawesome/free-solid-svg-icons'
 
-import { faGithub } from "@fortawesome/free-brands-svg-icons";
+import { faGithub } from '@fortawesome/free-brands-svg-icons'
 
 library.add(
   faUser,
@@ -29,6 +29,6 @@ library.add(
   faPlusCircle,
   faTrashAlt,
   faTrash
-);
+)
 
-Vue.component("fa", FontAwesomeIcon);
+Vue.component('fa', FontAwesomeIcon)

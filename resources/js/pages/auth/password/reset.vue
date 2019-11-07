@@ -16,7 +16,7 @@
                 type="email"
                 name="email"
                 readonly
-              />
+              >
               <has-error :form="form" field="email" />
             </div>
           </div>
@@ -31,7 +31,7 @@
                 class="form-control"
                 type="password"
                 name="password"
-              />
+              >
               <has-error :form="form" field="password" />
             </div>
           </div>
@@ -46,7 +46,7 @@
                 class="form-control"
                 type="password"
                 name="password_confirmation"
-              />
+              >
               <has-error :form="form" field="password_confirmation" />
             </div>
           </div>
@@ -54,7 +54,9 @@
           <!-- Submit Button -->
           <div class="form-group row">
             <div class="col-md-9 ml-md-auto">
-              <v-button :loading="form.busy">{{ 'reset_password' }}</v-button>
+              <v-button :loading="form.busy">
+                {{ 'reset_password' }}
+              </v-button>
             </div>
           </div>
         </form>
@@ -64,38 +66,38 @@
 </template>
 
 <script>
-import Form from "vform";
+import Form from 'vform'
 
 export default {
-  middleware: "guest",
+  middleware: 'guest',
 
-  metaInfo() {
-    return { title: "Reset Password" };
+  metaInfo () {
+    return { title: 'Reset Password' }
   },
 
   data: () => ({
-    status: "",
+    status: '',
     form: new Form({
-      token: "",
-      email: "",
-      password: "",
-      password_confirmation: ""
+      token: '',
+      email: '',
+      password: '',
+      password_confirmation: ''
     })
   }),
 
-  created() {
-    this.form.email = this.$route.query.email;
-    this.form.token = this.$route.params.token;
+  created () {
+    this.form.email = this.$route.query.email
+    this.form.token = this.$route.params.token
   },
 
   methods: {
-    async reset() {
-      const { data } = await this.form.post("/api/password/reset");
+    async reset () {
+      const { data } = await this.form.post('/api/password/reset')
 
-      this.status = data.status;
+      this.status = data.status
 
-      this.form.reset();
+      this.form.reset()
     }
   }
-};
+}
 </script>

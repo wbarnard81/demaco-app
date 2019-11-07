@@ -1,8 +1,10 @@
 <template>
   <nav class="navbar navbar-expand-lg nav-fill navbar-dark bg-dark">
     <div class="container">
-      <div id="logo"></div>
-      <router-link :to="{ name: user ? 'home' : 'welcome' }" class="navbar-brand ml-2">{{ appName }}</router-link>
+      <div id="logo" />
+      <router-link :to="{ name: user ? 'home' : 'welcome' }" class="navbar-brand ml-2">
+        {{ appName }}
+      </router-link>
 
       <div id="navbarToggler" class="collapse navbar-collapse">
         <ul class="navbar-nav ml-auto">
@@ -16,7 +18,7 @@
               aria-haspopup="true"
               aria-expanded="false"
             >
-              <img :src="user.photo_url" class="rounded-circle profile-photo mr-1" />
+              <img :src="user.photo_url" class="rounded-circle profile-photo mr-1">
               {{ user.name }}
             </a>
             <div class="dropdown-menu">
@@ -39,14 +41,18 @@
                 :to="{ name: 'login' }"
                 class="nav-link"
                 active-class="active"
-              >{{ 'Login' }}</router-link>
+              >
+                {{ 'Login' }}
+              </router-link>
             </li>
             <li class="nav-item">
               <router-link
                 :to="{ name: 'register' }"
                 class="nav-link"
                 active-class="active"
-              >{{ 'Register' }}</router-link>
+              >
+                {{ 'Register' }}
+              </router-link>
             </li>
           </template>
         </ul>
@@ -56,32 +62,29 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
-import LocaleDropdown from "./LocaleDropdown";
+import { mapGetters } from 'vuex'
 
 export default {
-  components: {
-    LocaleDropdown
-  },
+  components: {},
 
   data: () => ({
     appName: window.config.appName
   }),
 
   computed: mapGetters({
-    user: "auth/user"
+    user: 'auth/user'
   }),
 
   methods: {
-    async logout() {
+    async logout () {
       // Log out the user.
-      await this.$store.dispatch("auth/logout");
+      await this.$store.dispatch('auth/logout')
 
       // Redirect to login.
-      this.$router.push({ name: "login" });
+      this.$router.push({ name: 'login' })
     }
   }
-};
+}
 </script>
 
 <style scoped>

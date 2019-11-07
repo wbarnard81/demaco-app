@@ -13,7 +13,7 @@
             class="form-control"
             type="text"
             name="name"
-          />
+          >
           <has-error :form="form" field="name" />
         </div>
       </div>
@@ -28,7 +28,7 @@
             class="form-control"
             type="email"
             name="email"
-          />
+          >
           <has-error :form="form" field="email" />
         </div>
       </div>
@@ -36,7 +36,9 @@
       <!-- Submit Button -->
       <div class="form-group row">
         <div class="col-md-9 ml-md-auto">
-          <v-button :loading="form.busy" type="success">{{ 'Update' }}</v-button>
+          <v-button :loading="form.busy" type="success">
+            {{ 'Update' }}
+          </v-button>
         </div>
       </div>
     </form>
@@ -44,40 +46,40 @@
 </template>
 
 <script>
-import Form from "vform";
-import { mapGetters } from "vuex";
+import Form from 'vform'
+import { mapGetters } from 'vuex'
 
 export default {
   scrollToTop: false,
 
-  metaInfo() {
-    return { title: "Settings" };
+  metaInfo () {
+    return { title: 'Settings' }
   },
 
   data: () => ({
     form: new Form({
-      name: "",
-      email: ""
+      name: '',
+      email: ''
     })
   }),
 
   computed: mapGetters({
-    user: "auth/user"
+    user: 'auth/user'
   }),
 
-  created() {
+  created () {
     // Fill the form with user data.
     this.form.keys().forEach(key => {
-      this.form[key] = this.user[key];
-    });
+      this.form[key] = this.user[key]
+    })
   },
 
   methods: {
-    async update() {
-      const { data } = await this.form.patch("/api/settings/profile");
+    async update () {
+      const { data } = await this.form.patch('/api/settings/profile')
 
-      this.$store.dispatch("auth/updateUser", { user: data });
+      this.$store.dispatch('auth/updateUser', { user: data })
     }
   }
-};
+}
 </script>

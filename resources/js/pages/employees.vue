@@ -17,13 +17,25 @@
                   class="btn btn-primary"
                   data-toggle="modal"
                   data-target="#addEmployee"
-                >Add</button>
+                >
+                  Add
+                </button>
               </th>
-              <th scope="col">First Name</th>
-              <th scope="col">Last Name</th>
-              <th scope="col">Expected Hours</th>
-              <th scope="col">Rate per Hour</th>
-              <th scope="col">Provident Fund @ 7.3%</th>
+              <th scope="col">
+                First Name
+              </th>
+              <th scope="col">
+                Last Name
+              </th>
+              <th scope="col">
+                Expected Hours
+              </th>
+              <th scope="col">
+                Rate per Hour
+              </th>
+              <th scope="col">
+                Provident Fund @ 7.3%
+              </th>
             </tr>
           </thead>
           <tbody>
@@ -75,19 +87,29 @@
                   </svg>
                 </button>
               </th>
-              <td class="text-center border border-dark">{{employee.first_name}}</td>
-              <td class="text-center border border-dark">{{employee.last_name}}</td>
-              <td class="text-center border border-dark">{{ hours}}</td>
-              <td class="text-center border border-dark">{{employee.rateph}}</td>
+              <td class="text-center border border-dark">
+                {{ employee.first_name }}
+              </td>
+              <td class="text-center border border-dark">
+                {{ employee.last_name }}
+              </td>
+              <td class="text-center border border-dark">
+                {{ hours }}
+              </td>
+              <td class="text-center border border-dark">
+                {{ employee.rateph }}
+              </td>
               <td
                 class="text-center border border-dark"
-              >{{ calcProvidentFund(employee.rateph) | number('0.00') }}</td>
+              >
+                {{ calcProvidentFund(employee.rateph) | number('0.00') }}
+              </td>
             </tr>
           </tbody>
         </table>
         <div
-          class="modal fade"
           id="addEmployee"
+          class="modal fade"
           tabindex="-1"
           role="dialog"
           aria-labelledby="addEmployeeTitle"
@@ -96,7 +118,9 @@
           <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
               <div class="modal-header">
-                <h5 class="modal-title" id="addEmployeeTitle">Add an Employee</h5>
+                <h5 id="addEmployeeTitle" class="modal-title">
+                  Add an Employee
+                </h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
                 </button>
@@ -106,34 +130,38 @@
                   <div class="form-group">
                     <label for="first_name" class="col-form-label">First Name:</label>
                     <input
-                      type="text"
-                      class="form-control"
                       id="first_name"
                       v-model="form.first_name"
-                    />
+                      type="text"
+                      class="form-control"
+                    >
                   </div>
                   <div class="form-group">
                     <label for="last_name" class="col-form-label">Last Name:</label>
-                    <input type="text" class="form-control" id="last_name" v-model="form.last_name" />
+                    <input id="last_name" v-model="form.last_name" type="text" class="form-control">
                   </div>
                   <div class="row">
                     <div class="form-group col-4">
                       <label for="rateph" class="col-form-label">Rate per Hours:</label>
-                      <input type="number" class="form-control" id="rateph" v-model="form.rateph" />
+                      <input id="rateph" v-model="form.rateph" type="number" class="form-control">
                     </div>
                   </div>
                 </form>
               </div>
               <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary" @click="storeEmployee()">Save Changes</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                  Close
+                </button>
+                <button type="button" class="btn btn-primary" @click="storeEmployee()">
+                  Save Changes
+                </button>
               </div>
             </div>
           </div>
         </div>
         <div
-          class="modal fade"
           id="editEmployeeModal"
+          class="modal fade"
           tabindex="-1"
           role="dialog"
           aria-labelledby="editEmployeeModalTitle"
@@ -142,7 +170,9 @@
           <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
               <div class="modal-header">
-                <h5 class="modal-title" id="editEmployeeModalTitle">Edit an Employee</h5>
+                <h5 id="editEmployeeModalTitle" class="modal-title">
+                  Edit an Employee
+                </h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
                 </button>
@@ -152,29 +182,33 @@
                   <div class="form-group">
                     <label for="first_name" class="col-form-label">First Name:</label>
                     <input
-                      type="text"
-                      class="form-control"
                       id="first_name"
                       v-model="form.first_name"
-                    />
+                      type="text"
+                      class="form-control"
+                    >
                   </div>
                   <div class="form-group">
                     <label for="last_name" class="col-form-label">Last Name:</label>
-                    <input type="text" class="form-control" id="last_name" v-model="form.last_name" />
+                    <input id="last_name" v-model="form.last_name" type="text" class="form-control">
                   </div>
                   <div class="form-group">
                     <label for="rateph" class="col-form-label">Rate per hour:</label>
-                    <input type="text" class="form-control" id="rateph" v-model="form.rateph" />
+                    <input id="rateph" v-model="form.rateph" type="text" class="form-control">
                   </div>
                 </form>
               </div>
               <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                  Close
+                </button>
                 <button
                   type="button"
                   class="btn btn-primary"
                   @click="updateEmployee()"
-                >Update changes</button>
+                >
+                  Update changes
+                </button>
               </div>
             </div>
           </div>
@@ -185,102 +219,102 @@
 </template>
 
 <script>
-import Adminpanel from "../components/Adminpanel";
-import axios from "axios";
+import Adminpanel from '../components/Adminpanel'
+import axios from 'axios'
 
 export default {
-  name: "CreateQuote",
-  metaInfo() {
-    return { title: "Maintain Employees" };
+  name: 'CreateQuote',
+  metaInfo () {
+    return { title: 'Maintain Employees' }
   },
-  middleware: "auth",
+  middleware: 'auth',
   components: {
     Adminpanel
   },
   data: () => {
     return {
       employees: [],
-      employee_id: "",
-      hours: "",
-      provident_fund: "",
+      employee_id: '',
+      hours: '',
+      provident_fund: '',
       form: {
-        first_name: "",
-        last_name: "",
-        rateph: ""
+        first_name: '',
+        last_name: '',
+        rateph: ''
       }
-    };
-  },
-  methods: {
-    getEmployees() {
-      axios
-        .get("/api/employees")
-        .then(response => {
-          this.employees = response.data;
-        })
-        .catch(error => console.log(error.response.data.message));
-      axios
-        .get("/api/configs")
-        .then(response => {
-          this.hours = response.data[0].expected_hours;
-          this.provident_fund = response.data[0].provident_fund;
-        })
-        .catch(error => console.log(error.response.data.message));
-    },
-    storeEmployee() {
-      axios
-        .post("/api/employees", this.form)
-        .then(response => {
-          alert("Employee was created.");
-          this.form.first_name = "";
-          this.form.last_name = "";
-          this.form.hours = "";
-          this.form.rateph = "";
-          this.form.provident_fund = "";
-          this.getEmployees();
-        })
-        .catch(error => {
-          console.log(error.response.data.message);
-        });
-    },
-    editEmployee(employee) {
-      this.employee_id = employee.id;
-      this.form.first_name = employee.first_name;
-      this.form.last_name = employee.last_name;
-      this.form.hours = employee.hours;
-      this.form.rateph = employee.rateph;
-      this.form.provident_fund = employee.provident_fund;
-    },
-    updateEmployee() {
-      axios
-        .patch("/api/employees/" + this.employee_id, this.form)
-        .then(response => {
-          alert("Employee has been updated.");
-          this.form.first_name = "";
-          this.form.last_name = "";
-          this.form.hours = "";
-          this.form.rateph = "";
-          this.form.provident_fund = "";
-          this.getEmployees();
-        })
-        .catch(error => {
-          alert(error.response.data.message);
-        });
-    },
-    deleteEmployee(id) {
-      axios
-        .delete("/api/employees/" + id)
-        .then(response => {
-          alert("Employee has been deleted.");
-          this.getEmployees();
-        })
-        .catch(error => alert(error.response.data.message));
-    },
-    calcProvidentFund(rateph) {
-      return (this.hours * rateph * this.provident_fund) / 100;
     }
   },
-  mounted() {
-    this.getEmployees();
+  mounted () {
+    this.getEmployees()
+  },
+  methods: {
+    getEmployees () {
+      axios
+        .get('/api/employees')
+        .then(response => {
+          this.employees = response.data
+        })
+        .catch(error => console.log(error.response.data.message))
+      axios
+        .get('/api/configs')
+        .then(response => {
+          this.hours = response.data[0].expected_hours
+          this.provident_fund = response.data[0].provident_fund
+        })
+        .catch(error => console.log(error.response.data.message))
+    },
+    storeEmployee () {
+      axios
+        .post('/api/employees', this.form)
+        .then(response => {
+          alert('Employee was created.')
+          this.form.first_name = ''
+          this.form.last_name = ''
+          this.form.hours = ''
+          this.form.rateph = ''
+          this.form.provident_fund = ''
+          this.getEmployees()
+        })
+        .catch(error => {
+          console.log(error.response.data.message)
+        })
+    },
+    editEmployee (employee) {
+      this.employee_id = employee.id
+      this.form.first_name = employee.first_name
+      this.form.last_name = employee.last_name
+      this.form.hours = employee.hours
+      this.form.rateph = employee.rateph
+      this.form.provident_fund = employee.provident_fund
+    },
+    updateEmployee () {
+      axios
+        .patch('/api/employees/' + this.employee_id, this.form)
+        .then(response => {
+          alert('Employee has been updated.')
+          this.form.first_name = ''
+          this.form.last_name = ''
+          this.form.hours = ''
+          this.form.rateph = ''
+          this.form.provident_fund = ''
+          this.getEmployees()
+        })
+        .catch(error => {
+          alert(error.response.data.message)
+        })
+    },
+    deleteEmployee (id) {
+      axios
+        .delete('/api/employees/' + id)
+        .then(response => {
+          alert('Employee has been deleted.')
+          this.getEmployees()
+        })
+        .catch(error => alert(error.response.data.message))
+    },
+    calcProvidentFund (rateph) {
+      return (this.hours * rateph * this.provident_fund) / 100
+    }
   }
-};
+}
 </script>

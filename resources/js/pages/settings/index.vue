@@ -29,35 +29,35 @@
 
 <script>
 export default {
-  middleware: "auth",
+  middleware: 'auth',
 
   computed: {
-    tabs() {
+    tabs () {
       return [
         {
-          icon: "user",
-          name: "Profile",
-          route: "settings.profile"
+          icon: 'user',
+          name: 'Profile',
+          route: 'settings.profile'
         },
         {
-          icon: "lock",
-          name: "Password",
-          route: "settings.password"
+          icon: 'lock',
+          name: 'Password',
+          route: 'settings.password'
         },
         {
-          icon: "sliders-h",
-          name: "Configure",
-          route: "settings.configure"
+          icon: 'sliders-h',
+          name: 'Configure',
+          route: 'settings.configure'
         },
         {
-          icon: "user-tie",
-          name: "Customers",
-          route: "settings.customers"
+          icon: 'user-tie',
+          name: 'Customers',
+          route: 'settings.customers'
         }
-      ];
+      ]
     }
   }
-};
+}
 </script>
 
 <style>

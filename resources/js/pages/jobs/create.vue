@@ -2,19 +2,25 @@
   <div>
     <Adminpanel />
     <div class="container">
-      <h1 class="text-center">Add Active Job</h1>
+      <h1 class="text-center">
+        Add Active Job
+      </h1>
       <form>
         <div class="row">
           <div class="col-4">
             <label for="name">Customer</label>
 
             <select
-              class="form-control"
               v-model="form.customer"
+              class="form-control"
               @change="setColor($event.target.value)"
             >
-              <option disabled value>Select the Customer</option>
-              <option v-for="customer in customers" :key="customer.id">{{ customer.customer }}</option>
+              <option disabled value>
+                Select the Customer
+              </option>
+              <option v-for="customer in customers" :key="customer.id">
+                {{ customer.customer }}
+              </option>
             </select>
           </div>
           <div class="col-2">
@@ -22,36 +28,38 @@
             <div
               class="form-control"
               :style="[{ backgroundColor: form.color},{ color: form.color}]"
-            >.</div>
+            >
+              .
+            </div>
           </div>
           <div class="col">
             <label for="description">Job Descripion</label>
             <input
-              type="text"
-              class="form-control"
               id="description"
               v-model="form.description"
+              type="text"
+              class="form-control"
               placeholder="Enter job description"
-            />
+            >
           </div>
         </div>
         <div class="row mt-1">
           <div class="col">
             <label for="start_date">Start Date</label>
-            <datetime v-model="form.start_date" id="start_date"></datetime>
+            <datetime id="start_date" v-model="form.start_date" />
           </div>
           <div class="col">
             <label for="deadline_date">Deadline Date</label>
             <datetime
-              type="datetime"
-              v-model="form.deadline_date"
               id="deadline_date"
+              v-model="form.deadline_date"
+              type="datetime"
               :minute-step="15"
-            ></datetime>
+            />
           </div>
           <div class="col">
             <label for="delivery_date">Delivery Date</label>
-            <datetime v-model="form.delivery_date" id="delivery_date"></datetime>
+            <datetime id="delivery_date" v-model="form.delivery_date" />
           </div>
         </div>
 
@@ -61,38 +69,40 @@
             <div v-for="boilermaker in boilermakers" :key="boilermaker.id">
               <div class="form-check form-check-inline">
                 <input
+                  :id="boilermaker.first_name"
+                  v-model="form.boilermaker"
                   class="css-checkbox"
                   type="checkbox"
-                  :id="boilermaker.first_name"
                   :value="boilermaker.id"
-                  v-model="form.boilermaker"
-                />
+                >
                 <label class="css-label" :for="boilermaker.first_name">{{ boilermaker.first_name }}</label>
               </div>
             </div>
           </div>
         </div>
 
-        <button @click.prevent="addJob()" class="btn btn-primary mt-2">Submit</button>
+        <button class="btn btn-primary mt-2" @click.prevent="addJob()">
+          Submit
+        </button>
       </form>
     </div>
   </div>
 </template>
 
 <script>
-import Adminpanel from "~/components/Adminpanel";
-import Axios from "axios";
-import { Datetime } from "vue-datetime";
-import "vue-datetime/dist/vue-datetime.css";
+import Adminpanel from '~/components/Adminpanel'
+import Axios from 'axios'
+import { Datetime } from 'vue-datetime'
+import 'vue-datetime/dist/vue-datetime.css'
 
-const moment = require("moment");
+const moment = require('moment')
 
 export default {
-  name: "Jobs",
-  metaInfo() {
-    return { title: "Add a Job" };
+  name: 'Jobs',
+  metaInfo () {
+    return { title: 'Add a Job' }
   },
-  middleware: "auth",
+  middleware: 'auth',
   components: {
     Adminpanel,
     Datetime
@@ -102,62 +112,62 @@ export default {
       customers: [],
       boilermakers: [],
       form: {
-        customer: "",
-        color: "#fff",
-        description: "",
-        start_date: "",
-        deadline_date: "",
-        delivery_date: "",
+        customer: '',
+        color: '#fff',
+        description: '',
+        start_date: '',
+        deadline_date: '',
+        delivery_date: '',
         boilermaker: [],
         completed: false
       }
-    };
-  },
-  methods: {
-    customFormatter(date) {
-      return moment(date).format("YYYY MM DD");
-    },
-    setColor(customerName) {
-      this.form.color = this.customers.find(
-        x => x.customer === customerName
-      ).colour;
-    },
-    addJob() {
-      Axios.post("/api/jobs", this.form)
-        .then(response => {
-          alert("Job has been added.");
-          this.form.customer = "";
-          this.form.color = "#ff8080";
-          this.form.description = "";
-          this.form.start_date = "";
-          this.form.deadline_date = "";
-          this.form.delivery_date = "";
-          this.form.boilermaker = [];
-          this.form.completed = false;
-        })
-        .catch(error => console.log(error.response.data.message));
-    },
-    getCustomers() {
-      Axios.get("/api/customers")
-        .then(response => {
-          this.customers = response.data;
-        })
-        .catch(error => {
-          alert(error.response.data.message);
-        });
-      Axios.get("/api/employees")
-        .then(response => {
-          this.boilermakers = response.data;
-        })
-        .catch(error => {
-          alert(error.response.data.message);
-        });
     }
   },
-  mounted() {
-    this.getCustomers();
+  mounted () {
+    this.getCustomers()
+  },
+  methods: {
+    customFormatter (date) {
+      return moment(date).format('YYYY MM DD')
+    },
+    setColor (customerName) {
+      this.form.color = this.customers.find(
+        x => x.customer === customerName
+      ).colour
+    },
+    addJob () {
+      Axios.post('/api/jobs', this.form)
+        .then(response => {
+          alert('Job has been added.')
+          this.form.customer = ''
+          this.form.color = '#ff8080'
+          this.form.description = ''
+          this.form.start_date = ''
+          this.form.deadline_date = ''
+          this.form.delivery_date = ''
+          this.form.boilermaker = []
+          this.form.completed = false
+        })
+        .catch(error => console.log(error.response.data.message))
+    },
+    getCustomers () {
+      Axios.get('/api/customers')
+        .then(response => {
+          this.customers = response.data
+        })
+        .catch(error => {
+          alert(error.response.data.message)
+        })
+      Axios.get('/api/employees')
+        .then(response => {
+          this.boilermakers = response.data
+        })
+        .catch(error => {
+          alert(error.response.data.message)
+        })
+    }
   }
-};
+}
 </script>
 
 <style scoped>

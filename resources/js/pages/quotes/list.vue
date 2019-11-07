@@ -4,21 +4,35 @@
       <Adminpanel />
     </div>
     <div>
-      <h1 class="text-center bg-white">List of Quotes</h1>
+      <h1 class="text-center bg-white">
+        List of Quotes
+      </h1>
       <div class="container bg-white">
         <table class="table">
           <thead>
             <tr>
-              <th scope="col">#</th>
-              <th scope="col">Customer</th>
-              <th scope="col">Scope of Work</th>
-              <th scope="col">Quote Total</th>
-              <th scope="col">Action</th>
+              <th scope="col">
+                #
+              </th>
+              <th scope="col">
+                Customer
+              </th>
+              <th scope="col">
+                Scope of Work
+              </th>
+              <th scope="col">
+                Quote Total
+              </th>
+              <th scope="col">
+                Action
+              </th>
             </tr>
           </thead>
           <tbody>
             <tr v-for="quote in quotes" :key="quote.id">
-              <th scope="row">{{ quote.id }}</th>
+              <th scope="row">
+                {{ quote.id }}
+              </th>
               <td>{{ quote.customer }}</td>
               <td>{{ quote.scope_of_work | truncate(50) }}</td>
               <td>{{ quote.quote_total }}</td>
@@ -26,12 +40,14 @@
                 <router-link
                   :to="{ name: 'edit a quote', params: { id: quote.id }}"
                   class="btn btn-sm btn-warning"
-                >Edit</router-link>
+                >
+                  Edit
+                </router-link>
               </td>
             </tr>
           </tbody>
         </table>
-        <hr />
+        <hr>
         <nav aria-label="Page navigation example" class="py-2" @click.prevent>
           <ul class="pagination justify-content-center">
             <li class="page-item" :class="[{disabled: !prev_page_url}]">
@@ -51,50 +67,50 @@
 </template>
 
 <script>
-import Adminpanel from "../../components/Adminpanel";
-import axios from "axios";
+import Adminpanel from '../../components/Adminpanel'
+import axios from 'axios'
 
 export default {
-  name: "ListQuotes",
-  metaInfo() {
-    return { title: "List Quotes" };
+  name: 'ListQuotes',
+  metaInfo () {
+    return { title: 'List Quotes' }
   },
-  middleware: "auth",
+  middleware: 'auth',
   components: {
     Adminpanel
   },
-  data() {
+  data () {
     return {
-      prev_page_url: "",
-      next_page_url: "",
-      current_page: "",
-      last_page: "",
+      prev_page_url: '',
+      next_page_url: '',
+      current_page: '',
+      last_page: '',
       quotes: [],
       editData: {}
-    };
-  },
-  methods: {
-    getQuotes(page_url) {
-      page_url = page_url || "/api/quotes";
-      axios
-        .get(page_url)
-        .then(response => {
-          this.prev_page_url = response.data.prev_page_url;
-          this.next_page_url = response.data.next_page_url;
-          this.current_page = response.data.current_page;
-          this.last_page = response.data.last_page;
-          this.quotes = response.data.data;
-        })
-        .catch(error => {
-          console.log(error.response.data.message);
-        });
-    },
-    editQuote(quote) {
-      console.log(quote);
     }
   },
-  mounted() {
-    this.getQuotes();
+  mounted () {
+    this.getQuotes()
+  },
+  methods: {
+    getQuotes (pageUrl) {
+      pageUrl = pageUrl || '/api/quotes'
+      axios
+        .get(pageUrl)
+        .then(response => {
+          this.prev_page_url = response.data.prev_page_url
+          this.next_page_url = response.data.next_page_url
+          this.current_page = response.data.current_page
+          this.last_page = response.data.last_page
+          this.quotes = response.data.data
+        })
+        .catch(error => {
+          console.log(error.response.data.message)
+        })
+    },
+    editQuote (quote) {
+      console.log(quote)
+    }
   }
-};
+}
 </script>

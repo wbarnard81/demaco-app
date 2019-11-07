@@ -2,14 +2,22 @@
   <div class="bg-white">
     <Adminpanel />
     <div class="container">
-      <h1 class="text-center text-danger display-4 my-4">Jobs that need urgent attention</h1>
+      <h1 class="text-center text-danger display-4 my-4">
+        Jobs that need urgent attention
+      </h1>
       <table class="table table-striped table-danger">
         <thead class="bg-white">
           <tr>
-            <th scope="col"></th>
-            <th scope="col">Customer</th>
-            <th scope="col">Deadline Date</th>
-            <th scope="col">Boilermaker</th>
+            <th scope="col" />
+            <th scope="col">
+              Customer
+            </th>
+            <th scope="col">
+              Deadline Date
+            </th>
+            <th scope="col">
+              Boilermaker
+            </th>
           </tr>
         </thead>
         <tbody>
@@ -17,11 +25,13 @@
             <th scope="row">
               <button
                 type="button"
-                @click="loadDetails(job)"
                 class="btn btn-dark"
                 data-toggle="modal"
                 data-target="#details"
-              >Details</button>
+                @click="loadDetails(job)"
+              >
+                Details
+              </button>
             </th>
             <td>{{ job.customer }}</td>
             <td>{{ job.deadline_date }}</td>
@@ -29,14 +39,16 @@
               <p
                 v-for="employee in job.employees"
                 :key="employee.id"
-              >{{ employee.first_name }} {{ employee.last_name }}</p>
+              >
+                {{ employee.first_name }} {{ employee.last_name }}
+              </p>
             </td>
           </tr>
         </tbody>
       </table>
       <div
-        class="modal fade"
         id="details"
+        class="modal fade"
         tabindex="-1"
         role="dialog"
         aria-labelledby="detailsTitle"
@@ -45,7 +57,9 @@
         <div class="modal-dialog modal-dialog-centered" role="document">
           <div class="modal-content">
             <div class="modal-header">
-              <h5 class="modal-title" id="detailsTitle">Modal title</h5>
+              <h5 id="detailsTitle" class="modal-title">
+                Modal title
+              </h5>
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
               </button>
@@ -77,7 +91,9 @@
               </p>
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-danger" data-dismiss="modal">
+                Close
+              </button>
             </div>
           </div>
         </div>
@@ -87,43 +103,42 @@
 </template>
 
 <script>
-import Adminpanel from "~/components/Adminpanel";
-import axios from "axios";
+import Adminpanel from '~/components/Adminpanel'
+import axios from 'axios'
 export default {
   components: { Adminpanel },
 
-  middleware: "auth",
+  middleware: 'auth',
 
-  metaInfo() {
-    return { title: "Home" };
+  metaInfo () {
+    return { title: 'Home' }
   },
-  data() {
+  data () {
     return {
       urgentJobs: [],
       jobDetails: []
-    };
-  },
-  methods: {
-    getJobs() {
-      axios
-        .get("/api/urgentjobs")
-        .then(response => {
-          this.urgentJobs = response.data;
-        })
-        .catch(error => {
-          alert(error.response.data.message);
-        });
-    },
-    loadDetails(job) {
-      this.jobDetails = job;
     }
   },
-  mounted() {
-    this.getJobs();
+  mounted () {
+    this.getJobs()
     setInterval(() => {
-      this.getJobs();
-    }, 10000);
+      this.getJobs()
+    }, 10000)
+  },
+  methods: {
+    getJobs () {
+      axios
+        .get('/api/urgentjobs')
+        .then(response => {
+          this.urgentJobs = response.data
+        })
+        .catch(error => {
+          alert(error.response.data.message)
+        })
+    },
+    loadDetails (job) {
+      this.jobDetails = job
+    }
   }
-};
+}
 </script>
-

@@ -15,7 +15,7 @@
                 class="form-control"
                 type="email"
                 name="email"
-              />
+              >
               <has-error :form="form" field="email" />
             </div>
           </div>
@@ -23,7 +23,9 @@
           <!-- Submit Button -->
           <div class="form-group row">
             <div class="col-md-9 ml-md-auto">
-              <v-button :loading="form.busy">{{ 'Send Password Reset Link' }}</v-button>
+              <v-button :loading="form.busy">
+                {{ 'Send Password Reset Link' }}
+              </v-button>
             </div>
           </div>
         </form>
@@ -33,30 +35,30 @@
 </template>
 
 <script>
-import Form from "vform";
+import Form from 'vform'
 
 export default {
-  middleware: "guest",
+  middleware: 'guest',
 
-  metaInfo() {
-    return { title: "Reset Password" };
+  metaInfo () {
+    return { title: 'Reset Password' }
   },
 
   data: () => ({
-    status: "",
+    status: '',
     form: new Form({
-      email: ""
+      email: ''
     })
   }),
 
   methods: {
-    async send() {
-      const { data } = await this.form.post("/api/password/email");
+    async send () {
+      const { data } = await this.form.post('/api/password/email')
 
-      this.status = data.status;
+      this.status = data.status
 
-      this.form.reset();
+      this.form.reset()
     }
   }
-};
+}
 </script>

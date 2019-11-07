@@ -7,7 +7,7 @@
       <h1 class="text-center display-4">Edit the Quote</h1>
       <br />
       <div class="row">
-        <div class="col-1"></div>
+        <div class="col-1" />
         <div class="col-4">
           <table class="table table-bordered table-sm">
             <tbody>
@@ -22,8 +22,8 @@
                 <th scope="row">Customer Name</th>
                 <td>
                   <select
-                    class="theselect"
                     v-model="customer.customer"
+                    class="theselect"
                     @change="setFields($event.target.value)"
                   >
                     <option disabled value>Select the Customer</option>
@@ -34,19 +34,19 @@
               <tr>
                 <th scope="row">VAT Registration Number</th>
                 <td>
-                  <input disabled class="theselect" type="text" v-model="customer.vat_number" />
+                  <input v-model="customer.vat_number" disabled class="theselect" type="text" />
                 </td>
               </tr>
               <tr>
                 <th scope="row">Company Registration Number</th>
                 <td>
-                  <input disabled class="theselect" type="text" v-model="customer.company_number" />
+                  <input v-model="customer.company_number" disabled class="theselect" type="text" />
                 </td>
               </tr>
             </tbody>
           </table>
         </div>
-        <div class="col-2"></div>
+        <div class="col-2" />
         <div class="col-4">
           <table class="table table-bordered table-sm">
             <thead>
@@ -58,14 +58,14 @@
               <tr>
                 <th scope="row">Petrol / Diesel</th>
                 <td class="w-25">
-                  <input type="number" class="theselect" v-model="fuelAmount" />
+                  <input v-model="fuelAmount" type="number" class="theselect" />
                 </td>
                 <td class="text-right">{{ calcFuel(fuel) | currency('R') }}</td>
               </tr>
               <tr>
                 <th scope="row">Electricity</th>
                 <td class="w-25">
-                  <input type="number" class="theselect" v-model="electricityAmount" />
+                  <input v-model="electricityAmount" type="number" class="theselect" />
                 </td>
                 <td class="text-right">{{ calcElectricity(electricity) | currency('R') }}</td>
               </tr>
@@ -77,20 +77,20 @@
       <hr />
 
       <div class="row">
-        <div class="col-1"></div>
+        <div class="col-1" />
         <div class="col-10">
           <div class="form-group">
             <h4>Scope of Work</h4>
-            <textarea class="form-control" id="sow" rows="8" v-model="scopeOfWork"></textarea>
+            <textarea id="sow" v-model="scopeOfWork" class="form-control" rows="8" />
           </div>
         </div>
-        <div class="col-1"></div>
+        <div class="col-1" />
       </div>
 
       <hr />
 
       <div class="row">
-        <div class="col-1"></div>
+        <div class="col-1" />
         <div class="col-10">
           <h4>Materials</h4>
 
@@ -111,46 +111,46 @@
                   <fa
                     icon="trash"
                     class="redIcon ml-3"
-                    @click="deleteRow(k, material)"
                     fixed-width
+                    @click="deleteRow(k, material)"
                   />
                 </td>
                 <td class="col-8">
                   <input
+                    v-model="material.item_name"
                     class="form-control"
                     type="text"
                     style="text-align:left;"
-                    v-model="material.item_name"
                   />
                 </td>
                 <td class="col-1">
                   <input
-                    class="form-control text-right"
-                    type="number"
-                    min="0"
-                    step=".01"
                     v-model="material.price"
-                    @change="calculateLineTotal(material)"
-                  />
-                </td>
-                <td class="col-1">
-                  <input
                     class="form-control text-right"
                     type="number"
                     min="0"
                     step=".01"
-                    v-model="material.quantity"
                     @change="calculateLineTotal(material)"
                   />
                 </td>
                 <td class="col-1">
                   <input
+                    v-model="material.quantity"
+                    class="form-control text-right"
+                    type="number"
+                    min="0"
+                    step=".01"
+                    @change="calculateLineTotal(material)"
+                  />
+                </td>
+                <td class="col-1">
+                  <input
+                    v-model="material.line_total"
                     readonly
                     class="form-control text-right"
                     type="number"
                     min="0"
                     step=".01"
-                    v-model="material.line_total"
                   />
                 </td>
               </tr>
@@ -169,23 +169,23 @@
             </tbody>
           </table>
         </div>
-        <div class="col-1"></div>
+        <div class="col-1" />
       </div>
 
       <hr />
 
       <div class="row">
-        <div class="col-1"></div>
+        <div class="col-1" />
         <div class="col-10">
           <h4>Employees</h4>
           <div class="d-flex justify-content-around">
             <div v-for="employee in employees" :key="employee.id">
               <div class="form-check form-check-inline">
                 <input
+                  :id="employee.first_name"
                   class="css-checkbox"
                   type="checkbox"
                   :value="employee.id"
-                  :id="employee.first_name"
                   @click="addNewWageRow(employee)"
                 />
                 <label class="css-label" :for="employee.first_name">{{ employee.first_name }}</label>
@@ -193,13 +193,13 @@
             </div>
           </div>
         </div>
-        <div class="col-1"></div>
+        <div class="col-1" />
       </div>
 
       <hr />
 
       <div class="row">
-        <div class="col-1"></div>
+        <div class="col-1" />
         <div class="col-10">
           <div>
             <h4>Wage Expenses</h4>
@@ -222,56 +222,56 @@
                     <fa
                       icon="trash"
                       class="redIcon ml-3"
-                      @click="deleteWageRow(k, employee_wage)"
                       fixed-width
+                      @click="deleteWageRow(k, employee_wage)"
                     />
                   </td>
                   <td class="col-6">
                     <input
+                      v-model="employee_wage.employee"
                       class="form-control"
                       type="text"
                       style="text-align:left;"
-                      v-model="employee_wage.employee"
                     />
                   </td>
                   <td class="col-1">
                     <input
-                      class="form-control text-right"
-                      type="number"
-                      min="0"
-                      step=".01"
                       v-model="employee_wage.normal_hours"
+                      class="form-control text-right"
+                      type="number"
+                      min="0"
+                      step=".01"
                       @change="calcWageLine(employee_wage)"
                     />
                   </td>
                   <td class="col-1">
                     <input
-                      class="form-control text-right"
-                      type="number"
-                      min="0"
-                      step=".01"
                       v-model="employee_wage.overtime_hours"
-                      @change="calcWageLine(employee_wage)"
-                    />
-                  </td>
-                  <td class="col-1">
-                    <input
                       class="form-control text-right"
                       type="number"
                       min="0"
                       step=".01"
-                      v-model="employee_wage.doubletime_hours"
                       @change="calcWageLine(employee_wage)"
                     />
                   </td>
                   <td class="col-1">
                     <input
+                      v-model="employee_wage.doubletime_hours"
+                      class="form-control text-right"
+                      type="number"
+                      min="0"
+                      step=".01"
+                      @change="calcWageLine(employee_wage)"
+                    />
+                  </td>
+                  <td class="col-1">
+                    <input
+                      v-model="employee_wage.line_total"
                       readonly
                       class="form-control text-right"
                       type="number"
                       min="0"
                       step=".01"
-                      v-model="employee_wage.line_total"
                     />
                   </td>
                 </tr>
@@ -285,13 +285,13 @@
             </table>
           </div>
         </div>
-        <div class="col-1"></div>
+        <div class="col-1" />
       </div>
 
       <hr />
 
       <div class="row">
-        <div class="col-8"></div>
+        <div class="col-8" />
         <div class="col-3">
           <table class="table table-bordered table-sm">
             <tbody>
@@ -310,13 +310,13 @@
               <tr>
                 <th scope="row">Other Expenses</th>
                 <td>
-                  <input type="number" class="theselect" v-model="other_subtotal" />
+                  <input v-model="other_subtotal" type="number" class="theselect" />
                 </td>
               </tr>
               <tr>
                 <th scope="row">Consumables</th>
                 <td>
-                  <input type="number" class="theselect" v-model="consumables_subtotal" />
+                  <input v-model="consumables_subtotal" type="number" class="theselect" />
                 </td>
               </tr>
               <tr>
@@ -334,15 +334,15 @@
             </tbody>
           </table>
         </div>
-        <div class="col-1"></div>
+        <div class="col-1" />
       </div>
 
       <div class="row">
-        <div class="col-10"></div>
+        <div class="col-10" />
         <div class="col-1">
           <button type="submit" class="btn btn-primary mt-3 mb-5" @click="saveInvoice()">Save</button>
         </div>
-        <div class="col-1"></div>
+        <div class="col-1" />
       </div>
     </div>
   </div>
@@ -395,6 +395,27 @@ export default {
       materials: [],
       employee_wages: []
     };
+  },
+  computed: {
+    quote_subtotal: function() {
+      let aa = parseFloat(this.expenses_subtotal);
+      let bb = parseFloat(this.invoice_subtotal);
+      let cc = parseFloat(this.wage_subtotal);
+      let dd = parseFloat(this.other_subtotal);
+      let ee = parseFloat(this.consumables_subtotal);
+      let ff = aa + bb + cc + dd + ee;
+      let gg = (ff * 15) / 100;
+      gg = parseFloat(gg);
+      this.quote_tax = gg;
+      let hh = ff + gg;
+      this.quote_total = parseFloat(hh);
+      return parseFloat(ff);
+    }
+  },
+  mounted() {
+    this.getCustomers();
+    this.getQuoteDetails();
+    this.getEmployees();
   },
   methods: {
     getCustomers() {
@@ -575,27 +596,6 @@ export default {
       if (index1 > -1) {
         this.employee_wages.splice(index1, 1);
       }
-    }
-  },
-  mounted() {
-    this.getCustomers();
-    this.getQuoteDetails();
-    this.getEmployees();
-  },
-  computed: {
-    quote_subtotal: function() {
-      let aa = parseFloat(this.expenses_subtotal);
-      let bb = parseFloat(this.invoice_subtotal);
-      let cc = parseFloat(this.wage_subtotal);
-      let dd = parseFloat(this.other_subtotal);
-      let ee = parseFloat(this.consumables_subtotal);
-      let ff = aa + bb + cc + dd + ee;
-      let gg = (ff * 15) / 100;
-      gg = parseFloat(gg);
-      this.quote_tax = gg;
-      let hh = ff + gg;
-      this.quote_total = parseFloat(hh);
-      return parseFloat(ff);
     }
   }
 };

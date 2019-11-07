@@ -1,6 +1,8 @@
 <template>
   <div>
-    <button v-tooltip="'You have ' + 3 + ' new messages.'">Count</button>
+    <button v-tooltip="'You have ' + 3 + ' new messages.'">
+      Count
+    </button>
   </div>
 </template>
 
