@@ -3,35 +3,19 @@
     <Adminpanel />
     <div class="bg-white mx-5">
       <div class>
-        <h1 class="text-center">
-          Current Jobs
-        </h1>
+        <h1 class="text-center">Current Jobs</h1>
       </div>
       <div>
         <table class="table table-bordered">
           <thead>
             <tr>
-              <th scope="col">
-                Customer
-              </th>
-              <th scope="col">
-                Job Description
-              </th>
-              <th scope="col">
-                Starting Date
-              </th>
-              <th scope="col">
-                Deadline
-              </th>
-              <th scope="col">
-                Delivery Date
-              </th>
-              <th scope="col">
-                Boilermaker
-              </th>
-              <th scope="col">
-                Due in
-              </th>
+              <th scope="col">Customer</th>
+              <th scope="col">Job Description</th>
+              <th scope="col">Starting Date</th>
+              <th scope="col">Deadline</th>
+              <th scope="col">Delivery Date</th>
+              <th scope="col">Boilermaker</th>
+              <th scope="col">Due in</th>
             </tr>
           </thead>
           <tbody>
@@ -40,9 +24,7 @@
               :key="activeJob.id"
               :style="[{ backgroundColor: activeJob.color} , {color: getContrastYIQ(activeJob.color)}]"
             >
-              <th scope="row">
-                {{ activeJob.customer }}
-              </th>
+              <th scope="row">{{ activeJob.customer }}</th>
               <td>{{ activeJob.description }}</td>
               <td>{{ activeJob.start_date }}</td>
               <td>{{ activeJob.deadline_date }}</td>
@@ -51,9 +33,7 @@
                 <p
                   v-for="employee in activeJob.employees"
                   :key="employee.id"
-                >
-                  {{ employee.first_name }}
-                </p>
+                >{{ employee.first_name }}</p>
               </td>
               <td>{{ calcTime(activeJob.deadline_date) }}</td>
               <td class="bg-white d-flex justify-content-center align-items-center">
@@ -62,17 +42,13 @@
                   data-toggle="modal"
                   data-target="#editModal"
                   @click="editJob(activeJob)"
-                >
-                  Edit
-                </button>
+                >Edit</button>
               </td>
               <td class="bg-white d-flex justify-content-center align-items-center">
                 <button
                   class="btn btn-outline-danger btn-sm"
                   @click="deleteJob(activeJob.id)"
-                >
-                  Delete
-                </button>
+                >Delete</button>
               </td>
             </tr>
           </tbody>
@@ -88,9 +64,7 @@
           <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
             <div class="modal-content">
               <div class="modal-header">
-                <h5 id="editModalTitle" class="modal-title">
-                  Edit selected Job
-                </h5>
+                <h5 id="editModalTitle" class="modal-title">Edit selected Job</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
                 </button>
@@ -109,9 +83,7 @@
                         <option
                           v-for="customer in customers"
                           :key="customer.id"
-                        >
-                          {{ customer.customer }}
-                        </option>
+                        >{{ customer.customer }}</option>
                       </select>
                     </div>
                     <div class="col">
@@ -119,9 +91,7 @@
                       <div
                         class="form-control"
                         :style="[{ backgroundColor: form.color},{ color: form.color}]"
-                      >
-                        .
-                      </div>
+                      >.</div>
                     </div>
                   </div>
                   <div class="row mt-1">
@@ -132,7 +102,7 @@
                         v-model="form.description"
                         type="text"
                         class="form-control"
-                      >
+                      />
                     </div>
                   </div>
                   <div class="row mt-1">
@@ -159,16 +129,16 @@
                       <label for="boilermaker">Boilermaker</label>
                       <div class="d-flex justify-content-around flex-wrap">
                         <div v-for="boilermaker in boilermakers" :key="boilermaker.id">
-                          <div class="form-check form-check-inline">
+                          <div class="custom-control custom-checkbox d-flex">
                             <input
                               :id="boilermaker.first_name"
                               v-model="form.boilermaker"
-                              class="css-checkbox"
+                              class="custom-control-input"
                               type="checkbox"
                               :value="boilermaker.id"
-                            >
+                            />
                             <label
-                              class="css-label"
+                              class="custom-control-label my-auto"
                               :for="boilermaker.first_name"
                             >{{ boilermaker.first_name }}</label>
                           </div>
@@ -177,27 +147,23 @@
                     </div>
                   </div>
                   <div class="my-5">
-                    <div class="form-check">
+                    <div class="custom-control custom-checkbox d-flex">
                       <input
                         id="jobCompleted"
                         v-model="form.completed"
-                        class="css-checkbox"
+                        class="custom-control-input"
                         type="checkbox"
                         value
-                      >
-                      <label class="css-label" for="jobCompleted">Job Completed</label>
+                      />
+                      <label class="custom-control-label my-auto" for="jobCompleted">Job Completed</label>
                     </div>
                   </div>
 
-                  <button class="btn btn-primary mt-2" @click.prevent="saveJob()">
-                    Save Changes
-                  </button>
+                  <button class="btn btn-primary mt-2" @click.prevent="saveJob()">Save Changes</button>
                 </form>
               </div>
               <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">
-                  Close
-                </button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
               </div>
             </div>
           </div>
@@ -205,39 +171,23 @@
       </div>
     </div>
 
-    <hr class="my-5 bg-white">
+    <hr class="my-5 bg-white" />
 
     <div class="bg-white mx-5">
       <div class>
-        <h1 class="text-center">
-          Completed Jobs
-        </h1>
+        <h1 class="text-center">Completed Jobs</h1>
       </div>
       <div>
         <table class="table table-bordered">
           <thead>
             <tr>
-              <th scope="col">
-                Customer
-              </th>
-              <th scope="col">
-                Job Description
-              </th>
-              <th scope="col">
-                Starting Date
-              </th>
-              <th scope="col">
-                Deadline
-              </th>
-              <th scope="col">
-                Delivery Date
-              </th>
-              <th scope="col">
-                Boilermaker
-              </th>
-              <th scope="col">
-                Due in
-              </th>
+              <th scope="col">Customer</th>
+              <th scope="col">Job Description</th>
+              <th scope="col">Starting Date</th>
+              <th scope="col">Deadline</th>
+              <th scope="col">Delivery Date</th>
+              <th scope="col">Boilermaker</th>
+              <th scope="col">Due in</th>
             </tr>
           </thead>
           <tbody>
@@ -245,61 +195,43 @@
               <th
                 scope="row"
                 :style="[{ backgroundColor: completedJob.color} , {color: getContrastYIQ(completedJob.color)}]"
-              >
-                {{ completedJob.customer }}
-              </th>
+              >{{ completedJob.customer }}</th>
               <td
                 :style="[{ backgroundColor: completedJob.color} , {color: getContrastYIQ(completedJob.color)}]"
-              >
-                {{ completedJob.description }}
-              </td>
+              >{{ completedJob.description }}</td>
               <td
                 :style="[{ backgroundColor: completedJob.color} , {color: getContrastYIQ(completedJob.color)}]"
-              >
-                {{ completedJob.start_date }}
-              </td>
+              >{{ completedJob.start_date }}</td>
               <td
                 :style="[{ backgroundColor: completedJob.color} , {color: getContrastYIQ(completedJob.color)}]"
-              >
-                {{ completedJob.deadline_date }}
-              </td>
+              >{{ completedJob.deadline_date }}</td>
               <td
                 :style="[{ backgroundColor: completedJob.color} , {color: getContrastYIQ(completedJob.color)}]"
-              >
-                {{ completedJob.delivery_date }}
-              </td>
+              >{{ completedJob.delivery_date }}</td>
               <td
                 :style="[{ backgroundColor: completedJob.color} , {color: getContrastYIQ(completedJob.color)}]"
               >
                 <p
                   v-for="employee in completedJob.employees"
                   :key="employee.id"
-                >
-                  {{ employee.first_name }}
-                </p>
+                >{{ employee.first_name }}</p>
               </td>
               <td
                 :style="[{ backgroundColor: completedJob.color} , {color: getContrastYIQ(completedJob.color)}]"
-              >
-                {{ calcTime(completedJob.deadline_date) }}
-              </td>
+              >{{ calcTime(completedJob.deadline_date) }}</td>
               <td class="bg-white d-flex justify-content-center align-items-center">
                 <button
                   class="btn btn-outline-warning btn-sm"
                   data-toggle="modal"
                   data-target="#editModal"
                   @click="editJob(completedJob)"
-                >
-                  Edit
-                </button>
+                >Edit</button>
               </td>
               <td class="bg-white d-flex justify-content-center align-items-center">
                 <button
                   class="btn btn-outline-danger btn-sm"
                   @click="deleteJob(completedJob.id)"
-                >
-                  Delete
-                </button>
+                >Delete</button>
               </td>
             </tr>
           </tbody>
@@ -315,9 +247,7 @@
           <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
               <div class="modal-header">
-                <h5 id="editModalTitle" class="modal-title">
-                  Edit selected Job
-                </h5>
+                <h5 id="editModalTitle" class="modal-title">Edit selected Job</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
                 </button>
@@ -332,15 +262,11 @@
                         class="form-control"
                         @change="setColor($event.target.value)"
                       >
-                        <option disabled value>
-                          Select the Customer
-                        </option>
+                        <option disabled value>Select the Customer</option>
                         <option
                           v-for="customer in customers"
                           :key="customer.id"
-                        >
-                          {{ customer.customer }}
-                        </option>
+                        >{{ customer.customer }}</option>
                       </select>
                     </div>
                     <div class="col">
@@ -348,9 +274,7 @@
                       <div
                         class="form-control"
                         :style="[{ backgroundColor: form.color},{ color: form.color}]"
-                      >
-                        .
-                      </div>
+                      >.</div>
                     </div>
                   </div>
                   <div class="row mt-1">
@@ -361,7 +285,7 @@
                         v-model="form.description"
                         type="text"
                         class="form-control"
-                      >
+                      />
                     </div>
                   </div>
                   <div class="row mt-1">
@@ -395,7 +319,7 @@
                               class="form-check-input"
                               type="checkbox"
                               :value="boilermaker.id"
-                            >
+                            />
                             <label
                               class="form-check-label"
                               :for="boilermaker.first_name"
@@ -413,20 +337,16 @@
                         class="form-check-input"
                         type="checkbox"
                         value
-                      >
+                      />
                       <label class="form-check-label" for="jobCompleted">Job Completed</label>
                     </div>
                   </div>
 
-                  <button class="btn btn-primary mt-2" @click.prevent="saveJob()">
-                    Save Changes
-                  </button>
+                  <button class="btn btn-primary mt-2" @click.prevent="saveJob()">Save Changes</button>
                 </form>
               </div>
               <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">
-                  Close
-                </button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
               </div>
             </div>
           </div>
@@ -437,173 +357,133 @@
 </template>
 
 <script>
-import Adminpanel from '../../components/Adminpanel'
-import axios from 'axios'
-import { Datetime } from 'vue-datetime'
-import 'vue-datetime/dist/vue-datetime.css'
-import { formatDistance, parseISO } from 'date-fns'
+import Adminpanel from "../../components/Adminpanel";
+import axios from "axios";
+import { Datetime } from "vue-datetime";
+import "vue-datetime/dist/vue-datetime.css";
+import { formatDistance, parseISO } from "date-fns";
 
 export default {
-  name: 'JobList',
-  metaInfo () {
-    return { title: 'List the Jobs' }
+  name: "JobList",
+  metaInfo() {
+    return { title: "List the Jobs" };
   },
-  middleware: 'auth',
+  middleware: "auth",
   components: {
     Datetime,
     Adminpanel
   },
   data: () => {
     return {
-      hexcolor: '#ffffff',
+      hexcolor: "#ffffff",
       title: window.config.appName,
       jobs: [],
       customers: [],
       boilermakers: [],
       form: {
-        id: '',
-        customer: '',
-        color: '',
-        description: '',
-        start_date: '',
-        deadline_date: '',
-        delivery_date: '',
+        id: "",
+        customer: "",
+        color: "",
+        description: "",
+        start_date: "",
+        deadline_date: "",
+        delivery_date: "",
         boilermaker: [],
-        completed: ''
+        completed: ""
       }
-    }
+    };
   },
   computed: {
-    activeJobs: function () {
-      return this.jobs.filter(function (job) {
-        return job.completed === 0
-      })
+    activeJobs: function() {
+      return this.jobs.filter(function(job) {
+        return job.completed === 0;
+      });
     },
-    completedJobs: function () {
-      return this.jobs.filter(function (job) {
-        return job.completed === 1
-      })
+    completedJobs: function() {
+      return this.jobs.filter(function(job) {
+        return job.completed === 1;
+      });
     }
   },
 
-  mounted () {
-    this.getJobs()
-    this.getContrastYIQ(this.hexcolor)
+  mounted() {
+    this.getJobs();
+    this.getContrastYIQ(this.hexcolor);
   },
   methods: {
-    calcTime: function (date) {
-      return formatDistance(new Date(), parseISO(date))
+    calcTime: function(date) {
+      return formatDistance(new Date(), parseISO(date));
     },
-    setColor (customerName) {
+    setColor(customerName) {
       this.form.color = this.customers.find(
         x => x.customer === customerName
-      ).colour
+      ).colour;
     },
-    getContrastYIQ (hexcolor) {
-      hexcolor = hexcolor.replace('#', '')
-      var r = parseInt(hexcolor.substr(0, 2), 16)
-      var g = parseInt(hexcolor.substr(2, 2), 16)
-      var b = parseInt(hexcolor.substr(4, 2), 16)
-      var yiq = (r * 299 + g * 587 + b * 114) / 1000
-      return yiq >= 128 ? 'black' : 'white'
+    getContrastYIQ(hexcolor) {
+      hexcolor = hexcolor.replace("#", "");
+      var r = parseInt(hexcolor.substr(0, 2), 16);
+      var g = parseInt(hexcolor.substr(2, 2), 16);
+      var b = parseInt(hexcolor.substr(4, 2), 16);
+      var yiq = (r * 299 + g * 587 + b * 114) / 1000;
+      return yiq >= 128 ? "black" : "white";
     },
-    getJobs () {
+    getJobs() {
       axios
-        .get('/api/jobs')
+        .get("/api/jobs")
         .then(response => (this.jobs = response.data))
-        .catch(error => console.log(error.response.data.message))
+        .catch(error => console.log(error.response.data.message));
       axios
-        .get('/api/customers')
+        .get("/api/customers")
         .then(response => {
-          this.customers = response.data
+          this.customers = response.data;
         })
         .catch(error => {
-          alert(error.response.data.message)
-        })
+          alert(error.response.data.message);
+        });
       axios
-        .get('/api/employees')
+        .get("/api/employees")
         .then(response => {
-          this.boilermakers = response.data
+          this.boilermakers = response.data;
         })
         .catch(error => {
-          alert(error.response.data.message)
-        })
+          alert(error.response.data.message);
+        });
     },
-    editJob (job) {
-      this.form.boilermaker = []
+    editJob(job) {
+      this.form.boilermaker = [];
       job.employees.forEach(e => {
-        this.form.boilermaker.push(e.id)
-      })
-      this.form.id = job.id
-      this.form.customer = job.customer
-      this.form.color = job.color
-      this.form.description = job.description
-      this.form.start_date = job.start_date
-      this.form.deadline_date = job.deadline_date
-      this.form.delivery_date = job.delivery_date
-      this.form.completed = job.completed
+        this.form.boilermaker.push(e.id);
+      });
+      this.form.id = job.id;
+      this.form.customer = job.customer;
+      this.form.color = job.color;
+      this.form.description = job.description;
+      this.form.start_date = job.start_date;
+      this.form.deadline_date = job.deadline_date;
+      this.form.delivery_date = job.delivery_date;
+      this.form.completed = job.completed;
     },
-    saveJob () {
+    saveJob() {
       axios
-        .patch('/api/jobs/' + this.form.id, this.form)
+        .patch("/api/jobs/" + this.form.id, this.form)
         .then(response => {
-          alert('Job has been updated')
-          this.getJobs()
+          alert("Job has been updated");
+          this.getJobs();
         })
-        .catch(error => console.log(error.response.data.message))
+        .catch(error => console.log(error.response.data.message));
     },
-    deleteJob (id) {
+    deleteJob(id) {
       axios
-        .delete('/api/jobs/' + id)
+        .delete("/api/jobs/" + id)
         .then(response => {
-          alert('Job has been deleted')
-          this.getJobs()
+          alert("Job has been deleted");
+          this.getJobs();
         })
-        .catch(error => console.log(error.response.data.message))
+        .catch(error => console.log(error.response.data.message));
     },
-    updateBoilermaker (id) {
-      console.log(id)
+    updateBoilermaker(id) {
+      console.log(id);
     }
   }
-}
+};
 </script>
-
-<style scoped>
-input[type="checkbox"].css-checkbox {
-  position: absolute;
-  z-index: -1000;
-  left: -1000px;
-  overflow: hidden;
-  clip: rect(0 0 0 0);
-  height: 1px;
-  width: 1px;
-  margin: -1px;
-  padding: 0;
-  border: 0;
-}
-
-input[type="checkbox"].css-checkbox + label.css-label {
-  padding-left: 29px;
-  height: 24px;
-  display: inline-block;
-  line-height: 24px;
-  background-repeat: no-repeat;
-  background-position: 0 0;
-  font-size: 24px;
-  vertical-align: middle;
-  cursor: pointer;
-}
-
-input[type="checkbox"].css-checkbox:checked + label.css-label {
-  background-position: 0 -24px;
-}
-label.css-label {
-  background-image: url(/dist/images/csscheckbox.png);
-  -webkit-touch-callout: none;
-  -webkit-user-select: none;
-  -khtml-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-}
-</style>
