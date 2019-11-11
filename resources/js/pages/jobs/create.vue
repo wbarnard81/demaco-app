@@ -95,7 +95,6 @@ import Axios from 'axios'
 import { Datetime } from 'vue-datetime'
 import 'vue-datetime/dist/vue-datetime.css'
 
-const moment = require('moment')
 
 export default {
   name: 'Jobs',
@@ -127,9 +126,6 @@ export default {
     this.getCustomers()
   },
   methods: {
-    customFormatter (date) {
-      return moment(date).format('YYYY MM DD')
-    },
     setColor (customerName) {
       this.form.color = this.customers.find(
         x => x.customer === customerName
