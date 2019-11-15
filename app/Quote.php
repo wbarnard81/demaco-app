@@ -3,9 +3,12 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Laravel\Scout\Searchable;
 
 class Quote extends Model
 {
+    use Searchable;
+
     protected $fillable = ([
         'customer', 'petrol_cost_per_litre', 'petrol_quantity', 'electricity_cost_per_unit', 'electricity_quantity',
         'scope_of_work', 'total_expenses', 'total_materials', 'total_wages', 'other_expenses', 'consumables',
