@@ -69,7 +69,7 @@ class JobController extends Controller
         $jobId = $job->id;
 
 
-        $job = \App\Job::find($jobId);
+        $job =  Job::find($jobId);
 
         $job->employees()->sync($request['boilermaker']);
         return $job;
